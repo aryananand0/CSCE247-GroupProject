@@ -1,0 +1,19 @@
+{
+    "leaderboard": [
+      {
+        "user": {
+          "firstName": "John",
+          "lastName": "Doe",
+          "score": 1500
+        }
+      },
+      {
+        "user": {
+          "firstName": "Jane",
+          "lastName": "Smith",
+          "score": 1200
+        }
+      }
+    ]
+  }
+  
