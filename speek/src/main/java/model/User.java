@@ -38,7 +38,7 @@ public class User {
         this("", "", "", "");
     }
 
-    // Method to log in needs implementation
+    // Method to log in, needs implementation
     public boolean login(String email, String password) {
         // Check credentials and return true/false needs implementation
         return this.email.equals(email) && this.password.equals(password);
