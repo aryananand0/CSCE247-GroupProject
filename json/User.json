@@ -1,51 +1,54 @@
-{
-    "users": [
+[
+  {
+    "userId": "abc12345-6789-4def-90ab-cd5678ef0123",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@example.com",
+    "password": "hashedpassword123",
+    "progress": 50.5,
+    "dailyReminder": true,
+    "favoriteLanguages": ["Spanish", "French"],
+    "currentCourses": [
       {
-        "firstName": "John",
-        "lastName": "Doe",
-        "email": "john.doe@example.com",
-        "password": "password123",
-        "progress": 75.5,
-        "dailyReminder": true,
-        "favoriteLanguages": ["Spanish", "French"],
-        "currentCourses": [
-          {
-            "courseName": "Spanish Beginner",
-            "difficulty": "Easy",
-            "courseCompletion": 50.0
-          }
-        ],
-        "achievements": [
-          {
-            "title": "Quiz Master",
-            "description": "Completed 5 quizzes with perfect scores.",
-            "rewardPoints": 50
-          }
-        ]
+        "courseId": "123e4567-e89b-12d3-a456-426614174000",
+        "progress": 70.0
       },
       {
-        "firstName": "Jane",
-        "lastName": "Smith",
-        "email": "jane.smith@example.com",
-        "password": "password456",
-        "progress": 40.0,
-        "dailyReminder": false,
-        "favoriteLanguages": ["German"],
-        "currentCourses": [
-          {
-            "courseName": "German Intermediate",
-            "difficulty": "Medium",
-            "courseCompletion": 40.0
-          }
-        ],
-        "achievements": [
-          {
-            "title": "Language Enthusiast",
-            "description": "Completed 3 different courses.",
-            "rewardPoints": 30
-          }
-        ]
+        "courseId": "789e1234-e89b-45d3-b789-123456789000",
+        "progress": 30.0
+      }
+    ],
+    "achievements": [
+      {
+        "achievementId": "achieve-1",
+        "title": "Beginner Spanish",
+        "description": "Completed Beginner Spanish course",
+        "rewardPoints": 100
+      }
+    ]
+  },
+  {
+    "userId": "def67890-1234-4fgh-5678-ijkl90123456",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "janesmith@example.com",
+    "password": "hashedpassword456",
+    "progress": 85.3,
+    "dailyReminder": false,
+    "favoriteLanguages": ["German"],
+    "currentCourses": [
+      {
+        "courseId": "789e1234-e89b-45d3-b789-123456789000",
+        "progress": 85.0
+      }
+    ],
+    "achievements": [
+      {
+        "achievementId": "achieve-2",
+        "title": "Intermediate German",
+        "description": "Completed Intermediate German course",
+        "rewardPoints": 150
       }
     ]
   }
-  
+]
