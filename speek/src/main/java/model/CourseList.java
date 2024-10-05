@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class CourseList {
 
+    // Attributes
     private ArrayList<Course> courses;
 
     // Constructor
@@ -11,20 +12,41 @@ public class CourseList {
         courses = new ArrayList<>();
     }
 
-    // Add a course to the list
+    // Method to add a course to the list
     public void addCourse(Course course) {
         courses.add(course);
     }
 
-    // Get all courses
+    // Method to retrieve all courses
     public ArrayList<Course> getCourses() {
         return courses;
     }
 
-    // Get a specific course by name
-    public Course getCourseByName(String courseName) {
-        
-        return null;
+    // Method to get a specific course by name
+    public Course getCourse(String courseName) {
+        for (Course course : courses) {
+            if (course.getCourseName().equalsIgnoreCase(courseName)) {
+                return course;
+            }
+        }
+        return null;  // Return null if course not found
+    }
+
+    // Method to remove a course by name
+    public boolean removeCourse(String courseName) {
+        for (Course course : courses) {
+            if (course.getCourseName().equalsIgnoreCase(courseName)) {
+                courses.remove(course);
+                return true;  // Return true if course was successfully removed
+            }
+        }
+        return false;  // Return false if course not found
+    }
+
+    // Method to get the total number of courses
+    public int getTotalCourses() {
+        return courses.size();
     }
 }
+
 

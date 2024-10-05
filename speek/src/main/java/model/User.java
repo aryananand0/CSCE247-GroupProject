@@ -16,7 +16,7 @@ public class User {
     private ArrayList<Language> favoriteLanguages;
     private ArrayList<Course> currentCourses;
     private ArrayList<Achievement> achievements;
-    private HashMap<User, Double> progressPerUser;
+    private HashMap<Course, Double> progressPerUser;
 
     // Constructor with parameters
     public User(String firstName, String lastName, String email, String password) {
@@ -33,58 +33,145 @@ public class User {
         this.progressPerUser = new HashMap<>();
     }
 
-    // Default constructor
+    // Default Constructor
     public User() {
-        this("", "", "", "");
+        this.firstName = "";
+        this.lastName = "";
+        this.email = "";
+        this.password = "";
+        this.progress = 0.0;
+        this.score = 0.0;
+        this.dailyReminder = false;
+        this.favoriteLanguages = new ArrayList<>();
+        this.currentCourses = new ArrayList<>();
+        this.achievements = new ArrayList<>();
+        this.progressPerUser = new HashMap<>();
     }
 
-    // Method to log in, needs implementation
+    // Method to login
     public boolean login(String email, String password) {
-        // Check credentials and return true/false needs implementation
         return this.email.equals(email) && this.password.equals(password);
     }
 
-    // Method to update profile needs implementation
+    // Method to update profile information
     public void updateProfile(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    // Method to track progress needs implementation
+    // Method to track progress for all courses
     public double trackProgress() {
-        // Return current progress needs implementation
-        return this.progress;
-    }
-
-    // Method to get progress for a specific course and user needs implementation
-    public double getProgress(Course course, User user) {
-        // Retrieve progress for the given user and course needs implementation
-        return progressPerUser.getOrDefault(user, 0.0);
-    }
-
-    // Method to get score needs implementation
-    public double getScore() {
-        return this.score;
-    }
-
-    // Method to increase score needs implementation
-    public void increaseScore() {
-        this.score += 1.0;
-    }
-
-    // Method to decrease score needs implementation
-    public void decreaseScore() {
-        if (this.score > 0) {
-            this.score -= 1.0;
+        double totalProgress = 0.0;
+        for (Course course : currentCourses) {
+            totalProgress += progressPerUser.getOrDefault(course, 0.0);
         }
+        return totalProgress / currentCourses.size();
     }
 
-    // Method to update user progress needs implementation
-    public void updateUserProgress(User user, Double completion) {
-        this.progressPerUser.put(user, completion);
+    // Method to get progress for a specific course
+    public double getProgress(Course course) {
+        return progressPerUser.getOrDefault(course, 0.0);
     }
 
-   
+    // Method to get user's score
+    public double getScore() {
+        return score;
+    }
+
+    // Method to increase score
+    public void increaseScore(double increment) {
+        this.score += increment;
+    }
+
+    // Method to decrease score
+    public void decreaseScore(double decrement) {
+        this.score -= decrement;
+    }
+
+    // Method to update progress for a specific course
+    public void updateUserProgress(Course course, double completion) {
+        progressPerUser.put(course, completion);
+    }
+
+    // Getters and Setters
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public double getProgress() {
+        return progress;
+    }
+
+    public void setProgress(double progress) {
+        this.progress = progress;
+    }
+
+    public boolean isDailyReminder() {
+        return dailyReminder;
+    }
+
+    public void setDailyReminder(boolean dailyReminder) {
+        this.dailyReminder = dailyReminder;
+    }
+
+    public ArrayList<Language> getFavoriteLanguages() {
+        return favoriteLanguages;
+    }
+
+    public void setFavoriteLanguages(ArrayList<Language> favoriteLanguages) {
+        this.favoriteLanguages = favoriteLanguages;
+    }
+
+    public ArrayList<Course> getCurrentCourses() {
+        return currentCourses;
+    }
+
+    public void setCurrentCourses(ArrayList<Course> currentCourses) {
+        this.currentCourses = currentCourses;
+    }
+
+    public ArrayList<Achievement> getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(ArrayList<Achievement> achievements) {
+        this.achievements = achievements;
+    }
+
+    public HashMap<Course, Double> getProgressPerUser() {
+        return progressPerUser;
+    }
+
+    public void setProgressPerUser(HashMap<Course, Double> progressPerUser) {
+        this.progressPerUser = progressPerUser;
+    }
 }
-
