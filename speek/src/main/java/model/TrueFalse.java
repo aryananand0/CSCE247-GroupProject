@@ -20,7 +20,7 @@ public class TrueFalse implements QuestionType {
     }
 
     @Override
-    public boolean isCorrect() {
+    public boolean isCorrect(String UserAnswer) {
         //Needs to be implemented
         throw new UnsupportedOperationException("Unimplemented method 'isCorrect'");
     }
