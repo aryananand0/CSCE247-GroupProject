@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 public class DataWriter {
 
     
-    private static final String COURSE_FILE = "courses.json";
+    private static final String COURSE_FILE = "Course.json";
 
     
     public DataWriter() {

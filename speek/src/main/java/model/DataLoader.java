@@ -8,8 +8,8 @@ import java.util.HashMap;
 
 public class DataLoader {
 
-    private static final String USER_FILE = "User.json";  // Path to users JSON-like file
-    private static final String COURSE_FILE = "Course.json";  // Path to courses JSON-like file
+    private static final String USER_FILE = "json\\User.json";  // Path to users JSON-like file
+    private static final String COURSE_FILE = "json\\Course.json";  // Path to courses JSON-like file
 
     // Method to load users from the file
     public static ArrayList<User> loadUsers() {
