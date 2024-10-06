@@ -27,7 +27,7 @@ public class UserList {
         for (User user : users) {
             // Implement  search logic here
             if (user.getName().equalsIgnoreCase(keyword)) {
-                return user;
+                return null;
             }
         }
         return null;

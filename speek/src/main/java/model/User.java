@@ -15,7 +15,7 @@ public class User {
     private boolean dailyReminder;
     private ArrayList<Language> favoriteLanguages;
     private ArrayList<Course> currentCourses;
-    private ArrayList<Achievement> achievements;
+    private ArrayList<Achievements> achievements;
     private HashMap<Course, Double> progressPerUser;
 
     // Constructor with parameters
@@ -159,11 +159,11 @@ public class User {
         this.currentCourses = currentCourses;
     }
 
-    public ArrayList<Achievement> getAchievements() {
+    public ArrayList<Achievements> getAchievements() {
         return achievements;
     }
 
-    public void setAchievements(ArrayList<Achievement> achievements) {
+    public void setAchievements(ArrayList<Achievements> achievements) {
         this.achievements = achievements;
     }
 
