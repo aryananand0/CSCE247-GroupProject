@@ -14,16 +14,20 @@ public class Course {
     lessons = new ArrayList<>();
     quizzes = new ArrayList<>();
   }
-  public bool enrollInCourse(User user) {
+  public boolean enrollInCourse(User user) {
     return true;
   }
 
-  public String displayCourseDetils() {
+  public String displayCourseDetails() {
     return "Hi";
   }
   
   public void completeCourse() {
     // TODO: IMPLEMENT
+  }
+
+  public String getCourseName() {
+    return this.courseName;
   }
 
 }
