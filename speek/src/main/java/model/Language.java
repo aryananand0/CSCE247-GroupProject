@@ -7,8 +7,9 @@ public class Language {
   private ArrayList<Flashcard> flashcards;
 
   public Language() {
-    courses = new ArrayList<>();
-    flashcards = new ArrayList<>();
+    this.name = name;
+    this.courses = new ArrayList<>();
+    this.flashcards = new ArrayList<>();
   }
 
   public Languages selectLanguage(String name) {

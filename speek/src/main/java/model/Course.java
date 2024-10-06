@@ -1,33 +1,60 @@
 package model;
+
 import java.util.ArrayList;
 
 public class Course {
-  private String courseName;
-  private String difficulty;
-  private ArrayList<Lesson> lessons;
-  private ArrayList<Quiz> quizzes;
-  private double courseCompletion;
 
-  public Course(String courseName, String difficulty) {
-    this.courseName = courseName;
-    this.difficulty = difficulty;
-    lessons = new ArrayList<>();
-    quizzes = new ArrayList<>();
-  }
-  public boolean enrollInCourse(User user) {
-    return true;
+    // Attributes
+    private String courseName;
+    private String difficulty;
+    private ArrayList<Lesson> lessons;
+    private ArrayList<Quiz> quizzes;
+    private double courseCompletion;
+
+    // Constructor
+    public Course(String courseName, String difficulty) {
+        this.courseName = courseName;
+        this.difficulty = difficulty;
+        this.lessons = new ArrayList<>();
+        this.quizzes = new ArrayList<>();
+        this.courseCompletion = 0.0;
+    }
+
+    // Getter for courseName
+    public String getCourseName() {
+        return courseName;
+    }
+
+    // Setter for lessons
+    public void setLessons(ArrayList<Lesson> lessons) {
+      this.lessons = lessons;
   }
 
-  public String displayCourseDetails() {
-    return "Hi";
-  }
-  
-  public void completeCourse() {
-    // TODO: IMPLEMENT
-  }
+    // Setter for courseName
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
-  public String getCourseName() {
-    return this.courseName;
-  }
+    // Getter for difficulty
+    public String getDifficulty() {
+        return difficulty;
+    }
 
+    // Setter for difficulty
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    // Getter for courseCompletion
+    public double getCourseCompletion() {
+        return courseCompletion;
+    }
+
+    // Setter for courseCompletion
+    public void setCourseCompletion(double courseCompletion) {
+        this.courseCompletion = courseCompletion;
+    }
+
+    // Other methods for managing lessons, quizzes, etc.
 }
+

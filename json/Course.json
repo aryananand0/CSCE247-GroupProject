@@ -1,0 +1,85 @@
+{
+    "courses": [
+      {
+        "courseName": "Spanish Beginner",
+        "difficulty": "Easy",
+        "lessons": [
+          {
+            "lessonTitle": "Introduction to Spanish",
+            "content": "Basics of Spanish vocabulary and pronunciation.",
+            "audio": {
+              "fileName": "intro_audio.mp3",
+              "duration": "3:45"
+            },
+            "quiz": {
+              "quizName": "Basic Spanish Quiz",
+              "questions": [
+                {
+                  "type": "Multiple Choice",
+                  "questionText": "What is 'Hello' in Spanish?",
+                  "options": ["Hola", "Adiós", "Gracias"],
+                  "correctAnswer": "Hola"
+                }
+              ],
+              "feedback": "Great job! You got 80% correct."
+            }
+          }
+        ],
+        "quizzes": [
+          {
+            "quizName": "Spanish Vocabulary Test",
+            "questions": [
+              {
+                "type": "Multiple Choice",
+                "questionText": "What does 'Gracias' mean?",
+                "options": ["Thank you", "Goodbye", "Hello"],
+                "correctAnswer": "Thank you"
+              }
+            ],
+            "feedback": "Well done, you passed the quiz!"
+          }
+        ],
+        "courseCompletion": 50.0
+      },
+      {
+        "courseName": "German Intermediate",
+        "difficulty": "Medium",
+        "lessons": [
+          {
+            "lessonTitle": "German Grammar Basics",
+            "content": "Introduction to German sentence structure.",
+            "audio": {
+              "fileName": "grammar_audio.mp3",
+              "duration": "4:10"
+            },
+            "quiz": {
+              "quizName": "Basic Grammar Quiz",
+              "questions": [
+                {
+                  "type": "True/False",
+                  "questionText": "In German, nouns are always capitalized.",
+                  "correctAnswer": "True"
+                }
+              ],
+              "feedback": "Nice work! Keep practicing."
+            }
+          }
+        ],
+        "quizzes": [
+          {
+            "quizName": "German Grammar Test",
+            "questions": [
+              {
+                "type": "Short Answer",
+                "questionText": "Write the German word for 'House'.",
+                "correctAnswer": "Haus"
+              }
+            ],
+            "feedback": "Good attempt!"
+          }
+        ],
+        "courseCompletion": 40.0
+      }
+    ]
+  }
+  

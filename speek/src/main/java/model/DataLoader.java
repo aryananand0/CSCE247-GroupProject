@@ -48,7 +48,7 @@ public class DataLoader {
                     while (!(line = reader.readLine().trim()).startsWith("]")) {
                         String language = line.replace("\"", "").replace(",", "").trim();
                         if (!language.isEmpty()) {
-                            favoriteLanguages.add(new Language(language));
+                            favoriteLanguages.add(new Language());
                         }
                     }
                     user.setFavoriteLanguages(favoriteLanguages);
