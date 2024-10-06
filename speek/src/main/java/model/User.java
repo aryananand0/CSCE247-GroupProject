@@ -79,6 +79,11 @@ public class User {
         return score;
     }
 
+    // Method to set user's score
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     // Method to increase score
     public void increaseScore(double increment) {
         this.score += increment;
@@ -175,3 +180,4 @@ public class User {
         this.progressPerUser = progressPerUser;
     }
 }
+
