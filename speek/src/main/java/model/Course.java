@@ -55,6 +55,5 @@ public class Course {
         this.courseCompletion = courseCompletion;
     }
 
-    // Other methods for managing lessons, quizzes, etc.
 }
 
