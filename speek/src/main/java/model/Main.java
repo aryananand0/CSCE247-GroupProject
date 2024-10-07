@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        // Load basic user information from the file
+        
         System.out.println("Loading users...");
         ArrayList<User> users = DataLoader.loadUsers();
         
@@ -18,7 +18,7 @@ public class Main {
             System.out.println("No users found.");
         }
 
-        // Load basic course information from the file
+        
         System.out.println("Loading courses...");
         ArrayList<Course> courses = DataLoader.loadCourses();
         
