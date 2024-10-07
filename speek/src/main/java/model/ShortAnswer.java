@@ -5,30 +5,28 @@ public class ShortAnswer implements QuestionType{
     private String answer;
 
     public ShortAnswer(String question, String answer) {
-        //Needs to be implemented
+        this.question = question;
+        this.answer = answer;
     }
     @Override
     public String getAnswer() {
-        // Needs to be implemented
-        throw new UnsupportedOperationException("Unimplemented method 'getAnswer'");
+        return answer;
     }
 
     @Override
     public String getQuestion() {
-        // Needs to be implemented
-        throw new UnsupportedOperationException("Unimplemented method 'getQuestion'");
+        return question;
     }
 
     @Override
     public boolean isCorrect(String UserAnswer) {
-        // Needs to be implemented
-        throw new UnsupportedOperationException("Unimplemented method 'isCorrect'");
+        return UserAnswer!=null && UserAnswer.equals(answer);
     }
 
     @Override
     public String toString() {
         // Needs to be implemented
-        return super.toString();
+        return question+":";
     }
 
 }
