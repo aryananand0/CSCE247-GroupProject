@@ -20,13 +20,13 @@ public class ShortAnswer implements QuestionType{
 
     @Override
     public boolean isCorrect(String UserAnswer) {
-        return UserAnswer!=null && UserAnswer.equals(answer);
+        return UserAnswer!=null && UserAnswer.equalsIgnoreCase(answer);
     }
 
     @Override
     public String toString() {
         // Needs to be implemented
-        return question+":";
+        return this.getQuestion()+":";
     }
 
 }
