@@ -23,5 +23,4 @@ public class Leaderboard {
         return scoreboard;
     }
 
-    // Add additional methods or logic as necessary
 }

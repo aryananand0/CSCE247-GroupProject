@@ -10,6 +10,9 @@ public class DataLoader {
 
     private static final String USER_FILE = "json/User.json";  // Path to users JSON-like file
     private static final String COURSE_FILE = "json/Course.json";  // Path to courses JSON-like file
+    private static final String ACHIEVEMENT_FILE = "json/Achievement.json";
+    private static final String LANGUAGE_FILE = "json/Language.json";
+    private static final String LEADERBOARD_FILE = "json/Leaderboard.json";
 
     // Method to load users from the file
     public static ArrayList<User> loadUsers() {
@@ -146,7 +149,7 @@ public class DataLoader {
     // Helper method to extract the value from a line like: "key": "value"
     private static String extractValue(String line) {
         return line.split(":")[1].replace("\"", "").replace(",", "").trim();
-    }
+    }    
 }
 
 
