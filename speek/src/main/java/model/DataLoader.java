@@ -51,7 +51,7 @@ public class DataLoader {
                     while (!(line = reader.readLine().trim()).startsWith("]")) {
                         String language = line.replace("\"", "").replace(",", "").trim();
                         if (!language.isEmpty()) {
-                            favoriteLanguages.add(new Language());
+                            favoriteLanguages.add(new Language(language));
                         }
                     }
                     user.setFavoriteLanguages(favoriteLanguages);
@@ -149,8 +149,115 @@ public class DataLoader {
     // Helper method to extract the value from a line like: "key": "value"
     private static String extractValue(String line) {
         return line.split(":")[1].replace("\"", "").replace(",", "").trim();
-    }    
+    }
+    
+    public static ArrayList<Achievements> loadAchievements() {
+        ArrayList<Achievements> achievements = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(ACHIEVEMENT_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.startsWith("{")) {
+                    String title = null;
+                    String description = null;
+                    int rewardPoints = 0;
+
+                    while (!(line = reader.readLine().trim()).startsWith("}")) {
+                        if (line.startsWith("\"title\":")) {
+                            title = extractValue(line);
+                        } else if (line.startsWith("\"description\":")) {
+                            description = extractValue(line);
+                        } else if (line.startsWith("\"rewardPoints\":")) {
+                            rewardPoints = Integer.parseInt(extractValue(line));
+                        }
+                    }
+                    achievements.add(new Achievements(title, description, rewardPoints));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return achievements;
+    }
+
+    public static ArrayList<Language> loadLanguages() {
+        ArrayList<Language> languages = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(LANGUAGE_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.startsWith("{")) {
+                    String name = null;
+                    ArrayList<Course> courses = new ArrayList<>();
+                    ArrayList<Flashcard> flashcards = new ArrayList<>();
+
+                    while (!(line = reader.readLine().trim()).startsWith("}")) {
+                        if (line.startsWith("\"name\":")) {
+                            name = extractValue(line);
+                        } else if (line.startsWith("\"courses\":")) {
+                            while (!(line = reader.readLine().trim()).startsWith("]")) {
+                                String courseName = line.replace("\"", "").replace(",", "").trim();
+                                courses.add(new Course(courseName, "unknown"));  // Default difficulty
+                            }
+                        } else if (line.startsWith("\"flashcards\":")) {
+                            while (!(line = reader.readLine().trim()).startsWith("]")) {
+                                String word = null;
+                                String translation = null;
+                                if (line.startsWith("{")) {
+                                    while (!(line = reader.readLine().trim()).startsWith("}")) {
+                                        if (line.startsWith("\"word\":")) {
+                                            word = extractValue(line);
+                                        } else if (line.startsWith("\"translation\":")) {
+                                            translation = extractValue(line);
+                                        }
+                                    }
+                                    flashcards.add(new Flashcard(word, translation));
+                                }
+                            }
+                        }
+                    }
+                    Language language = new Language(name);
+                    language.setCourses(courses);
+                    language.setFlashcards(flashcards);
+                    languages.add(language);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return languages;
+    }
+
+
+    public static ArrayList<Leaderboard> loadLeaderboard() {
+        ArrayList<Leaderboard> leaderboard = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(LEADERBOARD_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.startsWith("{")) {
+                    String user = null;
+                    double score = 0;
+
+                    while (!(line = reader.readLine().trim()).startsWith("}")) {
+                        if (line.startsWith("\"user\":")) {
+                            user = extractValue(line);
+                        } else if (line.startsWith("\"score\":")) {
+                            score = Double.parseDouble(extractValue(line));
+                        }
+                    }
+                    leaderboard.add(new Leaderboard(user, score));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return leaderboard;
+    }
 }
-
-
-
