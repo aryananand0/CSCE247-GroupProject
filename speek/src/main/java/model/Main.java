@@ -12,24 +12,24 @@ public class Main {
         if (!users.isEmpty()) {
             System.out.println("Users loaded successfully.");
             for (User user : users) {
-                System.out.println("User: " + user.getFirstName() + " " + user.getLastName());
+                System.out.println(user.toString());
             }
         } else {
             System.out.println("No users found.");
         }
 
         
-        System.out.println("Loading courses...");
-        ArrayList<Course> courses = DataLoader.loadCourses();
+        // System.out.println("Loading courses...");
+        // ArrayList<Course> courses = DataLoader.loadCourses();
         
-        if (!courses.isEmpty()) {
-            System.out.println("Courses loaded successfully.");
-            for (Course course : courses) {
-                System.out.println("Course: " + course.getCourseName());
-            }
-        } else {
-            System.out.println("No courses found.");
-        }
+        // if (!courses.isEmpty()) {
+        //     System.out.println("Courses loaded successfully.");
+        //     for (Course course : courses) {
+        //         System.out.println("Course: " + course.getCourseName());
+        //     }
+        // } else {
+        //     System.out.println("No courses found.");
+        // }
     }
 }
 

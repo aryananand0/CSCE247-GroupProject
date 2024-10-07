@@ -1,21 +1,56 @@
 package model;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.print.DocFlavor.STRING;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 public class DataLoader {
 
-    private static final String USER_FILE = "json\\User.json";  // Path to users JSON-like file
-    private static final String COURSE_FILE = "json\\Course.json";  // Path to courses JSON-like file
-    private static final String ACHIEVEMENT_FILE = "json\\Achievement.json";
-    private static final String LANGUAGE_FILE = "json\\Language.json";
-    private static final String LEADERBOARD_FILE = "json\\Leaderboard.json";
+    private static final String USER_FILE = "json/User.json";  // Path to users JSON-like file
+    private static final String COURSE_FILE = "json/Course.json";  // Path to courses JSON-like file
+    private static final String ACHIEVEMENT_FILE = "json/Achievement.json";
+    private static final String LANGUAGE_FILE = "json/Language.json";
+    private static final String LEADERBOARD_FILE = "json/Leaderboard.json";
+    protected static final String USER_FIRST_NAME = "firstName";
+    protected static final String USER_LAST_NAME = "lastName";
+    protected static final String USER_EMAIL="email";
 
-    // Method to load users from the file
+
     public static ArrayList<User> loadUsers() {
+        ArrayList<User> user= new ArrayList<User>();
+        try{
+            FileReader reader = new FileReader(USER_FILE);
+            JSONParser parser = new JSONParser();
+            JSONArray userJSON = (JSONArray) new JSONParser().parse(reader);
+
+            for(int i = 0; i < userJSON.size(); i++){
+                JSONObject usersJSON = (JSONObject) userJSON.get(i);
+                String firstName = (String) usersJSON.get(USER_FIRST_NAME);
+                String lastName = (String) usersJSON.get(USER_LAST_NAME);
+                String email = (String) usersJSON.get(USER_EMAIL);
+                user.add(new User(firstName,lastName,email));
+            }
+            return user;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    
+
+}
+
+
+/*
+ * public static ArrayList<User> loadUsers() {
         ArrayList<User> users = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(USER_FILE))) {
@@ -260,7 +295,5 @@ public class DataLoader {
 private static String extractValue(String line) {
     return line.split(":")[1].replace("\"", "").replace(",", "").trim();
 }
-
-}
-
+ */
 

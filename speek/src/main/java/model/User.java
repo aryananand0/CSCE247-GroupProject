@@ -47,6 +47,11 @@ public class User {
         this.achievements = new ArrayList<>();
         this.progressPerUser = new HashMap<>();
     }
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 
     // Method to login
     public boolean login(String email, String password) {
@@ -178,6 +183,12 @@ public class User {
 
     public void setProgressPerUser(HashMap<Course, Double> progressPerUser) {
         this.progressPerUser = progressPerUser;
+    }
+
+    @Override
+    public String toString() {
+        
+        return "NAME: "+this.getFirstName()+" "+this.getLastName()+" | EMAIL: "+this.getEmail();
     }
 }
 
