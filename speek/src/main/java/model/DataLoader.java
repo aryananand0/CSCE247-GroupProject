@@ -255,9 +255,12 @@ public class DataLoader {
 
         return leaderboard;
     }
-}
 
-// Helper method to extract the value from a line like: "key": "value"
+    // Helper method to extract the value from a line like: "key": "value"
 private static String extractValue(String line) {
     return line.split(":")[1].replace("\"", "").replace(",", "").trim();
 }
+
+}
+
+

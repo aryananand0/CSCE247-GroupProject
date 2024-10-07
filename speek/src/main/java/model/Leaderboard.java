@@ -17,6 +17,11 @@ public class Leaderboard {
         score = 0.0;
     }
 
+    public Leaderboard(String user, double score){
+     //Need to be implemented
+
+    }
+
     // Methods
     public ArrayList<User> displayLeaderboard() {
         // (implement logic later)

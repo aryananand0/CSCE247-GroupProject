@@ -5,13 +5,17 @@ import java.util.ArrayList;
 public class Achievements {
 
     // Attributes
-    private final String title;
-    private final ArrayList<String> achievements;
+    private String title;
+    private ArrayList<String> achievements;
+    private double rewardPoints;
+    private String description;
 
     // Constructor
-    public Achievements(String title, String description) {
+    public Achievements(String title, String description, double rewardPoints) {
         this.title = title;
         this.achievements = new ArrayList<>();
+        this.description = description;
+        this.rewardPoints = rewardPoints;
     }
 
     // Method to notify achievement 
