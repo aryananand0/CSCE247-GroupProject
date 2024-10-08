@@ -52,6 +52,12 @@ public class User {
         this.lastName = lastName;
         this.email = email;
     }
+    public User(String firstName, String lastName, String email, double score) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.score = score;
+    }
 
     // Method to login
     public boolean login(String email, String password) {
