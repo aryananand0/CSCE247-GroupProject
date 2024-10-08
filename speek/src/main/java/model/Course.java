@@ -19,7 +19,8 @@ public class Course {
   }
 
   public String displayCourseDetails() {
-    return "Hi";
+    String rv = "";
+    return rv;
   }
   
   public void completeCourse() {

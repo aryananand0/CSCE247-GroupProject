@@ -17,6 +17,10 @@ public class Leaderboard {
         score = 0.0;
     }
 
+    public Leaderboard(ArrayList<User> users) {
+        this.users = users;
+    }
+
     // Methods
     public ArrayList<User> displayLeaderboard() {
         // (implement logic later)
