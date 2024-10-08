@@ -54,6 +54,11 @@ public class Course {
     public void setCourseCompletion(double courseCompletion) {
         this.courseCompletion = courseCompletion;
     }
+    // To test the DataLoader
+    @Override
+    public String toString() {
+        return "Course Name: " + courseName + " | Difficulty: " + difficulty;
+    }
 
 }
 

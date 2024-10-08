@@ -12,7 +12,6 @@ public class DataLoader extends DataConstants {
         ArrayList<User> user= new ArrayList<User>();
         try{
             FileReader reader = new FileReader(USER_FILE);
-            JSONParser parser = new JSONParser();
             JSONArray userJSON = (JSONArray) new JSONParser().parse(reader);
 
             for(int i = 0; i < userJSON.size(); i++){
@@ -29,6 +28,33 @@ public class DataLoader extends DataConstants {
         }
         return null;
     }
+
+    public static ArrayList<Course> loadCourses() {
+        ArrayList<Course> courses = new ArrayList<>();
+
+        try {
+            FileReader reader = new FileReader(COURSE_FILE);
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+            JSONArray courseJSONArray = (JSONArray) jsonObject.get(COURSE);
+
+            for (Object courseObj : courseJSONArray) {
+                JSONObject courseJSONObject = (JSONObject) courseObj;
+                String courseName = (String) courseJSONObject.get(COURSE_NAME);
+                String difficulty = (String) courseJSONObject.get(COURSE_DIFFICULTY);
+
+                courses.add(new Course(courseName, difficulty));
+            }
+
+            return courses;
+
+        } catch (Exception e) {
+            e.printStackTrace();  
+        }
+
+        return courses; 
+    }
+
     
     
 

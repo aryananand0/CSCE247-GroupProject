@@ -18,18 +18,17 @@ public class Main {
             System.out.println("No users found.");
         }
 
+        System.out.println("Loading courses...");
+        ArrayList<Course> courses = DataLoader.loadCourses();
         
-        // System.out.println("Loading courses...");
-        // ArrayList<Course> courses = DataLoader.loadCourses();
-        
-        // if (!courses.isEmpty()) {
-        //     System.out.println("Courses loaded successfully.");
-        //     for (Course course : courses) {
-        //         System.out.println("Course: " + course.getCourseName());
-        //     }
-        // } else {
-        //     System.out.println("No courses found.");
-        // }
+        if (!courses.isEmpty()) {
+            System.out.println("Courses loaded successfully.");
+            for (Course course : courses) {
+                System.out.println( course.toString());
+            }
+        } else {
+            System.out.println("No courses found.");
+        }
     }
 }
 
