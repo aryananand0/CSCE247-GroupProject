@@ -6,6 +6,8 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("");
+        
+        // Loading users
         System.out.println("Loading users...");
         ArrayList<User> users = DataLoader.loadUsers();
         
@@ -13,49 +15,64 @@ public class Main {
             System.out.println("Users loaded successfully.");
             for (User user : users) {
                 System.out.println(user.toString());
+
+                // Display achievements
+                System.out.println("Achievements:");
+                if (!user.getAchievements().isEmpty()) {
+                    for (Achievements achievement : user.getAchievements()) {
+                        System.out.println("\t" + achievement.toString());  // Display each achievement
+                    }
+                } else {
+                    System.out.println("\tNo achievements found.");
+                }
             }
         } else {
             System.out.println("No users found.");
         }
+        
         System.out.println("");
+        
+        // Loading courses
         System.out.println("Loading courses...");
         ArrayList<Course> courses = DataLoader.loadCourses();
         
         if (!courses.isEmpty()) {
             System.out.println("Courses loaded successfully.");
             for (Course course : courses) {
-                System.out.println( course.toString());
+                System.out.println(course.toString());
             }
         } else {
             System.out.println("No courses found.");
         }
+        
         System.out.println("");
 
-        System.out.println("Loading language...");
+        // Loading languages
+        System.out.println("Loading languages...");
         ArrayList<Language> languages = DataLoader.loadLanguages();
         
         if (!languages.isEmpty()) {
-            System.out.println("language loaded successfully.");
+            System.out.println("Languages loaded successfully.");
             for (Language language : languages) {
-                System.out.println( language.toString());
+                System.out.println(language.toString());
             }
         } else {
             System.out.println("No languages found.");
         }
 
-        System.out.println();
+        System.out.println("");
+
+        // Loading Leader Board
         System.out.println("Loading Leader Board...");
         Leaderboard lead = DataLoader.loadLeaderboard();
         
         if (!lead.getUser().isEmpty()) {
             System.out.println("Leader Board loaded successfully.");
             for (User user : lead.getUser()) {
-                System.out.println( user.PrintLeaderboard());
+                System.out.println(user.PrintLeaderboard());
             }
         } else {
             System.out.println("No Leader Board found.");
         }
     }
 }
-
-
