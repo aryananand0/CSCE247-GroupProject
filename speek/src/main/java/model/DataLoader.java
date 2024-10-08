@@ -1,7 +1,6 @@
 package model;
 
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -176,33 +175,6 @@ public class DataLoader extends DataConstants {
         return achievements;
     }
 
-    public static ArrayList<Leaderboard> loadLeaderboard() {
-        ArrayList<Leaderboard> leaderboard = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(LEADERBOARD_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                if (line.startsWith("{")) {
-                    String user = null;
-                    double score = 0;
-
-                    while (!(line = reader.readLine().trim()).startsWith("}")) {
-                        if (line.startsWith("\"user\":")) {
-                            user = extractValue(line);
-                        } else if (line.startsWith("\"score\":")) {
-                            score = Double.parseDouble(extractValue(line));
-                        }
-                    }
-                    leaderboard.add(new Leaderboard(user, score));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return leaderboard;
-    }
 
  */
 
