@@ -53,6 +53,15 @@ public class User {
         this.email = email;
     }
 
+    public User(String firstName, String LastName, double points){
+        this.firstName = firstName;
+        this.lastName = LastName;
+        this.score = points;
+
+    }
+    public String PrintLeaderboard(){
+        return "NAME: "+this.getFirstName()+" "+this.getLastName()+" | SCORE: "+this.getScore();
+    }
     // Method to login
     public boolean login(String email, String password) {
         return this.email.equals(email) && this.password.equals(password);

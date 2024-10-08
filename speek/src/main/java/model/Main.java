@@ -43,13 +43,14 @@ public class Main {
             System.out.println("No languages found.");
         }
 
+        System.out.println();
         System.out.println("Loading Leader Board...");
         Leaderboard lead = DataLoader.loadLeaderboard();
         
         if (!lead.getUser().isEmpty()) {
             System.out.println("Leader Board loaded successfully.");
             for (User user : lead.getUser()) {
-                System.out.println( user.toString());
+                System.out.println( user.PrintLeaderboard());
             }
         } else {
             System.out.println("No Leader Board found.");

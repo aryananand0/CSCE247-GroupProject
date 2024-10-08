@@ -17,8 +17,12 @@ public class Leaderboard {
         score = 0.0;
     }
 
-    public Leaderboard(String user, double score){
-        
+    public Leaderboard(ArrayList<User> user){
+        this.users=user;
+    }
+
+    public ArrayList<User> getUser(){
+        return this.users;
     }
 
     // Methods
