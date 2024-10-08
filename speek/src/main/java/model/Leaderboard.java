@@ -24,7 +24,11 @@ public class Leaderboard {
     // Methods
     public ArrayList<User> displayLeaderboard() {
         // (implement logic later)
-        return scoreboard;
+        return this.scoreboard;
+    }
+
+    public ArrayList<User> displayUsers() {
+        return this.users;
     }
 
     // Add additional methods or logic as necessary
