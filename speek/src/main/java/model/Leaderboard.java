@@ -17,14 +17,8 @@ public class Leaderboard {
         score = 0.0;
     }
 
-<<<<<<< HEAD
-    public Leaderboard(String user, double score){
-     //Need to be implemented
-
-=======
     public Leaderboard(ArrayList<User> users) {
         this.users = users;
->>>>>>> branch-Camron
     }
 
     // Methods
@@ -33,4 +27,5 @@ public class Leaderboard {
         return scoreboard;
     }
 
+    // Add additional methods or logic as necessary
 }
