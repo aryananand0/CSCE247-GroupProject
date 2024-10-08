@@ -18,8 +18,7 @@ public class Leaderboard {
     }
 
     public Leaderboard(String user, double score){
-     //Need to be implemented
-
+        
     }
 
     // Methods

@@ -35,12 +35,24 @@ public class Main {
         ArrayList<Language> languages = DataLoader.loadLanguages();
         
         if (!languages.isEmpty()) {
-            System.out.println("Courses loaded successfully.");
+            System.out.println("language loaded successfully.");
             for (Language language : languages) {
                 System.out.println( language.toString());
             }
         } else {
-            System.out.println("No courses found.");
+            System.out.println("No languages found.");
+        }
+
+        System.out.println("Loading Leader Board...");
+        Leaderboard lead = DataLoader.loadLeaderboard();
+        
+        if (!lead.getUser().isEmpty()) {
+            System.out.println("Leader Board loaded successfully.");
+            for (User user : lead.getUser()) {
+                System.out.println( user.toString());
+            }
+        } else {
+            System.out.println("No Leader Board found.");
         }
     }
 }

@@ -14,4 +14,9 @@ public abstract class DataConstants {
     protected static final String COURSE= "courses";
     protected static final String LANGUAGES= "languages";
     protected static final String LANGUAGE_NAME= "name";
+    protected static final String LEADERBOARD= "leaderboard";
+    protected static final String LEADERBOARD_USER= "user";
+    protected static final String LEADERBOARD_USER_FIRST_NAME= "firstName";
+    protected static final String LEADERBOARD_USER_LAST_NAME= "lastName";
+    protected static final String LEADERBOARD_USER_SCORE= "score";
 }

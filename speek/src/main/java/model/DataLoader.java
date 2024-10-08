@@ -1,7 +1,11 @@
 package model;
 
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -73,6 +77,39 @@ public class DataLoader extends DataConstants {
             e.printStackTrace();
         }
 
+        return null;
+    }
+
+    public static Leaderboard loadLeaderboard() {
+        ArrayList<User> user= new ArrayList<User>();
+        try {
+            FileReader reader = new FileReader(LEADERBOARD_FILE);
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+            JSONArray leaderboardJsonArray = (JSONArray) jsonObject.get(LEADERBOARD);
+
+            for (Object leaderboardObject : leaderboardJsonArray) {
+                JSONObject leaderboardJsonObject = (JSONObject) leaderboardObject;
+                JSONArray userJsonArray = (JSONArray) leaderboardJsonObject.get(LEADERBOARD_USER);
+                for (Object userObject : userJsonArray) {
+                    JSONObject userJsonObject = (JSONObject) userObject;
+                    String firstName = (String) userJsonObject.get(LEADERBOARD_USER_FIRST_NAME);
+                    String lastName = (String) userJsonObject.get(LEADERBOARD_USER_LAST_NAME);
+                    double points = (Double) userJsonObject.get(LEADERBOARD_USER_SCORE);
+                    user.add(new User(firstName,lastName,points));
+                }
+            }
+            Collections.sort(user, new Comparator<User>() {
+            @Override
+            public int compare(User u1, User u2) {
+                return Double.compare(u2.getScore(), u1.getScore());  // Sort by points, descending
+            }
+        });
+        Leaderboard leader = new Leaderboard(user);
+        return leader;
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         return null;
     }
 
