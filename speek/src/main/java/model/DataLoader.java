@@ -12,21 +12,43 @@ import org.json.simple.parser.JSONParser;
 public class DataLoader extends DataConstants {
 
     public static ArrayList<User> loadUsers() {
-        ArrayList<User> user= new ArrayList<User>();
-        try{
+        ArrayList<User> users = new ArrayList<>();
+
+        try {
             FileReader reader = new FileReader(USER_FILE);
             JSONArray userJSON = (JSONArray) new JSONParser().parse(reader);
 
-            for(int i = 0; i < userJSON.size(); i++){
+            for (int i = 0; i < userJSON.size(); i++) {
                 JSONObject usersJSON = (JSONObject) userJSON.get(i);
                 String firstName = (String) usersJSON.get(USER_FIRST_NAME);
                 String lastName = (String) usersJSON.get(USER_LAST_NAME);
                 String email = (String) usersJSON.get(USER_EMAIL);
-                user.add(new User(firstName,lastName,email));
-            }
-            return user;
 
-        }catch (Exception e){
+                // Create a new User object
+                User user = new User(firstName, lastName, email);
+
+                // Load achievements
+                JSONArray achievementsJSON = (JSONArray) usersJSON.get("achievements");
+                ArrayList<Achievements> achievements = new ArrayList<>();
+                for (int j = 0; j < achievementsJSON.size(); j++) {
+                    JSONObject achievementJSON = (JSONObject) achievementsJSON.get(j);
+                    String title = (String) achievementJSON.get("title");
+                    String description = (String) achievementJSON.get("description");
+                    int rewardPoints = ((Long) achievementJSON.get("rewardPoints")).intValue();
+
+                    // Add achievement to the list
+                    achievements.add(new Achievements(title, description, rewardPoints));
+                }
+
+                // Add achievements to the user
+                user.setAchievements(achievements);
+
+                // Add the user to the users list
+                users.add(user);
+            }
+            return users;
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
