@@ -4,11 +4,9 @@ import java.util.ArrayList;
 
 public class UserList {
 
-    // Attributes
     private static UserList userList;
     private ArrayList<User> users;
 
-    // Private constructor 
     private UserList() {
         users = new ArrayList<>();
     }
@@ -21,13 +19,13 @@ public class UserList {
         return userList;
     }
 
-    // Method to get a user by a keyword, needs implementation
+    
     public User getUser(String keyword) {
         // Search and return the user matching the keyword 
         for (User user : users) {
             // Implement  search logic here
             if (user.getFirstName().equalsIgnoreCase(keyword)) {
-                return null;
+                return user;
             }
         }
         return null;
