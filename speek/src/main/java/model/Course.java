@@ -30,10 +30,21 @@ public class Course {
       this.lessons = lessons;
   }
 
+<<<<<<< HEAD
     // Setter for courseName
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
+=======
+  public String displayCourseDetails() {
+    String rv = "";
+    return rv;
+  }
+  
+  public void completeCourse() {
+    // TODO: IMPLEMENT
+  }
+>>>>>>> branch-Camron
 
     // Getter for difficulty
     public String getDifficulty() {
