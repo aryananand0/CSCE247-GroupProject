@@ -165,38 +165,5 @@ public class DataLoader extends DataConstants {
         }
         return progressMap;
     }
-    
-    public static ArrayList<Achievements> loadAchievements() {
-        ArrayList<Achievements> achievements = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(ACHIEVEMENT_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                if (line.startsWith("{")) {
-                    String title = null;
-                    String description = null;
-                    int rewardPoints = 0;
-
-                    while (!(line = reader.readLine().trim()).startsWith("}")) {
-                        if (line.startsWith("\"title\":")) {
-                            title = extractValue(line);
-                        } else if (line.startsWith("\"description\":")) {
-                            description = extractValue(line);
-                        } else if (line.startsWith("\"rewardPoints\":")) {
-                            rewardPoints = Integer.parseInt(extractValue(line));
-                        }
-                    }
-                    achievements.add(new Achievements(title, description, rewardPoints));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return achievements;
-    }
-
-
  */
 
