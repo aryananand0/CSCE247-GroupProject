@@ -30,21 +30,13 @@ public class Course {
       this.lessons = lessons;
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> edc722e14e9e9e553ceb82a0470bc201ae6abd64
+
     // Setter for courseName
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
-<<<<<<< HEAD
-=======
-=======
->>>>>>> branch-Camron
-=======
->>>>>>> edc722e14e9e9e553ceb82a0470bc201ae6abd64
+
+
   public String displayCourseDetails() {
     String rv = "";
     return rv;
@@ -53,19 +45,8 @@ public class Course {
   public void completeCourse() {
     // TODO: IMPLEMENT
   }
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> branch-Camron
-=======
-=======
-    // Setter for courseName
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
->>>>>>> aba15741b4e44d1ed3fa8384bc73b9686032f400
->>>>>>> branch-Camron
-=======
->>>>>>> edc722e14e9e9e553ceb82a0470bc201ae6abd64
+
+
 
     // Getter for difficulty
     public String getDifficulty() {
