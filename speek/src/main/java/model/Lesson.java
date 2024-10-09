@@ -15,11 +15,11 @@ public class Lesson {
     }
 
     // Method to navigate through the lesson
-    public void navigateLessons() {
+    public void navigateLessons(User user) {  // Added User parameter
         System.out.println("Navigating lesson: " + lessonTitle);
         System.out.println(content);
         if (quiz != null) {
-            quiz.takeQuiz();  // Take the quiz after going through the lesson
+            quiz.takeQuiz(user);  // Pass the user to the takeQuiz method
         } else {
             System.out.println("No quiz available for this lesson.");
         }
@@ -35,9 +35,9 @@ public class Lesson {
     }
 
     // Method to replay the lesson
-    public void replayLesson() {
+    public void replayLesson(User user) {  // Added User parameter
         System.out.println("Replaying lesson: " + lessonTitle);
-        navigateLessons();  // Replay the lesson content and quiz
+        navigateLessons(user);  // Replay the lesson content and quiz with the user
     }
 
     // Getters and Setters
@@ -65,6 +65,3 @@ public class Lesson {
         this.quiz = quiz;
     }
 }
-
-
-
