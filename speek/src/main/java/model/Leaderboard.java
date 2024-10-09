@@ -19,6 +19,12 @@ public class Leaderboard {
 
     public Leaderboard(ArrayList<User> users) {
         this.users = users;
+    public Leaderboard(ArrayList<User> user){
+        this.users=user;
+    }
+
+    public ArrayList<User> getUser(){
+        return this.users;
     }
 
     // Methods
