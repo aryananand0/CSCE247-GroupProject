@@ -26,7 +26,7 @@ public class UserList {
         // Search and return the user matching the keyword 
         for (User user : users) {
             // Implement  search logic here
-            if (user.getName().equalsIgnoreCase(keyword)) {
+            if (user.getFirstName().equalsIgnoreCase(keyword)) {
                 return null;
             }
         }

@@ -17,8 +17,17 @@ public class Leaderboard {
         score = 0.0;
     }
 
+<<<<<<< HEAD
     public Leaderboard(ArrayList<User> users) {
         this.users = users;
+=======
+    public Leaderboard(ArrayList<User> user){
+        this.users=user;
+    }
+
+    public ArrayList<User> getUser(){
+        return this.users;
+>>>>>>> aba15741b4e44d1ed3fa8384bc73b9686032f400
     }
 
     // Methods
@@ -31,5 +40,4 @@ public class Leaderboard {
         return this.users;
     }
 
-    // Add additional methods or logic as necessary
 }

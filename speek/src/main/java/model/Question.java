@@ -4,82 +4,95 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Question {
-    // Attributes
-    private String question;
-    private QuestionType questionType;
-    private ArrayList<String> options;
-    private String answer;
-    private ArrayList<String> correctAnswerList;
-    private HashMap<User, String> userAnswers;
 
-    // Constructor with question, answer, and questionType
-    public Question(String question, String answer, QuestionType questionType) {
-        this.question = question;
-        this.answer = answer;
+    // Attributes
+    private String questionText;
+    private QuestionType questionType;  // Enum or class to define question types (MultipleChoice, TrueFalse, ShortAnswer, etc.)
+    private ArrayList<String> options;  // For multiple-choice questions
+    private String correctAnswer;
+    private HashMap<User, String> userAnswers;  // Stores user answers to this question
+
+    // Constructor for basic questions (without options, like True/False or Short Answer)
+    public Question(String questionText, String correctAnswer, QuestionType questionType) {
+        this.questionText = questionText;
+        this.correctAnswer = correctAnswer;
         this.questionType = questionType;
         this.options = new ArrayList<>();
-        this.correctAnswerList = new ArrayList<>();
         this.userAnswers = new HashMap<>();
     }
 
-    // Constructor with question, options, answer, and questionType
-    public Question(String question, ArrayList<String> options, String answer, QuestionType questionType) {
-        this.question = question;
+    // Constructor for multiple-choice questions
+    public Question(String questionText, ArrayList<String> options, String correctAnswer, QuestionType questionType) {
+        this.questionText = questionText;
         this.options = options;
-        this.answer = answer;
+        this.correctAnswer = correctAnswer;
         this.questionType = questionType;
-        this.correctAnswerList = new ArrayList<>();
         this.userAnswers = new HashMap<>();
     }
 
-    // Constructor with options, answers, and questionType
-    public Question(ArrayList<String> questionOption, ArrayList<String> questionAns, HashMap<String, String> answer, QuestionType questionType) {
-        this.options = questionOption;
-        this.correctAnswerList = questionAns;
-        this.userAnswers = answer;
-        this.questionType = questionType;
-    }
-
-    // Method to check user's answer
+    // Method to check if a user's answer is correct
     public boolean checkAnswer(User user) {
-        // Simple check logic
-        return userAnswers.containsKey(user.getName()) && userAnswers.get(user.getName()).equals(answer);
+        String userAnswer = userAnswers.get(user);
+        return userAnswer != null && userAnswer.equalsIgnoreCase(correctAnswer);
     }
 
-    // Method to display the question
-    public String displayQuestion(User user) {
-        return question;
+    // Method to display the question (includes options for multiple-choice questions)
+    public String displayQuestion() {
+        StringBuilder questionDisplay = new StringBuilder();
+        questionDisplay.append("Question: ").append(questionText).append("\n");
+
+        if (!options.isEmpty()) {
+            questionDisplay.append("Options:\n");
+            for (int i = 0; i < options.size(); i++) {
+                questionDisplay.append((i + 1) + ". " + options.get(i)).append("\n");
+            }
+        }
+        return questionDisplay.toString();
     }
 
-    // Add multiple-choice options
-    public void addMultipleChoiceOptions(ArrayList<String> options) {
+    // Method to store a user's answer
+    public void storeUserAnswer(User user, String answer) {
+        userAnswers.put(user, answer);
+    }
+
+    // Getters and Setters
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(QuestionType questionType) {
+        this.questionType = questionType;
+    }
+
+    public ArrayList<String> getOptions() {
+        return options;
+    }
+
+    public void setOptions(ArrayList<String> options) {
         this.options = options;
     }
 
-    // Set true/false answer
-    public void setTrueFalseAnswer(String correctAnswer) {
-        this.answer = correctAnswer;
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
-    // Set short answer
-    public void setShortAnswer(String correctAnswer) {
-        this.answer = correctAnswer;
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 
-    // Set "Match the Words" answer
-    public void setMatchTheWords(ArrayList<String> correctAnswerList) {
-        this.correctAnswerList = correctAnswerList;
+    public HashMap<User, String> getUserAnswers() {
+        return userAnswers;
     }
 
-    // Store user's answer
-    public void storeUserAnswer(User user, String answer) {
-        userAnswers.put(user.getName(), answer);
-    }
-
-    // Get user's progress
-    public double getUserProgress(User user) {
-        // Simple return for demonstration
-        return 0.0;  // Placeholder return
+    public void setUserAnswers(HashMap<User, String> userAnswers) {
+        this.userAnswers = userAnswers;
     }
 }
-

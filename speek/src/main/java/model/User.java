@@ -52,12 +52,24 @@ public class User {
         this.lastName = lastName;
         this.email = email;
     }
+<<<<<<< HEAD
     public User(String firstName, String lastName, double score) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.score = score;
     }
+=======
+>>>>>>> aba15741b4e44d1ed3fa8384bc73b9686032f400
 
+    public User(String firstName, String LastName, double points){
+        this.firstName = firstName;
+        this.lastName = LastName;
+        this.score = points;
+
+    }
+    public String PrintLeaderboard(){
+        return "NAME: "+this.getFirstName()+" "+this.getLastName()+" | SCORE: "+this.getScore();
+    }
     // Method to login
     public boolean login(String email, String password) {
         return this.email.equals(email) && this.password.equals(password);
@@ -190,12 +202,15 @@ public class User {
         this.progressPerUser = progressPerUser;
     }
 
+<<<<<<< HEAD
     public String printLeaderboard() {
         String rv = "";
         rv = (this.getFirstName() + " " + this.getLastName() + "| " + this.getScore() + ".");
         return rv;
     }
 
+=======
+>>>>>>> aba15741b4e44d1ed3fa8384bc73b9686032f400
     @Override
     public String toString() {
         

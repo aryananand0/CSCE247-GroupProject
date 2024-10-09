@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class CourseList {
 
     // Attributes
-    private ArrayList<Course> courses;
+    private final ArrayList<Course> courses;
 
     // Constructor
     public CourseList() {
@@ -48,5 +48,6 @@ public class CourseList {
         return courses.size();
     }
 }
+
 
 

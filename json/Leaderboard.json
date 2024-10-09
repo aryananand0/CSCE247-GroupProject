@@ -13,6 +13,13 @@
           "lastName": "Smith",
           "score": 1200
         }
+      },
+      {
+        "user": {
+          "firstName": "Jackson",
+          "lastName": "Dale",
+          "score": 1300
+        }
       }
     ]
   }

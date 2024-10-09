@@ -5,30 +5,28 @@ public class TrueFalse implements QuestionType {
     private String answer;
 
     public TrueFalse(String question, String answer) {
-        //Needs to be implemented
+        this.question = question;
+        this.answer = answer;
     }
     @Override
     public String getAnswer() {
-        //Needs to be implemented
-        throw new UnsupportedOperationException("Unimplemented method 'getAnswer'");
+        return answer;
     }
 
     @Override
     public String getQuestion() {
-        //Needs to be implemented
-        throw new UnsupportedOperationException("Unimplemented method 'getQuestion'");
+        return question;
     }
 
     @Override
-    public boolean isCorrect() {
-        //Needs to be implemented
-        throw new UnsupportedOperationException("Unimplemented method 'isCorrect'");
+    public boolean isCorrect(String UserAnswer) {
+        return UserAnswer!=null && UserAnswer.equalsIgnoreCase(answer);
     }
 
     @Override
     public String toString() {
         //Needs to be implemented
-        return super.toString();
+        return this.getQuestion()+" True or False:";
     }
 
     
