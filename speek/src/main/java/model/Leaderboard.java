@@ -17,8 +17,13 @@ public class Leaderboard {
         score = 0.0;
     }
 
+<<<<<<< HEAD
     public Leaderboard(ArrayList<User> users) {
         this.users = users;
+=======
+    public Leaderboard(ArrayList<User> user){
+        this.users=user;
+>>>>>>> branch-Camron
     }
 
     public ArrayList<User> getUser(){

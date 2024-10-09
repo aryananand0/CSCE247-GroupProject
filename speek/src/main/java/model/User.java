@@ -53,17 +53,25 @@ public class User {
         this.email = email;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     public User(String firstName, String lastName, String email, double score) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
 =======
+=======
+>>>>>>> branch-Camron
     public User(String firstName, String lastName, double score) {
         this.firstName = firstName;
         this.lastName = lastName;
 >>>>>>> branch-Camron
         this.score = score;
     }
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> aba15741b4e44d1ed3fa8384bc73b9686032f400
+>>>>>>> branch-Camron
 
     public User(String firstName, String LastName, double points){
         this.firstName = firstName;
@@ -207,13 +215,21 @@ public class User {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> branch-Camron
     public String printLeaderboard() {
         String rv = "";
         rv = (this.getFirstName() + " " + this.getLastName() + "| " + this.getScore() + ".");
         return rv;
     }
 
+<<<<<<< HEAD
+>>>>>>> branch-Camron
+=======
+=======
+>>>>>>> aba15741b4e44d1ed3fa8384bc73b9686032f400
 >>>>>>> branch-Camron
     @Override
     public String toString() {

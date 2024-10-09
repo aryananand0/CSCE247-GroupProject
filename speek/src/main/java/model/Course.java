@@ -31,11 +31,14 @@ public class Course {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Setter for courseName
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
 =======
+=======
+>>>>>>> branch-Camron
   public String displayCourseDetails() {
     String rv = "";
     return rv;
@@ -44,6 +47,15 @@ public class Course {
   public void completeCourse() {
     // TODO: IMPLEMENT
   }
+<<<<<<< HEAD
+>>>>>>> branch-Camron
+=======
+=======
+    // Setter for courseName
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+>>>>>>> aba15741b4e44d1ed3fa8384bc73b9686032f400
 >>>>>>> branch-Camron
 
     // Getter for difficulty
