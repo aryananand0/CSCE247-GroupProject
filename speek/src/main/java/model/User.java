@@ -52,25 +52,19 @@ public class User {
         this.lastName = lastName;
         this.email = email;
     }
-<<<<<<< HEAD
     public User(String firstName, String lastName, String email, double score) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-=======
+        this.score = score;
+    }
     public User(String firstName, String lastName, double score) {
         this.firstName = firstName;
         this.lastName = lastName;
->>>>>>> branch-Camron
         this.score = score;
     }
 
-    public User(String firstName, String LastName, double points){
-        this.firstName = firstName;
-        this.lastName = LastName;
-        this.score = points;
-
-    }
+    
     public String PrintLeaderboard(){
         return "NAME: "+this.getFirstName()+" "+this.getLastName()+" | SCORE: "+this.getScore();
     }
@@ -206,15 +200,6 @@ public class User {
         this.progressPerUser = progressPerUser;
     }
 
-<<<<<<< HEAD
-=======
-    public String printLeaderboard() {
-        String rv = "";
-        rv = (this.getFirstName() + " " + this.getLastName() + "| " + this.getScore() + ".");
-        return rv;
-    }
-
->>>>>>> branch-Camron
     @Override
     public String toString() {
         
