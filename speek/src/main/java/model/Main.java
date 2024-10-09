@@ -15,16 +15,6 @@ public class Main {
             System.out.println("Users loaded successfully.");
             for (User user : users) {
                 System.out.println(user.toString());
-
-                // Display achievements
-                System.out.println("Achievements:");
-                if (!user.getAchievements().isEmpty()) {
-                    for (Achievements achievement : user.getAchievements()) {
-                        System.out.println("\t" + achievement.toString());  // Display each achievement
-                    }
-                } else {
-                    System.out.println("\tNo achievements found.");
-                }
             }
         } else {
             System.out.println("No users found.");
@@ -73,6 +63,22 @@ public class Main {
             }
         } else {
             System.out.println("No Leader Board found.");
+        }
+
+        System.out.println("");
+
+        // Loading Achievements
+        System.out.println("Loading Achievements...");
+
+        ArrayList<Achievements> achievements = DataLoader.loadAchievements();
+        
+        if (!achievements.isEmpty()) {
+            System.out.println("Achievements loaded successfully.");
+            for (Achievements achiv : achievements) {
+                System.out.println(achiv.toString());
+            }
+        } else {
+            System.out.println("No Achievements found.");
         }
     }
 }

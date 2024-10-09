@@ -7,16 +7,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 
-public class DataWriter {
-
+public class DataWriter extends DataConstants {
     
-
-    
-    public DataWriter() {
+    public static void saveUsers(UserList users) {
         
     }
 
-    
     public static void saveCourses(CourseList courses) {
         
     }

@@ -142,9 +142,43 @@ public class DataLoader extends DataConstants {
         return leader;  
     }
 
-    
-    
+    public static ArrayList<Achievements> loadAchievements() {
+        ArrayList<Achievements> achievements = new ArrayList<>();
 
+        try {
+            FileReader reader = new FileReader(USER_FILE);
+            JSONParser parser = new JSONParser();
+            JSONArray usersArray = (JSONArray) parser.parse(reader);  // This should be a JSONArray
+           
+            // Iterate through each user in the users array
+            for (Object userObject : usersArray) {
+                JSONObject userJSONObject = (JSONObject) userObject;
+
+                // Now, get the 'achievements' array for each user
+                JSONArray achievementsJSON = (JSONArray) userJSONObject.get(ACHIEVEMENTS);
+                if (achievementsJSON != null) {
+                    for (Object achievementObject : achievementsJSON) {
+                        JSONObject achievementJSONObject = (JSONObject) achievementObject;
+
+                        String title = (String) achievementJSONObject.get(ACHIEVEMENTS_TITLE);
+                        String description = (String) achievementJSONObject.get(ACHIEVEMENTS_DESCRIPTION);
+
+                        // Reward points are likely a Long in the JSON, so cast accordingly
+                        Long rewardPointsLong = (Long) achievementJSONObject.get(ACHIEVEMENTS_REWARD_POINTS);
+                        int rewardPoints = rewardPointsLong.intValue();  // Convert to int
+
+                        achievements.add(new Achievements(title, description, rewardPoints));
+                    }
+                }
+            }
+
+            return achievements;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
 
 

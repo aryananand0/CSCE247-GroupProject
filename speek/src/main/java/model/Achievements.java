@@ -42,6 +42,6 @@ public class Achievements {
     // toString() method to display achievement details
     @Override
     public String toString() {
-        return "Achievement Title: " + title + ", Description: " + description + ", Reward Points: " + rewardPoints;
+        return "Achievement Title: " + title + " | Description: " + description + " | Reward Points: " + rewardPoints;
     }
 }

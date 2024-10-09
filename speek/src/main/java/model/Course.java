@@ -37,11 +37,10 @@ public class Course {
         String rv = "";
         return rv;
     }
-  
+    
     public void completeCourse() {
     // TODO: IMPLEMENT
     }
-
 
     // Getter for difficulty
     public String getDifficulty() {
