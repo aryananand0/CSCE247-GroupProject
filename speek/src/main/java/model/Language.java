@@ -8,8 +8,8 @@ public class Language {
 
   public Language(String languageName) {
     this.languageName = languageName;
-    this.courses = new ArrayList<>();
-    this.flashcards = new ArrayList<>();
+    this.courses = new ArrayList<Course>();
+    this.flashcards = new ArrayList<Flashcard>();
   }
 
   public String getLanguageName(){
@@ -30,7 +30,6 @@ public class Language {
   // Added for testing DataLoader
   @Override
   public String toString() {
-      // TODO Auto-generated method stub
       return "LANGUAGE: "+this.getLanguageName();
   }
 }

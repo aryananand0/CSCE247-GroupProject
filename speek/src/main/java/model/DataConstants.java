@@ -19,4 +19,13 @@ public abstract class DataConstants {
     protected static final String LEADERBOARD_USER_FIRST_NAME= "firstName";
     protected static final String LEADERBOARD_USER_LAST_NAME= "lastName";
     protected static final String LEADERBOARD_USER_SCORE= "score";
+    protected static final String ACHIEVEMENTS= "achievements";
+    protected static final String ACHIEVEMENTS_TITLE= "title";
+    protected static final String ACHIEVEMENTS_DESCRIPTION= "description";
+    protected static final String ACHIEVEMENTS_REWARD_POINTS= "rewardPoints";
+
+
+
+
+
 }
