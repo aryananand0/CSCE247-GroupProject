@@ -17,15 +17,23 @@ public class Leaderboard {
         score = 0.0;
     }
 
-    public Leaderboard(String user, double score){
-     //Need to be implemented
+    public Leaderboard(ArrayList<User> users) {
+        this.users = users;
+    }
 
+    public ArrayList<User> getUser(){
+        return this.users;
     }
 
     // Methods
     public ArrayList<User> displayLeaderboard() {
         // (implement logic later)
-        return scoreboard;
+        return this.scoreboard;
     }
 
+    public ArrayList<User> displayUsers() {
+        return this.users;
+    }
+
+    // Add additional methods or logic as necessary
 }

@@ -1,135 +1,189 @@
 package model;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 
-public class DataLoader {
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
-    private static final String USER_FILE = "json\\User.json";  // Path to users JSON-like file
-    private static final String COURSE_FILE = "json\\Course.json";  // Path to courses JSON-like file
-    private static final String ACHIEVEMENT_FILE = "json\\Achievement.json";
-    private static final String LANGUAGE_FILE = "json\\Language.json";
-    private static final String LEADERBOARD_FILE = "json\\Leaderboard.json";
+public class DataLoader extends DataConstants {
 
-    // Method to load users from the file
     public static ArrayList<User> loadUsers() {
         ArrayList<User> users = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(USER_FILE))) {
-            String line;
-            User user = null;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                if (line.startsWith("\"firstName\":")) {
-                    String firstName = extractValue(line);
-                    user = new User();
-                    user.setFirstName(firstName);
-                } else if (line.startsWith("\"lastName\":")) {
-                    String lastName = extractValue(line);
-                    user.setLastName(lastName);
-                } else if (line.startsWith("\"email\":")) {
-                    String email = extractValue(line);
-                    user.setEmail(email);
-                } else if (line.startsWith("\"password\":")) {
-                    String password = extractValue(line);
-                    user.setPassword(password);
-                } else if (line.startsWith("\"progress\":")) {
-                    double progress = Double.parseDouble(extractValue(line));
-                    user.setProgress(progress);
-                } else if (line.startsWith("\"score\":")) {
-                    double score = Double.parseDouble(extractValue(line));
-                    user.setScore(score);
-                } else if (line.startsWith("\"dailyReminder\":")) {
-                    boolean dailyReminder = Boolean.parseBoolean(extractValue(line));
-                    user.setDailyReminder(dailyReminder);
-                } else if (line.startsWith("\"favoriteLanguages\":")) {
-                    ArrayList<Language> favoriteLanguages = new ArrayList<>();
-                    // Parsing favorite languages manually
-                    while (!(line = reader.readLine().trim()).startsWith("]")) {
-                        String language = line.replace("\"", "").replace(",", "").trim();
-                        if (!language.isEmpty()) {
-                            favoriteLanguages.add(new Language(language));
-                        }
-                    }
-                    user.setFavoriteLanguages(favoriteLanguages);
-                } else if (line.startsWith("\"currentCourses\":")) {
-                    ArrayList<Course> currentCourses = new ArrayList<>();
-                    // Parsing current courses manually
-                    while (!(line = reader.readLine().trim()).startsWith("]")) {
-                        if (line.startsWith("{")) {
-                            String courseName = null;
-                            double courseProgress = 0;
-                            while (!(line = reader.readLine().trim()).startsWith("}")) {
-                                if (line.startsWith("\"courseName\":")) {
-                                    courseName = extractValue(line);
-                                } else if (line.startsWith("\"progress\":")) {
-                                    courseProgress = Double.parseDouble(extractValue(line));
-                                }
-                            }
-                            currentCourses.add(new Course(courseName, "unknown"));  // Default difficulty
-                        }
-                    }
-                    user.setCurrentCourses(currentCourses);
-                } else if (line.startsWith("},")) {  // End of user object
-                    users.add(user);
+        try {
+            FileReader reader = new FileReader(USER_FILE);
+            JSONArray userJSON = (JSONArray) new JSONParser().parse(reader);
+
+            for (int i = 0; i < userJSON.size(); i++) {
+                JSONObject usersJSON = (JSONObject) userJSON.get(i);
+                String firstName = (String) usersJSON.get(USER_FIRST_NAME);
+                String lastName = (String) usersJSON.get(USER_LAST_NAME);
+                String email = (String) usersJSON.get(USER_EMAIL);
+
+                // Create a new User object
+                User user = new User(firstName, lastName, email);
+
+                // Load achievements
+                JSONArray achievementsJSON = (JSONArray) usersJSON.get("achievements");
+                ArrayList<Achievements> achievements = new ArrayList<>();
+                for (int j = 0; j < achievementsJSON.size(); j++) {
+                    JSONObject achievementJSON = (JSONObject) achievementsJSON.get(j);
+                    String title = (String) achievementJSON.get("title");
+                    String description = (String) achievementJSON.get("description");
+                    int rewardPoints = ((Long) achievementJSON.get("rewardPoints")).intValue();
+
+                    // Add achievement to the list
+                    achievements.add(new Achievements(title, description, rewardPoints));
                 }
+
+                // Add achievements to the user
+                user.setAchievements(achievements);
+
+                // Add the user to the users list
+                users.add(user);
             }
-        } catch (IOException e) {
+            return users;
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return users;
+        return null;
     }
 
-    // Method to load courses from the file
     public static ArrayList<Course> loadCourses() {
         ArrayList<Course> courses = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(COURSE_FILE))) {
-            String line;
-            Course course = null;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                if (line.startsWith("\"courseName\":")) {
-                    String courseName = extractValue(line);
-                    course = new Course(courseName, "unknown");  // Default difficulty
-                } else if (line.startsWith("\"difficulty\":")) {
-                    String difficulty = extractValue(line);
-                    course.setDifficulty(difficulty);
-                } else if (line.startsWith("\"courseCompletion\":")) {
-                    double courseCompletion = Double.parseDouble(extractValue(line));
-                    course.setCourseCompletion(courseCompletion);
-                } else if (line.startsWith("\"lessons\":")) {
-                    ArrayList<Lesson> lessons = new ArrayList<>();
-                    // Parsing lessons manually
-                    while (!(line = reader.readLine().trim()).startsWith("]")) {
-                        if (line.startsWith("{")) {
-                            String lessonTitle = null;
-                            String content = null;
-                            while (!(line = reader.readLine().trim()).startsWith("}")) {
-                                if (line.startsWith("\"lessonTitle\":")) {
-                                    lessonTitle = extractValue(line);
-                                } else if (line.startsWith("\"content\":")) {
-                                    content = extractValue(line);
-                                }
-                            }
-                            lessons.add(new Lesson(lessonTitle, content, null));  // No quiz initially
-                        }
-                    }
-                    course.setLessons(lessons);
-                } else if (line.startsWith("},")) {  // End of course object
-                    courses.add(course);
-                }
+        try {
+            FileReader reader = new FileReader(COURSE_FILE);
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+            JSONArray courseJSONArray = (JSONArray) jsonObject.get(COURSE);
+
+            for (Object courseObj : courseJSONArray) {
+                JSONObject courseJSONObject = (JSONObject) courseObj;
+                String courseName = (String) courseJSONObject.get(COURSE_NAME);
+                String difficulty = (String) courseJSONObject.get(COURSE_DIFFICULTY);
+
+                courses.add(new Course(courseName, difficulty));
             }
-        } catch (IOException e) {
+
+            return courses;
+
+        } catch (Exception e) {
+            e.printStackTrace();  
+        }
+
+        return courses; 
+    }
+
+    public static ArrayList<Language> loadLanguages() {
+        ArrayList<Language> languages = new ArrayList<Language>();
+
+        try {
+            FileReader reader = new FileReader(LANGUAGE_FILE);
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+            JSONArray languageJsonArray = (JSONArray) jsonObject.get(LANGUAGES);
+            for (Object languageObject : languageJsonArray) {
+                JSONObject languageJsonObject = (JSONObject) languageObject;
+                String LanguageName =  (String) languageJsonObject.get(LANGUAGE_NAME);
+                languages.add(new Language(LanguageName));   
+            }
+            return languages;
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return courses;
+        return null;
     }
+
+    public static Leaderboard loadLeaderboard() {
+        ArrayList<User> users = new ArrayList<User>();
+        Leaderboard leader = new Leaderboard();
+    
+        try {
+            FileReader reader = new FileReader(LEADERBOARD_FILE);
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+            JSONArray leaderboardJsonArray = (JSONArray) jsonObject.get(LEADERBOARD);
+    
+            for (Object leaderboardObject : leaderboardJsonArray) {
+                JSONObject leaderboardJsonObject = (JSONObject) leaderboardObject;
+    
+                JSONObject userJsonObject = (JSONObject) leaderboardJsonObject.get(LEADERBOARD_USER);
+    
+                String firstName = (String) userJsonObject.get(LEADERBOARD_USER_FIRST_NAME);
+                String lastName = (String) userJsonObject.get(LEADERBOARD_USER_LAST_NAME);
+                
+                Number score = (Number) userJsonObject.get(LEADERBOARD_USER_SCORE);
+                double points = score.doubleValue();  
+    
+                users.add(new User(firstName, lastName, points));
+            }
+    
+            Collections.sort(users, new Comparator<User>() {
+                @Override
+                public int compare(User u1, User u2) {
+                    return Double.compare(u2.getScore(), u1.getScore());  
+                }
+            });
+    
+            leader = new Leaderboard(users);
+            return leader;
+    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return leader;  
+    }
+
+    public static ArrayList<Achievements> loadAchievements() {
+        ArrayList<Achievements> achievements = new ArrayList<>();
+
+        try {
+            FileReader reader = new FileReader(USER_FILE);
+            JSONParser parser = new JSONParser();
+            JSONArray usersArray = (JSONArray) parser.parse(reader);  // This should be a JSONArray
+           
+            // Iterate through each user in the users array
+            for (Object userObject : usersArray) {
+                JSONObject userJSONObject = (JSONObject) userObject;
+
+                // Now, get the 'achievements' array for each user
+                JSONArray achievementsJSON = (JSONArray) userJSONObject.get(ACHIEVEMENTS);
+                if (achievementsJSON != null) {
+                    for (Object achievementObject : achievementsJSON) {
+                        JSONObject achievementJSONObject = (JSONObject) achievementObject;
+
+                        String title = (String) achievementJSONObject.get(ACHIEVEMENTS_TITLE);
+                        String description = (String) achievementJSONObject.get(ACHIEVEMENTS_DESCRIPTION);
+
+                        // Reward points are likely a Long in the JSON, so cast accordingly
+                        Long rewardPointsLong = (Long) achievementJSONObject.get(ACHIEVEMENTS_REWARD_POINTS);
+                        int rewardPoints = rewardPointsLong.intValue();  // Convert to int
+
+                        achievements.add(new Achievements(title, description, rewardPoints));
+                    }
+                }
+            }
+
+            return achievements;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+}
+
+
+/*
+ * 
 
     // Method to load user progress for each course from file (placeholder implementation)
     public static HashMap<Course, Double> loadUserProgress(User user) {
@@ -145,122 +199,5 @@ public class DataLoader {
         }
         return progressMap;
     }
-    
-    public static ArrayList<Achievements> loadAchievements() {
-        ArrayList<Achievements> achievements = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(ACHIEVEMENT_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                if (line.startsWith("{")) {
-                    String title = null;
-                    String description = null;
-                    int rewardPoints = 0;
-
-                    while (!(line = reader.readLine().trim()).startsWith("}")) {
-                        if (line.startsWith("\"title\":")) {
-                            title = extractValue(line);
-                        } else if (line.startsWith("\"description\":")) {
-                            description = extractValue(line);
-                        } else if (line.startsWith("\"rewardPoints\":")) {
-                            rewardPoints = Integer.parseInt(extractValue(line));
-                        }
-                    }
-                    achievements.add(new Achievements(title, description, rewardPoints));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return achievements;
-    }
-
-    public static ArrayList<Language> loadLanguages() {
-        ArrayList<Language> languages = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(LANGUAGE_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                if (line.startsWith("{")) {
-                    String name = null;
-                    ArrayList<Course> courses = new ArrayList<>();
-                    ArrayList<Flashcard> flashcards = new ArrayList<>();
-
-                    while (!(line = reader.readLine().trim()).startsWith("}")) {
-                        if (line.startsWith("\"name\":")) {
-                            name = extractValue(line);
-                        } else if (line.startsWith("\"courses\":")) {
-                            while (!(line = reader.readLine().trim()).startsWith("]")) {
-                                String courseName = line.replace("\"", "").replace(",", "").trim();
-                                courses.add(new Course(courseName, "unknown"));  // Default difficulty
-                            }
-                        } else if (line.startsWith("\"flashcards\":")) {
-                            while (!(line = reader.readLine().trim()).startsWith("]")) {
-                                String word = null;
-                                String translation = null;
-                                if (line.startsWith("{")) {
-                                    while (!(line = reader.readLine().trim()).startsWith("}")) {
-                                        if (line.startsWith("\"word\":")) {
-                                            word = extractValue(line);
-                                        } else if (line.startsWith("\"translation\":")) {
-                                            translation = extractValue(line);
-                                        }
-                                    }
-                                    flashcards.add(new Flashcard(word, translation));
-                                }
-                            }
-                        }
-                    }
-                    Language language = new Language(name);
-                    language.setCourses(courses);
-                    language.setFlashcards(flashcards);
-                    languages.add(language);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return languages;
-    }
-
-
-    public static ArrayList<Leaderboard> loadLeaderboard() {
-        ArrayList<Leaderboard> leaderboard = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(LEADERBOARD_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                if (line.startsWith("{")) {
-                    String user = null;
-                    double score = 0;
-
-                    while (!(line = reader.readLine().trim()).startsWith("}")) {
-                        if (line.startsWith("\"user\":")) {
-                            user = extractValue(line);
-                        } else if (line.startsWith("\"score\":")) {
-                            score = Double.parseDouble(extractValue(line));
-                        }
-                    }
-                    leaderboard.add(new Leaderboard(user, score));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return leaderboard;
-    }
-
-    // Helper method to extract the value from a line like: "key": "value"
-private static String extractValue(String line) {
-    return line.split(":")[1].replace("\"", "").replace(",", "").trim();
-}
-
-}
-
+ */
 

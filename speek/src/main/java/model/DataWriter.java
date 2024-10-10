@@ -4,18 +4,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
-public class DataWriter {
 
+public class DataWriter extends DataConstants {
     
-    private static final String COURSE_FILE = "Course.json";
-
-    
-    public DataWriter() {
+    public static void saveUsers(UserList users) {
         
     }
 
-    
     public static void saveCourses(CourseList courses) {
         
     }

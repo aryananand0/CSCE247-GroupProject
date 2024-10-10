@@ -47,7 +47,31 @@ public class User {
         this.achievements = new ArrayList<>();
         this.progressPerUser = new HashMap<>();
     }
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 
+    public User(String firstName, String lastName, String email, double score) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.score = score;
+    }
+
+    public User(String firstName, String lastName, double score) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.score = score;
+    }
+
+
+
+    
+    public String PrintLeaderboard(){
+        return "NAME: "+this.getFirstName()+" "+this.getLastName()+" | SCORE: "+this.getScore();
+    }
     // Method to login
     public boolean login(String email, String password) {
         return this.email.equals(email) && this.password.equals(password);
@@ -178,6 +202,20 @@ public class User {
 
     public void setProgressPerUser(HashMap<Course, Double> progressPerUser) {
         this.progressPerUser = progressPerUser;
+    }
+
+
+    public String printLeaderboard() {
+        String rv = "";
+        rv = (this.getFirstName() + " " + this.getLastName() + "| " + this.getScore() + ".");
+        return rv;
+    }
+
+
+    @Override
+    public String toString() {
+        
+        return "NAME: "+this.getFirstName()+" "+this.getLastName()+" | EMAIL: "+this.getEmail();
     }
 }
 

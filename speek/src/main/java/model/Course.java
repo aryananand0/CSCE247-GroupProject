@@ -29,10 +29,17 @@ public class Course {
     public void setLessons(ArrayList<Lesson> lessons) {
       this.lessons = lessons;
   }
-
     // Setter for courseName
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+    public String displayCourseDetails() {
+        String rv = "";
+        return rv;
+    }
+    
+    public void completeCourse() {
+    // TODO: IMPLEMENT
     }
 
     // Getter for difficulty
@@ -53,6 +60,11 @@ public class Course {
     // Setter for courseCompletion
     public void setCourseCompletion(double courseCompletion) {
         this.courseCompletion = courseCompletion;
+    }
+    // To test the DataLoader
+    @Override
+    public String toString() {
+        return "Course Name: " + courseName + " | Difficulty: " + difficulty;
     }
 
 }

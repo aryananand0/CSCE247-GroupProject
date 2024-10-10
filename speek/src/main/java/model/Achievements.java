@@ -1,34 +1,47 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Achievements {
 
     // Attributes
     private String title;
-    private ArrayList<String> achievements;
-    private double rewardPoints;
     private String description;
+    private int rewardPoints;
 
     // Constructor
-    public Achievements(String title, String description, double rewardPoints) {
+    public Achievements(String title, String description, int rewardPoints) {
         this.title = title;
-        this.achievements = new ArrayList<>();
         this.description = description;
         this.rewardPoints = rewardPoints;
     }
 
-    // Method to notify achievement 
-    public String notifyAchievement() {
-        // Return a notification message 
-        return "Achievement unlocked: " + title;
+    // Getters and Setters
+    public String getTitle() {
+        return title;
     }
 
-    // Method to log achievements 
-    public void achievementLog(ArrayList<String> achievements) {
-        // Log achievements, needs to be implemented
-        this.achievements.addAll(achievements);
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getRewardPoints() {
+        return rewardPoints;
+    }
+
+    public void setRewardPoints(int rewardPoints) {
+        this.rewardPoints = rewardPoints;
+    }
+
+    // toString() method to display achievement details
+    @Override
+    public String toString() {
+        return "Achievement Title: " + title + " | Description: " + description + " | Reward Points: " + rewardPoints;
+    }
 }
