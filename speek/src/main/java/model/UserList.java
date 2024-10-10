@@ -11,6 +11,19 @@ public class UserList {
         users = new ArrayList<>();
     }
 
+    public boolean removeUser(String userID) {
+        
+        for(User user : users) {
+            
+            if(user.getFirstName().equalsIgnoreCase(userID)) {
+                users.remove(user);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
     // Methods, need to be implemented
     public static UserList getInstance() {
         if (userList == null) {
