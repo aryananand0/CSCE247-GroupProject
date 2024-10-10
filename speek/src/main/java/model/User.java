@@ -49,6 +49,7 @@ public class User {
     // Default Constructor
     public User() {
         this.userId = UUID.randomUUID();  // Automatically generate a UUID
+        this.userName = "";
         this.firstName = "";
         this.lastName = "";
         this.email = "";
@@ -62,7 +63,7 @@ public class User {
         this.progressPerUser = new HashMap<>();
     }
 
-    // Constructor for leaderboard purposes (without password)
+    // Constructor for leaderboard purposes 
     public User(UUID uuid,String userName, String firstName, String lastName, double score) {
         this.userId = uuid;  
         this.userName =  userName;
@@ -71,9 +72,10 @@ public class User {
         this.score = score;
     }
 
-    public User(String firstName, String lastName, String email) {
+    public User(String username,String firstName, String lastName, String email) {
         this.userId = UUID.randomUUID();
         this.firstName = firstName;
+        this.userName = username;
         this.lastName = lastName;
         this.email = email;
         this.password = "";  // Default password or can leave empty
@@ -84,14 +86,6 @@ public class User {
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
         this.progressPerUser = new HashMap<>();
-    }
-
-    // Constructor for leaderboard purposes (without email and password)
-    public User(String firstName, String lastName, double score) {
-        this.userId = UUID.randomUUID();  // Automatically generate a UUID
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.score = score;
     }
 
     // Method to login
