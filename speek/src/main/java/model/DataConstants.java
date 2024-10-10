@@ -40,10 +40,11 @@ public abstract class DataConstants {
     protected static final String FLASHCARD_TRANSLATION = "translation";
 
     // Achievement fields
+    protected static final String ACHIEVEMENTS = "achievements";
     protected static final String ACHIEVEMENT_ID = "achievementId";
-    protected static final String ACHIEVEMENT_TITLE = "title";
-    protected static final String ACHIEVEMENT_DESCRIPTION = "description";
-    protected static final String ACHIEVEMENT_REWARD_POINTS = "rewardPoints";
+    protected static final String ACHIEVEMENTS_TITLE = "title";
+    protected static final String ACHIEVEMENTS_DESCRIPTION = "description";
+    protected static final String ACHIEVEMENTS_REWARD_POINTS = "rewardPoints";
 
     // Leaderboard fields
     protected static final String LEADERBOARD = "leaderboard";

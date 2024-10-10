@@ -61,7 +61,7 @@ public class DataLoader extends DataConstants {
             FileReader reader = new FileReader(COURSE_FILE);
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
-            JSONArray courseJSONArray = (JSONArray) jsonObject.get(COURSE);
+            JSONArray courseJSONArray = (JSONArray) jsonObject.get(COURSES);
 
             for (Object courseObj : courseJSONArray) {
                 JSONObject courseJSONObject = (JSONObject) courseObj;

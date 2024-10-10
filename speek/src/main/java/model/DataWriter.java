@@ -44,9 +44,9 @@ public class DataWriter extends DataConstants {
             for (Achievements achievement : user.getAchievements()) {
                 JSONObject achievementDetails = new JSONObject();
                 achievementDetails.put(ACHIEVEMENT_ID, achievement.getAchievementId());
-                achievementDetails.put(ACHIEVEMENT_TITLE, achievement.getTitle());
-                achievementDetails.put(ACHIEVEMENT_DESCRIPTION, achievement.getDescription());
-                achievementDetails.put(ACHIEVEMENT_REWARD_POINTS, achievement.getRewardPoints());
+                achievementDetails.put(ACHIEVEMENTS_TITLE, achievement.getTitle());
+                achievementDetails.put(ACHIEVEMENTS_DESCRIPTION, achievement.getDescription());
+                achievementDetails.put(ACHIEVEMENTS_REWARD_POINTS, achievement.getRewardPoints());
                 achievementsArray.add(achievementDetails);
             }
             userDetails.put(USER_ACHIEVEMENTS, achievementsArray);
