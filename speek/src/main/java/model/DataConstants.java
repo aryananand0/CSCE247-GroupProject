@@ -21,6 +21,8 @@ public abstract class DataConstants {
     protected static final String USER_FAVORITE_LANGUAGES = "favoriteLanguages";
     protected static final String USER_CURRENT_COURSES = "currentCourses";
     protected static final String USER_ACHIEVEMENTS = "achievements";
+    protected static final String USER_UUID = "userId";
+    protected static final String USER_USER_NAME = "userName";
 
     // Course fields
     protected static final String COURSE_ID = "courseId";
@@ -54,4 +56,6 @@ public abstract class DataConstants {
     protected static final String LEADERBOARD_USER_FIRST_NAME = "firstName";
     protected static final String LEADERBOARD_USER_LAST_NAME = "lastName";
     protected static final String LEADERBOARD_USER_SCORE = "score";
+    protected static final String LEADERBOARD_USER_NAME = "userName";
+    protected static final String LEADERBOARD_USER_UUID = "userId";
 }

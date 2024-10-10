@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.UUID;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,9 +24,10 @@ public class DataLoader extends DataConstants {
                 String firstName = (String) usersJSON.get(USER_FIRST_NAME);
                 String lastName = (String) usersJSON.get(USER_LAST_NAME);
                 String email = (String) usersJSON.get(USER_EMAIL);
-
+                UUID uuid = UUID.fromString((String) usersJSON.get(USER_UUID));
+                String userName = (String) usersJSON.get(USER_USER_NAME);
                 // Create a new User object
-                User user = new User(firstName, lastName, email);
+                User user = new User(uuid,userName,firstName, lastName, email);
 
                 // Load achievements
                 JSONArray achievementsJSON = (JSONArray) usersJSON.get("achievements");
@@ -159,8 +161,10 @@ public class DataLoader extends DataConstants {
                 
                 Number score = (Number) userJsonObject.get(LEADERBOARD_USER_SCORE);
                 double points = score.doubleValue();  
+                UUID uuid = UUID.fromString((String) userJsonObject.get(LEADERBOARD_USER_UUID));
+                String userName = (String) userJsonObject.get(LEADERBOARD_USER_NAME);
     
-                users.add(new User(firstName, lastName, points));
+                users.add(new User(uuid,userName,firstName, lastName, points));
             }
     
             Collections.sort(users, new Comparator<User>() {

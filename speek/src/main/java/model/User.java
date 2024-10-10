@@ -8,6 +8,7 @@ public class User {
 
     // Attributes
     private UUID userId;  // Unique identifier for the user
+    private String userName;
     private String firstName;
     private String lastName;
     private String email;
@@ -21,8 +22,9 @@ public class User {
     private HashMap<Course, Double> progressPerUser;
 
     // Constructor with parameters
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String userName, String firstName, String lastName, String email, String password) {
         this.userId = UUID.randomUUID();  // Automatically generate a UUID
+        this.userName =  userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -34,6 +36,14 @@ public class User {
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
         this.progressPerUser = new HashMap<>();
+    }
+    // This is for existing users in DataLoader
+    public User(UUID uuid, String userName, String firstName, String lastName, String email) {
+        this.userId = uuid;  
+        this.userName =  userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     // Default Constructor
@@ -53,11 +63,11 @@ public class User {
     }
 
     // Constructor for leaderboard purposes (without password)
-    public User(String firstName, String lastName, String email, double score) {
-        this.userId = UUID.randomUUID();  // Automatically generate a UUID
+    public User(UUID uuid,String userName, String firstName, String lastName, double score) {
+        this.userId = uuid;  
+        this.userName =  userName;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
         this.score = score;
     }
 
@@ -224,15 +234,18 @@ public class User {
     public void setProgressPerUser(HashMap<Course, Double> progressPerUser) {
         this.progressPerUser = progressPerUser;
     }
+    public String getUserName(){
+        return this.userName;
+    }
 
     // Leaderboard printing method
     public String PrintLeaderboard() {
-        return "NAME: " + this.getFirstName() + " " + this.getLastName() + " | SCORE: " + this.getScore();
+        return "USERNAME: "+this.getUserName()+" | NAME: " + this.getFirstName() + " " + this.getLastName() + " | SCORE: " + this.getScore();
     }
 
     // Overriding toString() method to display user details
     @Override
     public String toString() {
-        return "NAME: " + this.getFirstName() + " " + this.getLastName() + " | EMAIL: " + this.getEmail();
+        return "USERNAME: "+this.getUserName()+" | NAME: "  + this.getFirstName() + " " + this.getLastName() + " | EMAIL: " + this.getEmail();
     }
 }
