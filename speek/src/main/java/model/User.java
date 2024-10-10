@@ -2,10 +2,12 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class User {
 
     // Attributes
+    private UUID userId;  // Unique identifier for the user
     private String firstName;
     private String lastName;
     private String email;
@@ -20,6 +22,7 @@ public class User {
 
     // Constructor with parameters
     public User(String firstName, String lastName, String email, String password) {
+        this.userId = UUID.randomUUID();  // Automatically generate a UUID
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -35,6 +38,7 @@ public class User {
 
     // Default Constructor
     public User() {
+        this.userId = UUID.randomUUID();  // Automatically generate a UUID
         this.firstName = "";
         this.lastName = "";
         this.email = "";
@@ -47,31 +51,39 @@ public class User {
         this.achievements = new ArrayList<>();
         this.progressPerUser = new HashMap<>();
     }
-    public User(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
 
+    // Constructor for leaderboard purposes (without password)
     public User(String firstName, String lastName, String email, double score) {
+        this.userId = UUID.randomUUID();  // Automatically generate a UUID
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.score = score;
     }
 
+    public User(String firstName, String lastName, String email) {
+        this.userId = UUID.randomUUID();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = "";  // Default password or can leave empty
+        this.progress = 0.0;
+        this.score = 0.0;
+        this.dailyReminder = false;
+        this.favoriteLanguages = new ArrayList<>();
+        this.currentCourses = new ArrayList<>();
+        this.achievements = new ArrayList<>();
+        this.progressPerUser = new HashMap<>();
+    }
+
+    // Constructor for leaderboard purposes (without email and password)
     public User(String firstName, String lastName, double score) {
+        this.userId = UUID.randomUUID();  // Automatically generate a UUID
         this.firstName = firstName;
         this.lastName = lastName;
         this.score = score;
     }
 
-
-
-    
-    public String PrintLeaderboard(){
-        return "NAME: "+this.getFirstName()+" "+this.getLastName()+" | SCORE: "+this.getScore();
-    }
     // Method to login
     public boolean login(String email, String password) {
         return this.email.equals(email) && this.password.equals(password);
@@ -123,7 +135,16 @@ public class User {
         progressPerUser.put(course, completion);
     }
 
-    // Getters and Setters
+    // Getters and Setters for userId
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
+    // Getters and Setters for other attributes
     public String getFirstName() {
         return firstName;
     }
@@ -204,18 +225,14 @@ public class User {
         this.progressPerUser = progressPerUser;
     }
 
-
-    public String printLeaderboard() {
-        String rv = "";
-        rv = (this.getFirstName() + " " + this.getLastName() + "| " + this.getScore() + ".");
-        return rv;
+    // Leaderboard printing method
+    public String PrintLeaderboard() {
+        return "NAME: " + this.getFirstName() + " " + this.getLastName() + " | SCORE: " + this.getScore();
     }
 
-
+    // Overriding toString() method to display user details
     @Override
     public String toString() {
-        
-        return "NAME: "+this.getFirstName()+" "+this.getLastName()+" | EMAIL: "+this.getEmail();
+        return "NAME: " + this.getFirstName() + " " + this.getLastName() + " | EMAIL: " + this.getEmail();
     }
 }
-

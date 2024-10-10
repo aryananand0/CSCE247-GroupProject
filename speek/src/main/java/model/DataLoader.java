@@ -182,22 +182,3 @@ public class DataLoader extends DataConstants {
 }
 
 
-/*
- * 
-
-    // Method to load user progress for each course from file (placeholder implementation)
-    public static HashMap<Course, Double> loadUserProgress(User user) {
-        HashMap<Course, Double> progressMap = new HashMap<>();
-        // Simplified: Assuming courses are loaded and we match progress by course name
-        ArrayList<Course> courses = loadCourses();
-        for (Course course : courses) {
-            for (Course userCourse : user.getCurrentCourses()) {
-                if (course.getCourseName().equals(userCourse.getCourseName())) {
-                    progressMap.put(course, course.getCourseCompletion());
-                }
-            }
-        }
-        return progressMap;
-    }
- */
-
