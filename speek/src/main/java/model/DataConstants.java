@@ -32,7 +32,7 @@ public abstract class DataConstants {
 
     // Language fields
     protected static final String LANGUAGES = "languages";
-    protected static final String LANGUAGE_NAME = "languageName";
+    protected static final String LANGUAGE_NAME = "name";
     protected static final String LANGUAGE_COURSES = "courses";
     protected static final String LANGUAGE_FLASHCARDS = "flashcards";
 
