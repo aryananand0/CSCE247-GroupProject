@@ -4,23 +4,27 @@ import java.util.ArrayList;
 
 public class LearningAppFacade {
     // Attributes
-    private ArrayList<User> users;
-    private ArrayList<Course> courses;
-    private User currentUser;
+    // private ArrayList<User> users;
+    // private ArrayList<Course> courses;
+    // private User currentUser;
+    private UserList user;
+    private CourseList course;
 
     // Constructor
     public LearningAppFacade() {
-        users = new ArrayList<>();
-        courses = new ArrayList<>();
-        currentUser = null;
+        user = UserList.getInstance();
+        course = CourseList.getInstance();
     }
 
     // Methods
 
     // Registers a new user with email and password, returns the created User object
-    public User registerUser(String email, String password) {
-        // Method stub
-        return null;  // Placeholder return
+    public boolean registerUser(String username, String firstName, String lastName,String email, String password) {
+        if(!user.haveUser(username)){
+            return user.addUser(username, firstName, lastName, email, password);
+        }
+
+        return false;  
     }
 
     // Logs in a user with email and password, returns the User object if successful
