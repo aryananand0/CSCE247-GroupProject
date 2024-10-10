@@ -25,7 +25,6 @@ public class ShortAnswer implements QuestionType{
 
     @Override
     public String toString() {
-        // Needs to be implemented
         return this.getQuestion()+":";
     }
 
