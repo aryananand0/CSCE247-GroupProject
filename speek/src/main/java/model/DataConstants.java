@@ -28,6 +28,7 @@ public abstract class DataConstants {
     protected static final String COURSE_DIFFICULTY = "difficulty";
     protected static final String COURSE_PROGRESS = "progress";
     protected static final String COURSES = "courses";
+    protected static final String COURSE_COMPLETION = "courseCompletion";
 
     // Language fields
     protected static final String LANGUAGES = "languages";
@@ -36,6 +37,7 @@ public abstract class DataConstants {
     protected static final String LANGUAGE_FLASHCARDS = "flashcards";
 
     // Flashcard fields
+    protected static final String FLASHCARDS = "flashcards";
     protected static final String FLASHCARD_WORD = "word";
     protected static final String FLASHCARD_TRANSLATION = "translation";
 

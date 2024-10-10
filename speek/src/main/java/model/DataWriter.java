@@ -3,12 +3,14 @@ package model;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class DataWriter extends DataConstants {
 
     // Method to write users to the JSON file
+    @SuppressWarnings("unchecked")
     public static void saveUsers(ArrayList<User> users) {
         JSONArray userArray = new JSONArray();
 
@@ -63,6 +65,7 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to write courses to the JSON file
+    @SuppressWarnings("unchecked")
     public static void saveCourses(ArrayList<Course> courses) {
         JSONArray courseArray = new JSONArray();
 
@@ -83,6 +86,7 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to write languages to the JSON file
+    @SuppressWarnings("unchecked")
     public static void saveLanguages(ArrayList<Language> languages) {
         JSONArray languageArray = new JSONArray();
 
@@ -119,15 +123,16 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to write achievements to the JSON file
-    public static void saveAchievements(ArrayList<Achievement> achievements) {
+    @SuppressWarnings("unchecked")
+    public static void saveAchievements(ArrayList<Achievements> achievements) {
         JSONArray achievementArray = new JSONArray();
 
-        for (Achievement achievement : achievements) {
+        for (Achievements achievement : achievements) {
             JSONObject achievementDetails = new JSONObject();
             achievementDetails.put(ACHIEVEMENT_ID, achievement.getAchievementId());
-            achievementDetails.put(ACHIEVEMENT_TITLE, achievement.getTitle());
-            achievementDetails.put(ACHIEVEMENT_DESCRIPTION, achievement.getDescription());
-            achievementDetails.put(ACHIEVEMENT_REWARD_POINTS, achievement.getRewardPoints());
+            achievementDetails.put(ACHIEVEMENTS_TITLE, achievement.getTitle());
+            achievementDetails.put(ACHIEVEMENTS_DESCRIPTION, achievement.getDescription());
+            achievementDetails.put(ACHIEVEMENTS_REWARD_POINTS, achievement.getRewardPoints());
 
             achievementArray.add(achievementDetails);
         }
@@ -141,13 +146,14 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to write leaderboard to the JSON file
+    @SuppressWarnings("unchecked")
     public static void saveLeaderboard(Leaderboard leaderboard) {
         JSONArray leaderboardArray = new JSONArray();
 
-        for (User user : leaderboard.getUsers()) {
+        for (User user : leaderboard.getUser()) {
             JSONObject leaderboardDetails = new JSONObject();
-            leaderboardDetails.put(USER_NAME, user.getFirstName() + " " + user.getLastName());
-            leaderboardDetails.put(LEADERBOARD_SCORE, user.getScore());
+            leaderboardDetails.put(LEADERBOARD_USER, user.getFirstName() + " " + user.getLastName());
+            leaderboardDetails.put(LEADERBOARD_USER_SCORE, user.getScore());
 
             leaderboardArray.add(leaderboardDetails);
         }

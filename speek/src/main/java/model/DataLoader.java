@@ -81,25 +81,63 @@ public class DataLoader extends DataConstants {
     }
 
     public static ArrayList<Language> loadLanguages() {
-        ArrayList<Language> languages = new ArrayList<Language>();
+        ArrayList<Language> languages = new ArrayList<>();
 
         try {
+            // Read the JSON file
             FileReader reader = new FileReader(LANGUAGE_FILE);
             JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(reader);
-            JSONArray languageJsonArray = (JSONArray) jsonObject.get(LANGUAGES);
-            for (Object languageObject : languageJsonArray) {
-                JSONObject languageJsonObject = (JSONObject) languageObject;
-                String LanguageName =  (String) languageJsonObject.get(LANGUAGE_NAME);
-                languages.add(new Language(LanguageName));   
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);  // Parse the root object
+
+            // Extract the languages array
+            JSONArray languageArray = (JSONArray) jsonObject.get(LANGUAGES);  // Get the "languages" array
+
+            // Iterate through each language
+            for (Object obj : languageArray) {
+                JSONObject languageJSON = (JSONObject) obj;
+                String languageName = (String) languageJSON.get(LANGUAGE_NAME);  // Extract language name
+                
+                // Create a new Language object
+                Language language = new Language(languageName);
+
+                // Load courses
+                JSONArray coursesArray = (JSONArray) languageJSON.get(COURSES);
+                for (Object courseObj : coursesArray) {
+                    JSONObject courseJSON = (JSONObject) courseObj;
+                    String courseName = (String) courseJSON.get(COURSE_NAME);
+                    String difficulty = (String) courseJSON.get(COURSE_DIFFICULTY);
+                    double courseCompletion = (Double) courseJSON.get(COURSE_COMPLETION);
+
+                    // Create a Course object and add it to the language
+                    Course course = new Course(courseName, difficulty, courseCompletion);
+                    language.getCourses().add(course);
+                }
+
+                // Load flashcards
+                JSONArray flashcardsArray = (JSONArray) languageJSON.get(FLASHCARDS);
+                for (Object flashcardObj : flashcardsArray) {
+                    JSONObject flashcardJSON = (JSONObject) flashcardObj;
+                    String word = (String) flashcardJSON.get(FLASHCARD_WORD);
+                    String translation = (String) flashcardJSON.get(FLASHCARD_TRANSLATION);
+
+                    // Create Flashcard object and add to language
+                    Flashcard flashcard = new Flashcard(word, translation);
+                    language.getFlashcards().add(flashcard);
+                }
+
+                // Add the language to the list
+                languages.add(language);
             }
+
             return languages;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return null;
+        return languages;
     }
+    
 
     public static Leaderboard loadLeaderboard() {
         ArrayList<User> users = new ArrayList<User>();

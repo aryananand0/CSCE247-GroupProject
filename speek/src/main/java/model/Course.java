@@ -20,6 +20,12 @@ public class Course {
         this.courseCompletion = 0.0;
     }
 
+    public Course(String courseName, String difficulty, double courseCompletion) {
+        this.courseName = courseName;
+        this.difficulty = difficulty;
+        this.courseCompletion = courseCompletion;
+    }
+
     // Getter for courseName
     public String getCourseName() {
         return courseName;

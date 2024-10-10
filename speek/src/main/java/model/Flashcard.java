@@ -14,6 +14,11 @@ public class Flashcard {
         this.pronunciationAudio = pronunciationAudio;
     }
 
+    public Flashcard(String word, String translation) {
+        this.word = word;
+        this.translation = translation;
+    }
+
     // Getter for word
     public String getWord() {
         return word;
