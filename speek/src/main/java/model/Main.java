@@ -1,6 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -80,5 +84,82 @@ public class Main {
         } else {
             System.out.println("No Achievements found.");
         }
+        System.out.println();
+        System.out.println("Loading Question class stuff...");
+        testingQuestionClass();
     }
+
+    public static void testingQuestionClass(){
+        // Initialize QuestionManager
+        QuestionManager qm = new QuestionManager();
+
+        // 1. Multiple Choice Question
+        List<String> mcOptions = Arrays.asList("Berlin", "London", "Paris", "Madrid");
+        Question mcq = new MultipleChoiceQuestion(
+                "What is the capital of France?",
+                mcOptions,
+                "Paris"
+        );
+
+        // 2. True/False Question
+        Question tfq = new TrueFalseQuestion(
+                "The sky is green.",
+                false
+        );
+
+        // 3. Short Answer Question
+        Question saq = new ShortAnswerQuestion(
+                "Translate 'Hello' to Spanish.",
+                "Hola"
+        );
+
+        // 4. Match Words Question
+        List<String> prompts = Arrays.asList("Apple", "Book", "Cat");
+        List<String> responses = Arrays.asList("Manzana", "Libro", "Gato");
+        Map<String, String> matches = new HashMap<>();
+        matches.put("Apple", "Manzana");
+        matches.put("Book", "Libro");
+        matches.put("Cat", "Gato");
+        MatchWordsQuestion mwq = new MatchWordsQuestion(
+                "Match the English words to their Spanish translations.",
+                prompts,
+                responses,
+                matches
+        );
+        // Add questions to the manager
+        qm.addQuestion(mcq);
+        qm.addQuestion(tfq);
+        qm.addQuestion(saq);
+        qm.addQuestion(mwq);
+
+        // Simulate user answers
+        // In a real application, these would come from user input
+
+        // Answering Multiple Choice Question
+        String userAnswerMCQ = "3"; // Selecting "Paris"
+        System.out.println(mcq.display());
+        System.out.println("Your answer: " + userAnswerMCQ);
+        System.out.println(qm.getAnswerText(mcq, userAnswerMCQ));
+
+        // Answering True/False Question
+        String userAnswerTFQ = "False";
+        System.out.println(tfq.display());
+        System.out.println("Your answer: " + userAnswerTFQ);
+        System.out.println(qm.getAnswerText(tfq, userAnswerTFQ));
+
+        // Answering Short Answer Question
+        String userAnswerSAQ = "Hola";
+        System.out.println(saq.display());
+        System.out.println("Your answer: " + userAnswerSAQ);
+        System.out.println(qm.getAnswerText(saq, userAnswerSAQ));
+
+        // Answering Match Words Question
+        String userAnswerMWQ = "1-1,2-2,3-3"; // Correct matching
+        System.out.println(mwq.display());
+        System.out.println("Your answer: " + userAnswerMWQ);
+        System.out.println(qm.getAnswerText(mwq, userAnswerMWQ));
+        // Display all questions (optional)
+        // qm.displayAllQuestions();
+    }
+    
 }
