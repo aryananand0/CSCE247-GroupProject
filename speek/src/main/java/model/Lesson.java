@@ -1,5 +1,5 @@
 package model;
-
+// GOT TO CHANGE RIGHT NOW TEMP
 public class Lesson {
 
     // Attributes

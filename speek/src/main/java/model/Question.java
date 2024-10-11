@@ -1,98 +1,51 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
-public class Question {
+public abstract class Question {
+    private final String id; 
+    private String text; 
 
-    // Attributes
-    private String questionText;
-    private QuestionType questionType;  // Enum or class to define question types (MultipleChoice, TrueFalse, ShortAnswer, etc.)
-    private ArrayList<String> options;  // For multiple-choice questions
-    private String correctAnswer;
-    private HashMap<User, String> userAnswers;  // Stores user answers to this question
-
-    // Constructor for basic questions (without options, like True/False or Short Answer)
-    public Question(String questionText, String correctAnswer, QuestionType questionType) {
-        this.questionText = questionText;
-        this.correctAnswer = correctAnswer;
-        this.questionType = questionType;
-        this.options = new ArrayList<>();
-        this.userAnswers = new HashMap<>();
+    /**
+     * Constructor to initialize the question.
+     *
+     * @param text The text of the question.
+     */
+    public Question(String text) {
+        this.id = java.util.UUID.randomUUID().toString();
+        this.text = text;
     }
 
-    // Constructor for multiple-choice questions
-    public Question(String questionText, ArrayList<String> options, String correctAnswer, QuestionType questionType) {
-        this.questionText = questionText;
-        this.options = options;
-        this.correctAnswer = correctAnswer;
-        this.questionType = questionType;
-        this.userAnswers = new HashMap<>();
-    }
+    /**
+     * Displays the question in a formatted manner.
+     *
+     * @return The formatted question string.
+     */
+    public abstract String display();
 
-    // Method to check if a user's answer is correct
-    public boolean checkAnswer(User user) {
-        String userAnswer = userAnswers.get(user);
-        return userAnswer != null && userAnswer.equalsIgnoreCase(correctAnswer);
-    }
-
-    // Method to display the question (includes options for multiple-choice questions)
-    public String displayQuestion() {
-        StringBuilder questionDisplay = new StringBuilder();
-        questionDisplay.append("Question: ").append(questionText).append("\n");
-
-        if (!options.isEmpty()) {
-            questionDisplay.append("Options:\n");
-            for (int i = 0; i < options.size(); i++) {
-                questionDisplay.append((i + 1) + ". " + options.get(i)).append("\n");
-            }
-        }
-        return questionDisplay.toString();
-    }
-
-    // Method to store a user's answer
-    public void storeUserAnswer(User user, String answer) {
-        userAnswers.put(user, answer);
-    }
+    /**
+     * Validates the user's answer.
+     *
+     * @param userAnswer The answer provided by the user.
+     * @return True if the answer is correct, false otherwise.
+     */
+    public abstract boolean validateAnswer(String userAnswer);
 
     // Getters and Setters
-    public String getQuestionText() {
-        return questionText;
+
+    public String getId() {
+        return id;
     }
 
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
+    public String getText() {
+        return text;
     }
 
-    public QuestionType getQuestionType() {
-        return questionType;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public void setQuestionType(QuestionType questionType) {
-        this.questionType = questionType;
-    }
-
-    public ArrayList<String> getOptions() {
-        return options;
-    }
-
-    public void setOptions(ArrayList<String> options) {
-        this.options = options;
-    }
-
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
-
-    public HashMap<User, String> getUserAnswers() {
-        return userAnswers;
-    }
-
-    public void setUserAnswers(HashMap<User, String> userAnswers) {
-        this.userAnswers = userAnswers;
+    @Override
+    public String toString() {
+        return "Question ID: " + id + "\n" + display();
     }
 }

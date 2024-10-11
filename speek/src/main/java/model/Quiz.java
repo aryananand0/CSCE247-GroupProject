@@ -1,5 +1,5 @@
 package model;
-
+// GOT TO CHANGE RIGHT NOW TEMP
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,7 +7,7 @@ public class Quiz {
 
     // Attributes
     private String quizName;
-    private ArrayList<Question> questions;
+    private ArrayList<Questions> questions;
     private String feedback;
 
     // Constructor
@@ -22,7 +22,7 @@ public class Quiz {
         int score = 0;
         Scanner scanner = new Scanner(System.in);
 
-        for (Question question : questions) {
+        for (Questions question : questions) {
             // Display question (handles multiple-choice options too)
             System.out.println(question.displayQuestion());
 
@@ -50,7 +50,7 @@ public class Quiz {
     }
 
     // Method to add a question to the quiz
-    public void addQuestion(Question question) {
+    public void addQuestion(Questions question) {
         questions.add(question);
     }
 
@@ -68,11 +68,11 @@ public class Quiz {
         this.quizName = quizName;
     }
 
-    public ArrayList<Question> getQuestions() {
+    public ArrayList<Questions> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(ArrayList<Question> questions) {
+    public void setQuestions(ArrayList<Questions> questions) {
         this.questions = questions;
     }
 }
