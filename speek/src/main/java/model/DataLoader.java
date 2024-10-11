@@ -221,6 +221,35 @@ public class DataLoader extends DataConstants {
 
         return null;
     }
+
+    public static User getUser(String usernameOrEmail, String password){
+        try {
+            FileReader reader = new FileReader(USER_FILE);
+            JSONArray userJSON = (JSONArray) new JSONParser().parse(reader);
+
+            for (int i = 0; i < userJSON.size(); i++) {
+                JSONObject usersJSON = (JSONObject) userJSON.get(i);
+                String email = (String) usersJSON.get(USER_EMAIL);
+                String userName = (String) usersJSON.get(USER_USER_NAME);
+                String UserPassword = (String) usersJSON.get(USER_PASSWORD);
+                if((userName.equals(usernameOrEmail) || email.equalsIgnoreCase(usernameOrEmail)) && UserPassword.equals(password)){
+                    String firstName = (String) usersJSON.get(USER_FIRST_NAME);
+                    String lastName = (String) usersJSON.get(USER_LAST_NAME);
+                    UUID uuid = UUID.fromString((String) usersJSON.get(USER_UUID));
+                    return new User(uuid, userName, firstName, lastName, email);
+                    
+                }
+                
+            }
+            return null;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    
 }
 
 

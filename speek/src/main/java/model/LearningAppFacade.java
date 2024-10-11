@@ -28,9 +28,11 @@ public class LearningAppFacade {
     }
 
     // Logs in a user with email and password, returns the User object if successful
-    public User loginUser(String email, String password) {
-        // Method stub
-        return null;  // Placeholder return
+    public User loginUser(String usernameOrEmail, String password) {
+        if(user.LoginCheck(usernameOrEmail, password)){
+            return DataLoader.getUser(usernameOrEmail, password);
+        }
+        return null;  
     }
 
     // Enrolls a user in a course

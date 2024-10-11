@@ -56,8 +56,18 @@ public class UserList {
         if(haveUser(username)) return false;
         else{
             users.add(new User(username,firstName, lastName, email, password ));
+            DataWriter.saveUsers(users);
             return true;
         }
+    }
+
+    public boolean LoginCheck(String usernameOrEmail, String password){
+        for (User user : users) {
+            if((user.getUserName().equals(usernameOrEmail) || user.getEmail().equals(usernameOrEmail)) && user.getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
     }
 
     
