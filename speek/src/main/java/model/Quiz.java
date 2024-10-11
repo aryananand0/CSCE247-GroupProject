@@ -40,7 +40,7 @@ public class Quiz {
                 System.out.println("Incorrect. The correct answer is: " + question.getCorrectAnswer());
             }
         }
-
+        scanner.close();
         return score;
     }
 
