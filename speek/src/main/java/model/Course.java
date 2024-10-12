@@ -43,14 +43,17 @@ public class Course {
         StringBuffer sb = new StringBuffer();
         sb.append("Course: " + this.courseName + "\n");
         sb.append("Difficulty: " + this.difficulty + "\n");
+        
         sb.append("Lesson Details: ");
         for(Lesson l : lessons) {
             sb.append(l.getContent() + "\n");
         }
+
         sb.append("Quiz details: ");
         for(Quiz q : quizzes) {
             sb.append(q.getQuestions() + "\n");
         }
+
         return sb.toString();
     }
     

@@ -46,7 +46,7 @@ public class Quiz {
 
     // Method to display feedback after taking the quiz
     public String displayFeedback() {
-        return feedback;
+        return this.feedback;
     }
 
     // Method to add a question to the quiz
@@ -61,7 +61,7 @@ public class Quiz {
 
     // Getters and Setters
     public String getQuizName() {
-        return quizName;
+        return this.quizName;
     }
 
     public void setQuizName(String quizName) {
@@ -69,7 +69,7 @@ public class Quiz {
     }
 
     public ArrayList<Questions> getQuestions() {
-        return questions;
+        return this.questions;
     }
 
     public void setQuestions(ArrayList<Questions> questions) {
