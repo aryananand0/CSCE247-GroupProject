@@ -28,7 +28,7 @@ public class Course {
 
     // Getter for courseName
     public String getCourseName() {
-        return courseName;
+        return this.courseName;
     }
 
     // Setter for lessons
@@ -40,14 +40,23 @@ public class Course {
         this.courseName = courseName;
     }
     public String displayCourseDetails() {
-        String rv = "";
-        
-        return rv;
+        StringBuffer sb = new StringBuffer();
+        sb.append("Course: " + this.courseName + "\n");
+        sb.append("Difficulty: " + this.difficulty + "\n");
+        sb.append("Lesson Details: ");
+        for(Lesson l : lessons) {
+            sb.append(l.getContent() + "\n");
+        }
+        sb.append("Quiz details: ");
+        for(Quiz q : quizzes) {
+            sb.append(q.getQuestions() + "\n");
+        }
+        return sb.toString();
     }
     
     public void completeCourse() {
         // TODO: IMPLEMENT
-        if(getCourseCompletion() == 100) {
+        if(this.getCourseCompletion() == 100) {
             System.out.println("Congratulations! You have completed the course!");
         }
 
@@ -55,7 +64,7 @@ public class Course {
 
     // Getter for difficulty
     public String getDifficulty() {
-        return difficulty;
+        return this.difficulty;
     }
 
     // Setter for difficulty
@@ -65,7 +74,7 @@ public class Course {
 
     // Getter for courseCompletion
     public double getCourseCompletion() {
-        return courseCompletion;
+        return this.courseCompletion;
     }
 
     // Setter for courseCompletion
