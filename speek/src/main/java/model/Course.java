@@ -41,11 +41,16 @@ public class Course {
     }
     public String displayCourseDetails() {
         String rv = "";
+        
         return rv;
     }
     
     public void completeCourse() {
-    // TODO: IMPLEMENT
+        // TODO: IMPLEMENT
+        if(getCourseCompletion() == 100) {
+            System.out.println("Congratulations! You have completed the course!");
+        }
+
     }
 
     // Getter for difficulty
