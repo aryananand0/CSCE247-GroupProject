@@ -37,14 +37,22 @@ public class User {
         this.achievements = new ArrayList<>();
         this.progressPerUser = new HashMap<>();
     }
+
+    
     // This is for existing users in DataLoader
-    public User(UUID uuid, String userName, String firstName, String lastName, String email) {
-        this.userId = uuid;  
-        this.userName =  userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
+public User(UUID uuid, String userName, String firstName, String lastName, String email) {
+    this.userId = uuid;  
+    this.userName = userName != null ? userName : "";  // Initialize userName properly
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.password = "";
+    this.favoriteLanguages = new ArrayList<>();  // Initialize
+    this.currentCourses = new ArrayList<>();  // Initialize
+    this.achievements = new ArrayList<>();  // Initialize
+    this.progressPerUser = new HashMap<>();  // Initialize
+}
+
 
     // Default Constructor
     public User() {
