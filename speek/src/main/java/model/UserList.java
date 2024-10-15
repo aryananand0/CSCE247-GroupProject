@@ -63,12 +63,14 @@ public class UserList {
 
     public boolean LoginCheck(String usernameOrEmail, String password){
         for (User user : users) {
-            if((user.getUserName().equals(usernameOrEmail) || user.getEmail().equals(usernameOrEmail)) && user.getPassword().equals(password)){
+            if ((user.getUserName().equals(usernameOrEmail) || user.getEmail().equals(usernameOrEmail)) 
+                && user.getPassword() != null && user.getPassword().equals(password)) {
                 return true;
             }
         }
         return false;
     }
+    
 
     
 }

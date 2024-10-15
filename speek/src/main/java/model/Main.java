@@ -89,11 +89,11 @@ public class Main {
         }
         System.out.println("");
         
+        // login-valid
         System.out.println("Attempting valid login...");
         UserList userList = UserList.getInstance();
 
-        // Use the method: `LoginCheck(usernameOrEmail, password)`
-        String usernameOrEmail = "johnDoe"; 
+        String usernameOrEmail = "johndoe@example.com"; 
         String password = "hashedpassword123";
 
         boolean loginSuccess = userList.LoginCheck(usernameOrEmail, password);
@@ -105,10 +105,9 @@ public class Main {
         }
         System.out.println("");
 
-
+        // login-invalid
         System.out.println("Attempting invalid login...");
 
-        // Incorrect password or username
         String invalidUsernameOrEmail = "johnDoe";
         String invalidPassword = "wrongPassword";
 
@@ -121,14 +120,14 @@ public class Main {
         }
         System.out.println("");
 
+        // addUser-valid
         System.out.println("Adding new user - valid case...");
 
-        // Use the method: `addUser(username, firstName, lastName, email, password)`
-        String username = "jane_doe";
+        String username = "janeDoe";
         String firstName = "Jane";
         String lastName = "Doe";
-        String email = "jane@example.com";
-        String newPassword = "newPassword123";
+        String email = "janedoe@example.com";
+        String newPassword = "newpassword123";
 
         boolean userAdded = userList.addUser(username, firstName, lastName, email, newPassword);
 
@@ -139,14 +138,14 @@ public class Main {
         }
         System.out.println("");
 
+        // addUser-invalid
         System.out.println("Adding new user - invalid case...");
 
-        // Attempting to add a user with an existing username
-        String existingUsername = "john_doe"; // Assuming this user already exists
+        String existingUsername = "johnDoe"; 
         String existingFirstName = "John";
         String existingLastName = "Doe";
-        String existingEmail = "john@example.com";
-        String existingPassword = "securePassword123";
+        String existingEmail = "johndoe@example.com";
+        String existingPassword = "hashedpassword123";
 
         boolean invalidUserAdded = userList.addUser(existingUsername, existingFirstName, existingLastName, existingEmail, existingPassword);
 
@@ -157,6 +156,7 @@ public class Main {
         }
         System.out.println("");
 
+        // signout.facade
         System.out.println("Signing out...");
 
         boolean logoutSuccess = LearningAppFacade.logout();
