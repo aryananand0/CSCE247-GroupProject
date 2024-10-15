@@ -3,12 +3,10 @@ package model;
 import java.util.ArrayList;
 
 public class LearningAppFacade {
-    // Attributes
-    // private ArrayList<User> users;
-    // private ArrayList<Course> courses;
-    // private User currentUser;
+
     private UserList user;
     private CourseList course;
+    private User currentUser;  // Store the current logged-in user
 
     // Constructor
     public LearningAppFacade() {
@@ -16,33 +14,45 @@ public class LearningAppFacade {
         course = CourseList.getInstance();
     }
 
-    // Methods
-
-    // Registers a new user with email and password, returns the created User object
-    public boolean registerUser(String username, String firstName, String lastName,String email, String password) {
-        if(!user.haveUser(username)){
+    // Registers a new user with email and password
+    public boolean registerUser(String username, String firstName, String lastName, String email, String password) {
+        if (!user.haveUser(username)) {
             return user.addUser(username, firstName, lastName, email, password);
         }
-        
-        return false;  
+        return false;
     }
 
-    // Logs in a user with email and password, returns the User object if successful
+    // Logs in a user with username or email and password
     public User loginUser(String usernameOrEmail, String password) {
-        if(user.LoginCheck(usernameOrEmail, password)){
-            return DataLoader.getUser(usernameOrEmail, password);
+        // Check if login is valid
+        if (user.LoginCheck(usernameOrEmail, password)) {
+            currentUser = DataLoader.getUser(usernameOrEmail, password);  // Retrieve the user
+            return currentUser;  // Return the user on successful login
         }
-        return null;  
+        return null;  // Return null on login failure
     }
 
+    // Method to get the currently logged-in user
+    public User getCurrentUser() {
+        return currentUser;
+    }
 
+    // Logs out the current user
+    public static boolean logout() {
+        LearningAppFacade facade = new LearningAppFacade();
+        if (facade.getCurrentUser() != null) {
+            facade.currentUser = null;
+            return true;
+        }
+        return false;
+    }
 
     // Enrolls a user in a course
     public void enrollUserInCourse(User user, Course course) {
         // Method stub
     }
 
-    // Tracks the user's progress in a specific course, returns progress as a double
+    // Tracks the user's progress in a specific course
     public double trackUserProgress(User user, Course course) {
         // Method stub
         return 0.0;  // Placeholder return
@@ -53,15 +63,9 @@ public class LearningAppFacade {
         // Method stub
     }
 
-    // Retrieves the leaderboard as an ArrayList of users
+    // Retrieves the leaderboard
     public ArrayList<User> getLeaderboard() {
         // Method stub
         return new ArrayList<>();  // Placeholder return
-    }
-
-    // Logs out the current user
-    public static boolean logout() {
-        // Method stub
-        return false;
     }
 }

@@ -11,20 +11,7 @@ public class UserList {
         users = DataLoader.loadUsers();
     }
 
-    public boolean removeUser(String userID) {
-        
-        for(User user : users) {
-            
-            if(user.getFirstName().equalsIgnoreCase(userID)) {
-                users.remove(user);
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    // Methods, need to be implemented
+    // Singleton pattern to ensure only one instance of UserList
     public static UserList getInstance() {
         if (userList == null) {
             userList = new UserList();
@@ -32,45 +19,60 @@ public class UserList {
         return userList;
     }
 
-    
-    public User getUser(String keyword) {
-        // Search and return the user matching the keyword 
+    // Remove user by userId
+    public boolean removeUser(String userID) {
         for (User user : users) {
-            // Implement  search logic here
-            if (user.getFirstName().equals(keyword)) {
+            if (user.getUserId().toString().equals(userID)) {
+                users.remove(user);
+                DataWriter.saveUsers(users);  // Save changes after removing the user
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Search and return the user matching the username or email
+    public User getUser(String keyword) {
+        for (User user : users) {
+            if (user.getUserName().equals(keyword) || user.getEmail().equalsIgnoreCase(keyword)) {
                 return user;
             }
         }
         return null;
     }
 
-    public boolean haveUser(String User){
+    // Check if a user exists by username
+    public boolean haveUser(String username) {
         for (User user : users) {
-            if(user.getUserName().equals(User)){
+            if (user.getUserName().equals(username)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean addUser(String username, String firstName, String lastName,String email, String password){
-        if(haveUser(username)) return false;
-        else{
-            users.add(new User(username,firstName, lastName, email, password ));
-            DataWriter.saveUsers(users);
+
+    // Add a new user to the list
+    public boolean addUser(String username, String firstName, String lastName, String email, String password) {
+        if (haveUser(username)) return false;
+        else {
+            users.add(new User(username, firstName, lastName, email, password));
+            DataWriter.saveUsers(users);  // Save the new user to the file
             return true;
         }
     }
 
-    public boolean LoginCheck(String usernameOrEmail, String password){
+    // Check login credentials (username or email and password)
+    public boolean LoginCheck(String usernameOrEmail, String password) {
         for (User user : users) {
-            if ((user.getUserName().equals(usernameOrEmail) || user.getEmail().equals(usernameOrEmail)) 
-                && user.getPassword() != null && user.getPassword().equals(password)) {
+            // Check if the username or email matches
+            boolean usernameMatches = user.getUserName() != null && user.getUserName().equals(usernameOrEmail);
+            boolean emailMatches = user.getEmail() != null && user.getEmail().equalsIgnoreCase(usernameOrEmail);
+
+            // Check if the password matches
+            if ((usernameMatches || emailMatches) && user.getPassword() != null && user.getPassword().equals(password)) {
                 return true;
             }
         }
         return false;
     }
-    
-
-    
 }
