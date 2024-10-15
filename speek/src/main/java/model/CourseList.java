@@ -15,7 +15,6 @@ public class CourseList {
         DataLoader.loadCourses();
     }
 
-
     /* This method will return an instance of this class 
      * @return new instance of this class
      *

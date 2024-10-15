@@ -58,7 +58,8 @@ public class LearningAppFacade {
     }
 
     // Logs out the current user
-    public void logout() {
+    public static boolean logout() {
         // Method stub
+        return false;
     }
 }

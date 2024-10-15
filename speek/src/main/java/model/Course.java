@@ -39,6 +39,7 @@ public class Course {
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
+
     public String displayCourseDetails() {
         StringBuffer sb = new StringBuffer();
         sb.append("Course: " + this.courseName + "\n");
@@ -57,10 +58,12 @@ public class Course {
         return sb.toString();
     }
     
-    public void completeCourse() {
+    public boolean completeCourse() {
         // TODO: IMPLEMENT
         if(this.getCourseCompletion() == 100) {
-            System.out.println("Congratulations! You have completed the course!");
+            return true;
+        } else {
+            return false;
         }
 
     }

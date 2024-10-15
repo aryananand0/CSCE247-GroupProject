@@ -8,6 +8,9 @@ import java.util.Map;
 
 public class Main {
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         System.out.println("");
         
@@ -84,7 +87,88 @@ public class Main {
         } else {
             System.out.println("No Achievements found.");
         }
-        System.out.println();
+        System.out.println("");
+        
+        // login-valid
+        System.out.println("Attempting valid login...");
+        UserList userList = UserList.getInstance();
+
+        String usernameOrEmail = "johndoe@example.com"; 
+        String password = "hashedpassword123";
+
+        boolean loginSuccess = userList.LoginCheck(usernameOrEmail, password);
+
+        if (loginSuccess) {
+            System.out.println("Login successful for: " + usernameOrEmail);
+        } else {
+            System.out.println("Login failed. Invalid credentials.");
+        }
+        System.out.println("");
+
+        // login-invalid
+        System.out.println("Attempting invalid login...");
+
+        String invalidUsernameOrEmail = "johnDoe";
+        String invalidPassword = "wrongPassword";
+
+        boolean invalidLogin = userList.LoginCheck(invalidUsernameOrEmail, invalidPassword);
+
+        if (invalidLogin) {
+            System.out.println("Login successful for: " + invalidUsernameOrEmail);
+        } else {
+            System.out.println("Login failed. Invalid credentials.");
+        }
+        System.out.println("");
+
+        // addUser-valid
+        System.out.println("Adding new user - valid case...");
+
+        String username = "janeDoe";
+        String firstName = "Jane";
+        String lastName = "Doe";
+        String email = "janedoe@example.com";
+        String newPassword = "newpassword123";
+
+        boolean userAdded = userList.addUser(username, firstName, lastName, email, newPassword);
+
+        if (userAdded) {
+            System.out.println("User added successfully: " + username);
+        } else {
+            System.out.println("Failed to add user. Username already exists.");
+        }
+        System.out.println("");
+
+        // addUser-invalid
+        System.out.println("Adding new user - invalid case...");
+
+        String existingUsername = "johnDoe"; 
+        String existingFirstName = "John";
+        String existingLastName = "Doe";
+        String existingEmail = "johndoe@example.com";
+        String existingPassword = "hashedpassword123";
+
+        boolean invalidUserAdded = userList.addUser(existingUsername, existingFirstName, existingLastName, existingEmail, existingPassword);
+
+        if (invalidUserAdded) {
+            System.out.println("User added successfully: " + existingUsername);
+        } else {
+            System.out.println("Failed to add user. Username already exists.");
+        }
+        System.out.println("");
+
+        // signout.facade
+        System.out.println("Signing out...");
+
+        boolean logoutSuccess = LearningAppFacade.logout();
+
+        if (logoutSuccess) {
+            System.out.println("User signed out successfully.");
+        } else {
+            System.out.println("Error signing out.");
+        }
+        System.out.println("");
+
+
         System.out.println("Loading Question class stuff...");
         testingQuestionClass();
     }
