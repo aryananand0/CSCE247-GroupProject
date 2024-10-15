@@ -23,7 +23,7 @@ public class LearningAppFacade {
         if(!user.haveUser(username)){
             return user.addUser(username, firstName, lastName, email, password);
         }
-
+        
         return false;  
     }
 
@@ -34,6 +34,8 @@ public class LearningAppFacade {
         }
         return null;  
     }
+
+
 
     // Enrolls a user in a course
     public void enrollUserInCourse(User user, Course course) {
