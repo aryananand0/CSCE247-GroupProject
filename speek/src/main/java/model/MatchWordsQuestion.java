@@ -81,6 +81,20 @@ public class MatchWordsQuestion extends Question {
     public void setResponses(List<String> responses) {
         this.responses = responses;
     }
+    @Override
+    public String getType() {
+        return "MatchWords";
+    }
+
+    @Override
+    public String getCorrectAnswer() {
+        // Convert the map to a string representation
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, String> entry : correctMatches.entrySet()) {
+            sb.append(entry.getKey()).append("->").append(entry.getValue()).append(";");
+        }
+        return sb.toString();
+    }
 
     public Map<String, String> getCorrectMatches() {
         return new HashMap<>(correctMatches);

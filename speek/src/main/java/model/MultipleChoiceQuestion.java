@@ -52,6 +52,10 @@ public class MultipleChoiceQuestion extends Question {
     public String getCorrectAnswer() {
         return correctAnswer;
     }
+    @Override
+    public String getType() {
+        return "MultipleChoice";
+    }
 
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;

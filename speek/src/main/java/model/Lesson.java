@@ -1,46 +1,51 @@
 package model;
-// GOT TO CHANGE RIGHT NOW TEMP
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class Lesson {
 
     // Attributes
+    private final String lessonId;                   
     private String lessonTitle;
     private String content;
-    private Quiz quiz;
+    private List<Question> questions;               
+    private boolean isCompleted;                    
 
-    // Constructor
-    public Lesson(String lessonTitle, String content, Quiz quiz) {
+    // Constructor with parameters (auto-generates lessonId and initializes questions)
+    public Lesson(String lessonTitle, String content, List<Question> questions) {
+        this.lessonId = UUID.randomUUID().toString(); // Automatically generate a unique lessonId
         this.lessonTitle = lessonTitle;
         this.content = content;
-        this.quiz = quiz;
+        this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
+        this.isCompleted = false;
     }
 
-    // Method to navigate through the lesson
-    public void navigateLessons(User user) {  // Added User parameter
-        System.out.println("Navigating lesson: " + lessonTitle);
-        System.out.println(content);
-        if (quiz != null) {
-            quiz.takeQuiz(user);  // Pass the user to the takeQuiz method
-        } else {
-            System.out.println("No quiz available for this lesson.");
-        }
+    // Constructor with predefined lessonId (useful for deserialization)
+    public Lesson(String lessonId, String lessonTitle, String content, List<Question> questions) {
+        this.lessonId = lessonId != null ? lessonId : UUID.randomUUID().toString();
+        this.lessonTitle = lessonTitle;
+        this.content = content;
+        this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
+        this.isCompleted = false;
     }
 
-    // Method to track the lesson progress
-    public double trackLessonProgress() {
-        double progress = 50.0;  // Assume 50% progress for completing the content
-        if (quiz != null && quiz.displayFeedback() != null) {
-            progress = 100.0;  // If the quiz is completed and feedback is available, set progress to 100%
-        }
-        return progress;
-    }
-
-    // Method to replay the lesson
-    public void replayLesson(User user) {  // Added User parameter
-        System.out.println("Replaying lesson: " + lessonTitle);
-        navigateLessons(user);  // Replay the lesson content and quiz with the user
+    // Default Constructor
+    public Lesson() {
+        this.lessonId = java.util.UUID.randomUUID().toString(); 
+        this.lessonTitle = "";
+        this.content = "";
+        this.questions = new ArrayList<>();
+        this.isCompleted = false;
     }
 
     // Getters and Setters
+
+    public String getLessonId() {
+        return lessonId;
+    }
+
     public String getLessonTitle() {
         return lessonTitle;
     }
@@ -57,11 +62,21 @@ public class Lesson {
         this.content = content;
     }
 
-    public Quiz getQuiz() {
-        return quiz;
+    public List<Question> getQuestions() {
+        return new ArrayList<>(questions);
     }
 
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    // Overriding toString() method to display lesson details succinctly
+    @Override
+    public String toString() {
+        return "Lesson ID: " + lessonId + " | Lesson Title: " + lessonTitle + " | Completion: " + (isCompleted ? "Completed" : "Incomplete");
     }
 }

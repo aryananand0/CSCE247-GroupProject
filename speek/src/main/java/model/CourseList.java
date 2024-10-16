@@ -76,6 +76,3 @@ public class CourseList {
         return courses.size();
     }
 }
-
-
-

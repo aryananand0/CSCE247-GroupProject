@@ -27,6 +27,15 @@ public class TrueFalseQuestion extends Question {
         return false;
     }
 
+    @Override
+    public String getType() {
+        return "TrueFalse";
+    }
+
+    @Override
+    public String getCorrectAnswer() {
+        return String.valueOf(correctAnswer);
+    }
 
     public boolean isCorrectAnswer() {
         return correctAnswer;

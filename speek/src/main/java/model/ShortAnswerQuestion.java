@@ -24,6 +24,10 @@ public class ShortAnswerQuestion extends Question {
     public String getCorrectAnswer() {
         return correctAnswer;
     }
+    @Override
+    public String getType() {
+        return "ShortAnswer";
+    }
 
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;

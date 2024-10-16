@@ -2,158 +2,133 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class User {
 
     // Attributes
-    private UUID userId;  // Unique identifier for the user
+    private final String userId;                              // Unique identifier for the user
     private String userName;
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
-    private double progress;
+    private String password;                                // Should be hashed
     private double score;
     private boolean dailyReminder;
-    private ArrayList<Language> favoriteLanguages;
+    private List<Language> favoriteLanguages;
     private ArrayList<Course> currentCourses;
-    private ArrayList<Achievements> achievements;
-    private HashMap<Course, Double> progressPerUser;
+    private List<Achievements> achievements;
+    private HashMap<String, Double> progressPerCourse;     // Maps courseId to progress percentage
+
+    // New Fields for Enhanced Tracking
+    private String currentCourseId;                        // ID of the current course
+    private String currentLessonId;                        // ID of the current lesson
+    private List<String> completedCourseIds;               // List of completed course IDs
+    private List<String> completedLessonIds;               // List of completed lesson IDs
+    private List<QuestionHistory> questionHistory;          // History of answered questions
+    private Question currentQuestion;                      // The current active question
 
     // Constructor with parameters
     public User(String userName, String firstName, String lastName, String email, String password) {
-        this.userId = UUID.randomUUID();  // Automatically generate a UUID
-        this.userName =  userName;
+        this.userId = UUID.randomUUID().toString();                    // Automatically generate a UUID
+        this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
-        this.progress = 0.0;
+        this.password = password;                           // Ensure this is hashed before setting
         this.score = 0.0;
         this.dailyReminder = false;
         this.favoriteLanguages = new ArrayList<>();
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
-        this.progressPerUser = new HashMap<>();
+        this.progressPerCourse = new HashMap<>();
+        this.currentCourseId = "";                          // Initialize as empty
+        this.currentLessonId = "";                          // Initialize as empty
+        this.completedCourseIds = new ArrayList<>();
+        this.completedLessonIds = new ArrayList<>();
+        this.questionHistory = new ArrayList<>();
+        this.currentQuestion = null;
     }
 
-    
-    // This is for existing users in DataLoader
-public User(UUID uuid, String userName, String firstName, String lastName, String email) {
-    this.userId = uuid;  
-    this.userName = userName != null ? userName : "";  // Initialize userName properly
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.password = "";
-    this.favoriteLanguages = new ArrayList<>();  // Initialize
-    this.currentCourses = new ArrayList<>();  // Initialize
-    this.achievements = new ArrayList<>();  // Initialize
-    this.progressPerUser = new HashMap<>();  // Initialize
-}
-
+    // Constructor for existing users in DataLoader
+    public User(String uuid, String userName, String firstName, String lastName) {
+        this.userId = uuid != null ? uuid : UUID.randomUUID().toString();
+        this.userName = userName != null ? userName : "";
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = "";
+        this.password = "";                                  // Password should be set separately and hashed
+        this.score = 0.0;
+        this.dailyReminder = false;
+        this.favoriteLanguages = new ArrayList<>();
+        this.currentCourses = new ArrayList<>();
+        this.achievements = new ArrayList<>();
+        this.progressPerCourse = new HashMap<>();
+        this.currentCourseId = "";                          // Initialize as empty
+        this.currentLessonId = "";                          // Initialize as empty
+        this.completedCourseIds = new ArrayList<>();
+        this.completedLessonIds = new ArrayList<>();
+        this.questionHistory = new ArrayList<>();
+        this.currentQuestion = null;
+    }
 
     // Default Constructor
     public User() {
-        this.userId = UUID.randomUUID();  // Automatically generate a UUID
+        this.userId = UUID.randomUUID().toString();                    // Automatically generate a UUID
         this.userName = "";
         this.firstName = "";
         this.lastName = "";
         this.email = "";
         this.password = "";
-        this.progress = 0.0;
         this.score = 0.0;
         this.dailyReminder = false;
         this.favoriteLanguages = new ArrayList<>();
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
-        this.progressPerUser = new HashMap<>();
+        this.progressPerCourse = new HashMap<>();
+        this.currentCourseId = "";                          // Initialize as empty
+        this.currentLessonId = "";                          // Initialize as empty
+        this.completedCourseIds = new ArrayList<>();
+        this.completedLessonIds = new ArrayList<>();
+        this.questionHistory = new ArrayList<>();
+        this.currentQuestion = null;
     }
 
-    // Constructor for leaderboard purposes 
-    public User(UUID uuid,String userName, String firstName, String lastName, double score) {
-        this.userId = uuid;  
-        this.userName =  userName;
+    // Constructor for leaderboard purposes
+    public User(String uuid, String userName, String firstName, String lastName, double score) {
+        this.userId = uuid != null ? uuid : UUID.randomUUID().toString();
+        this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = "";
+        this.password = "";
         this.score = score;
-    }
-
-    public User(String username,String firstName, String lastName, String email) {
-        this.userId = UUID.randomUUID();
-        this.firstName = firstName;
-        this.userName = username;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = "";  // Default password or can leave empty
-        this.progress = 0.0;
-        this.score = 0.0;
         this.dailyReminder = false;
         this.favoriteLanguages = new ArrayList<>();
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
-        this.progressPerUser = new HashMap<>();
+        this.progressPerCourse = new HashMap<>();
+        this.currentCourseId = "";                          // Initialize as empty
+        this.currentLessonId = "";                          // Initialize as empty
+        this.completedCourseIds = new ArrayList<>();
+        this.completedLessonIds = new ArrayList<>();
+        this.questionHistory = new ArrayList<>();
+        this.currentQuestion = null;
     }
 
-    // Method to login
-    public boolean login(String email, String password) {
-        return this.email.equals(email) && this.password.equals(password);
-    }
-
-    // Method to update profile information
-    public void updateProfile(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-
-    // Method to track progress for all courses
-    public double trackProgress() {
-        double totalProgress = 0.0;
-        for (Course course : currentCourses) {
-            totalProgress += progressPerUser.getOrDefault(course, 0.0);
-        }
-        return totalProgress / currentCourses.size();
-    }
-
-    // Method to get progress for a specific course
-    public double getProgress(Course course) {
-        return progressPerUser.getOrDefault(course, 0.0);
-    }
-
-    // Method to get user's score
-    public double getScore() {
-        return score;
-    }
-
-    // Method to set user's score
-    public void setScore(double score) {
-        this.score = score;
-    }
-
-    // Method to increase score
-    public void increaseScore(double increment) {
-        this.score += increment;
-    }
-
-    // Method to decrease score
-    public void decreaseScore(double decrement) {
-        this.score -= decrement;
-    }
-
-    // Method to update progress for a specific course
-    public void updateUserProgress(Course course, double completion) {
-        progressPerUser.put(course, completion);
-    }
-
-    // Getters and Setters for userId
-    public UUID getUserId() {
+    // Getter for userId
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    // Getter and Setter for userName
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     // Getters and Setters for other attributes
@@ -180,21 +155,22 @@ public User(UUID uuid, String userName, String firstName, String lastName, Strin
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
+    // **Important:** Ensure passwords are hashed before setting
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password; // Should be hashed before setting
     }
 
-    public double getProgress() {
-        return progress;
+    public double getScore() {
+        return score;
     }
 
-    public void setProgress(double progress) {
-        this.progress = progress;
+    public void setScore(double score) {
+        this.score = score;
     }
 
     public boolean isDailyReminder() {
@@ -205,42 +181,226 @@ public User(UUID uuid, String userName, String firstName, String lastName, Strin
         this.dailyReminder = dailyReminder;
     }
 
-    public ArrayList<Language> getFavoriteLanguages() {
-        return favoriteLanguages;
+    public List<Language> getFavoriteLanguages() {
+        return new ArrayList<>(favoriteLanguages);
     }
 
-    public void setFavoriteLanguages(ArrayList<Language> favoriteLanguages) {
-        this.favoriteLanguages = favoriteLanguages;
+    public void setFavoriteLanguages(List<Language> favoriteLanguages) {
+        this.favoriteLanguages = favoriteLanguages != null ? new ArrayList<>(favoriteLanguages) : new ArrayList<>();
     }
 
     public ArrayList<Course> getCurrentCourses() {
-        return currentCourses;
+        return new ArrayList<>(currentCourses);
     }
 
-    public void setCurrentCourses(ArrayList<Course> currentCourses) {
-        this.currentCourses = currentCourses;
+    public void setCurrentCourses(List<Course> currentCourses) {
+        this.currentCourses = currentCourses != null ? new ArrayList<>(currentCourses) : new ArrayList<>();
     }
 
-    public ArrayList<Achievements> getAchievements() {
-        return achievements;
+    
+    public List<Achievements> getAchievements() {
+        return new ArrayList<>(achievements);
     }
 
-    public void setAchievements(ArrayList<Achievements> achievements) {
-        this.achievements = achievements;
+    public void setAchievements(List<Achievements> achievements) {
+        this.achievements = achievements != null ? new ArrayList<>(achievements) : new ArrayList<>();
     }
 
-    public HashMap<Course, Double> getProgressPerUser() {
-        return progressPerUser;
+    public HashMap<String, Double> getProgressPerCourse() {
+        return new HashMap<>(progressPerCourse);
     }
 
-    public void setProgressPerUser(HashMap<Course, Double> progressPerUser) {
-        this.progressPerUser = progressPerUser;
-    }
-    public String getUserName(){
-        return this.userName;
+    public void setProgressPerCourse(HashMap<String, Double> progressPerCourse) {
+        this.progressPerCourse = progressPerCourse != null ? new HashMap<>(progressPerCourse) : new HashMap<>();
     }
 
-    // Leaderboard printing method
+    // **New Getters and Setters for Enhanced Fields**
+
+    public String getCurrentCourseId() {
+        return currentCourseId;
+    }
+
+    public void setCurrentCourseId(String currentCourseId) {
+        this.currentCourseId = currentCourseId;
+    }
+
+    public String getCurrentLessonId() {
+        return currentLessonId;
+    }
+
+    public void setCurrentLessonId(String currentLessonId) {
+        this.currentLessonId = currentLessonId;
+    }
+
+    public List<String> getCompletedCourseIds() {
+        return new ArrayList<>(completedCourseIds);
+    }
+
+    public void setCompletedCourseIds(List<String> completedCourseIds) {
+        this.completedCourseIds = completedCourseIds != null ? new ArrayList<>(completedCourseIds) : new ArrayList<>();
+    }
+
+    public List<String> getCompletedLessonIds() {
+        return new ArrayList<>(completedLessonIds);
+    }
+
+    public void setCompletedLessonIds(List<String> completedLessonIds) {
+        this.completedLessonIds = completedLessonIds != null ? new ArrayList<>(completedLessonIds) : new ArrayList<>();
+    }
+
+    public List<QuestionHistory> getQuestionHistory() {
+        return new ArrayList<>(questionHistory);
+    }
+
+    public void setQuestionHistory(List<QuestionHistory> questionHistory) {
+        this.questionHistory = questionHistory != null ? new ArrayList<>(questionHistory) : new ArrayList<>();
+    }
+
+    public Question getCurrentQuestion() {
+        return currentQuestion;
+    }
+
+    public void setCurrentQuestion(Question currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
+
+    // ... (Other methods remain unchanged)
+
+    /**
+     * Logs in the user by verifying email and password.
+     *
+     * @param email The user's email.
+     * @param password The user's password.
+     * @return True if login is successful, false otherwise.
+     */
+    public boolean login(String email, String password) {
+        // Implement secure password verification (e.g., using BCrypt)
+        // Example:
+        // return this.email.equals(email) && PasswordUtils.checkPassword(password, this.password);
+        return this.email.equals(email) && this.password.equals(password); // Placeholder
+    }
+
+    /**
+     * Updates the user's profile information.
+     *
+     * @param firstName The new first name.
+     * @param lastName The new last name.
+     * @param email The new email.
+     */
+    public void updateProfile(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    /**
+     * Marks a lesson as completed.
+     *
+     * @param lessonId The ID of the lesson to mark as completed.
+     */
+    public void markLessonAsCompleted(String lessonId) {
+        if (!completedLessonIds.contains(lessonId)) {
+            completedLessonIds.add(lessonId);
+            System.out.println("✅ Lesson ID " + lessonId + " marked as completed.");
+        }
+    }
+
+    /**
+     * Marks a course as completed.
+     *
+     * @param courseId The ID of the course to mark as completed.
+     */
+    public void markCourseAsCompleted(String courseId) {
+        if (!completedCourseIds.contains(courseId)) {
+            completedCourseIds.add(courseId);
+            // Remove from currentCourses if present
+            currentCourses.removeIf(course -> course.getCourseId().equals(courseId));
+            // Remove from progressPerCourse as it's completed
+            progressPerCourse.remove(courseId);
+            System.out.println("🏆 Course ID " + courseId + " marked as completed.");
+        }
+    }
+
+    
+
+
+    
+    public void removeCourse(String courseId) {
+        boolean removed = currentCourses.removeIf(course -> course.getCourseId().equals(courseId));
+        if (removed) {
+            progressPerCourse.remove(courseId);
+            System.out.println("❌ Course ID " + courseId + " removed from current courses.");
+        } else {
+            System.out.println("⚠️ Course ID " + courseId + " not found in current courses.");
+        }
+    }
+
+    
+    public double trackProgress() {
+        if (progressPerCourse.isEmpty()) {
+            return 0.0;
+        }
+        double totalProgress = 0.0;
+        for (double courseProgress : progressPerCourse.values()) {
+            totalProgress += courseProgress;
+        }
+        return totalProgress / progressPerCourse.size();
+    }
+
+    
+    public double getProgress(String courseId) {
+        return progressPerCourse.getOrDefault(courseId, 0.0);
+    }
+
+   
+    public void updateUserProgress(String courseId, double completion) {
+        if (progressPerCourse.containsKey(courseId)) {
+            progressPerCourse.put(courseId, completion);
+            System.out.println(" Updated progress for Course ID " + courseId + " to " + String.format("%.2f", completion) + "%.");
+        } else {
+            System.out.println("⚠️ Course ID " + courseId + " not found in progress tracking.");
+        }
+    }
+
+    
+    public void displayProgress() {
+        System.out.println("\n=== User Progress ===");
+        System.out.println("Overall Progress: " + String.format("%.2f", trackProgress()) + "%");
+        System.out.println("Completed Courses: " + (completedCourseIds.isEmpty() ? "None" : completedCourseIds));
+        System.out.println("Completed Lessons: " + (completedLessonIds.isEmpty() ? "None" : completedLessonIds));
+        System.out.println("=====================");
+    }
+
+    
+    public void sendDailyReminder() {
+        if (dailyReminder) {
+            System.out.println("⏰ Reminder: Continue your lessons to keep progressing!");
+        }
+    }
+
+    
+    public void unlockAchievement(String achievementId, String title, String description, int rewardPoints) {
+        Achievements achievement = new Achievements(achievementId, title, description, rewardPoints);
+        if (!achievements.contains(achievement)) {
+            achievements.add(achievement);
+            System.out.println("🏅 Achievement Unlocked: " + title);
+            // Optionally, increase user score based on rewardPoints
+            this.increaseScore(rewardPoints);
+        }
+    }
+
+    
+    public void increaseScore(double increment) {
+        this.score += increment;
+        System.out.println("Score increased by " + increment + ". New score: " + this.score);
+    }
+
+    
+    public void decreaseScore(double decrement) {
+        this.score -= decrement;
+        System.out.println(" Score decreased by " + decrement + ". New score: " + this.score);
+    }
+
     public String PrintLeaderboard() {
         return "USERNAME: "+this.getUserName()+" | NAME: " + this.getFirstName() + " " + this.getLastName() + " | SCORE: " + this.getScore();
     }
@@ -248,6 +408,8 @@ public User(UUID uuid, String userName, String firstName, String lastName, Strin
     // Overriding toString() method to display user details
     @Override
     public String toString() {
-        return "USERNAME: "+this.getUserName()+" | NAME: "  + this.getFirstName() + " " + this.getLastName() + " | EMAIL: " + this.getEmail();
+        return "USERNAME: " + this.getUserName() +
+                " | NAME: " + this.getFirstName() + " " + this.getLastName() +
+                " | EMAIL: " + this.getEmail();
     }
 }

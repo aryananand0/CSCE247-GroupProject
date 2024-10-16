@@ -5,29 +5,19 @@ public abstract class Question {
     private final String id; 
     private String text; 
 
-    /**
-     * Constructor to initialize the question.
-     *
-     * @param text The text of the question.
-     */
+    
     public Question(String text) {
         this.id = java.util.UUID.randomUUID().toString();
         this.text = text;
     }
 
-    /**
-     * Displays the question in a formatted manner.
-     *
-     * @return The formatted question string.
-     */
+    
     public abstract String display();
 
-    /**
-     * Validates the user's answer.
-     *
-     * @param userAnswer The answer provided by the user.
-     * @return True if the answer is correct, false otherwise.
-     */
+    public abstract String getType();
+
+    public abstract String getCorrectAnswer();
+    
     public abstract boolean validateAnswer(String userAnswer);
 
     // Getters and Setters

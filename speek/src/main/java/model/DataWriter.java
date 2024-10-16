@@ -21,7 +21,7 @@ public class DataWriter extends DataConstants {
             userDetails.put(USER_LAST_NAME, user.getLastName());
             userDetails.put(USER_EMAIL, user.getEmail());
             userDetails.put(USER_PASSWORD, user.getPassword());
-            userDetails.put(USER_PROGRESS, user.getProgress());
+            userDetails.put(USER_PROGRESS, user.getProgress(null));
             userDetails.put(USER_DAILY_REMINDER, user.isDailyReminder());
 
             // Add favorite languages

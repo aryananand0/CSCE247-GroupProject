@@ -3,7 +3,6 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.UUID;
 import java.nio.file.Files;
