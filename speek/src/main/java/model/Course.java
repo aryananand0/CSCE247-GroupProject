@@ -3,11 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Course {
 
     // Attributes
-    private final String courseId;           
+    private UUID courseId;           
     private String courseName;
     private String difficulty;
     private List<Lesson> lessons;            
@@ -15,7 +16,7 @@ public class Course {
 
     // Constructor with parameters (auto-generates courseId)
     public Course(String courseName, String difficulty) {
-        this.courseId = java.util.UUID.randomUUID().toString(); 
+        this.courseId = java.util.UUID.randomUUID(); 
         this.courseName = courseName;
         this.difficulty = difficulty;
         this.lessons = new ArrayList<>();
@@ -23,7 +24,7 @@ public class Course {
     }
 
     public Course(String courseName, String difficulty, double completion) {
-        this.courseId = java.util.UUID.randomUUID().toString(); 
+        this.courseId = java.util.UUID.randomUUID(); 
         this.courseName = courseName;
         this.difficulty = difficulty;
         this.lessons = new ArrayList<>();
@@ -31,8 +32,8 @@ public class Course {
     }
 
     // Constructor with predefined courseId (useful for deserialization)
-    public Course(String courseId, String courseName, String difficulty, double courseCompletion) {
-        this.courseId = courseId != null ? courseId : java.util.UUID.randomUUID().toString();
+    public Course(UUID courseId, String courseName, String difficulty, double courseCompletion) {
+        this.courseId = courseId != null ? courseId : java.util.UUID.randomUUID();
         this.courseName = courseName;
         this.difficulty = difficulty;
         this.lessons = new ArrayList<>();
@@ -41,7 +42,7 @@ public class Course {
 
     // Default Constructor
     public Course() {
-        this.courseId = java.util.UUID.randomUUID().toString(); 
+        this.courseId = java.util.UUID.randomUUID(); 
         this.courseName = "";
         this.difficulty = "";
         this.lessons = new ArrayList<>();
@@ -94,7 +95,7 @@ public class Course {
 
     // Getters and Setters
 
-    public String getCourseId() {
+    public UUID getCourseId() {
         return courseId;
     }
 
@@ -161,4 +162,6 @@ public class Course {
                 " | Difficulty: " + difficulty +
                 " | Completion: " + String.format("%.2f", courseCompletion) + "%";
     }
+
+
 }

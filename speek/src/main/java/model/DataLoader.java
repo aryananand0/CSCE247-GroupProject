@@ -33,7 +33,7 @@ public class DataLoader extends DataConstants {
                 String userName = (String) usersJSON.get(USER_USER_NAME);
                 String password = (String) usersJSON.get(USER_PASSWORD);
                 // Create a new User object
-                User user = new User(uuid.toString(), userName, firstName, lastName);
+                User user = new User(uuid, userName, firstName, lastName);
                 user.setPassword(password);
                 user.setEmail(email);
                 // Load achievements
@@ -171,7 +171,7 @@ public class DataLoader extends DataConstants {
                 UUID uuid = UUID.fromString((String) userJsonObject.get(LEADERBOARD_USER_UUID));
                 String userName = (String) userJsonObject.get(LEADERBOARD_USER_NAME);
     
-                users.add(new User(uuid.toString(),userName,firstName, lastName, points));
+                users.add(new User(uuid,userName,firstName, lastName, points));
             }
     
             Collections.sort(users, new Comparator<User>() {
@@ -246,6 +246,11 @@ public class DataLoader extends DataConstants {
                     return new User(uuid.toString(), userName, firstName, lastName, email);
                     
                 }
+
+                //get users courses
+                //Course course = CourseList.getInstance().getCourse(uuid);
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -256,11 +261,11 @@ public class DataLoader extends DataConstants {
 
     
 
-    public static ArrayList<Course> loadCoursesFromJson(String filePath) {
+    public static ArrayList<Course> loadCoursesFromJson() {
         ArrayList<Course> coursesList = new ArrayList<>();
         JSONParser parser = new JSONParser();
 
-        try (FileReader reader = new FileReader(filePath)) {
+        try (FileReader reader = new FileReader("json/Lesson.json")) {
             JSONObject root = (JSONObject) parser.parse(reader);
             JSONArray languages = (JSONArray) root.get("languages");
 
@@ -272,7 +277,7 @@ public class DataLoader extends DataConstants {
                 JSONArray courses = (JSONArray) language.get("courses");
                 for (Object courseObj : courses) {
                     JSONObject courseJson = (JSONObject) courseObj;
-                    String courseId = (String) courseJson.get("courseId");
+                    UUID courseId = UUID.fromString((String) courseJson.get("courseId"));
                     String courseName = (String) courseJson.get("courseName");
                     String difficulty = (String) courseJson.get("difficulty");
 

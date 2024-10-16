@@ -1,18 +1,18 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class CourseList {
 
     // Attributes
-    private final ArrayList<Course> courses;
+    private ArrayList<Course> courses;
 
     private static CourseList instance;
 
     // Constructor
     private CourseList() {
-        courses = new ArrayList<>();
-        DataLoader.loadCourses();
+        courses = DataLoader.loadCoursesFromJson();
     }
 
     
@@ -36,14 +36,15 @@ public class CourseList {
     // Method to retrieve the courses from 
     // the specified user
     // TODO: Fix parameters (Stubbed for now)
-    public ArrayList<Course> getCourse(String uuid) {
+    public Course getCourse(UUID uuid) {
         // Find user with uuid 
-        UserList ul = UserList.getInstance();
-        User u = ul.getUser(uuid);
-        if(u == null) {
-            System.out.println("ERROR: COULD NOT FIND USER. CourseList.getCourse(uuid)");
+        for(Course course : courses){
+            if(course.getCourseId().equals(uuid)){
+                return course;
+            }
         }
-        return u.getCurrentCourses();
+
+        return null;
     }
 
     // Method to get a specific course by name

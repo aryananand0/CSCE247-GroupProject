@@ -8,7 +8,7 @@ import java.util.UUID;
 public class User {
 
     // Attributes
-    private final String userId;                              
+    private UUID userId;                              
     private String userName;
     private String firstName;
     private String lastName;
@@ -31,7 +31,7 @@ public class User {
 
     // Constructor with parameters
     public User(String userName, String firstName, String lastName, String email, String password) {
-        this.userId = UUID.randomUUID().toString();                    
+        this.userId = UUID.randomUUID();                    
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,8 +52,8 @@ public class User {
     }
 
     // Constructor for existing users in DataLoader
-    public User(String uuid, String userName, String firstName, String lastName) {
-        this.userId = uuid != null ? uuid : UUID.randomUUID().toString();
+    public User(UUID uuid, String userName, String firstName, String lastName) {
+        this.userId = uuid != null ? uuid : UUID.randomUUID();
         this.userName = userName != null ? userName : "";
         this.firstName = firstName;
         this.lastName = lastName;
@@ -75,7 +75,7 @@ public class User {
 
     // Default Constructor
     public User() {
-        this.userId = UUID.randomUUID().toString();                    
+        this.userId = UUID.randomUUID();                    
         this.userName = "";
         this.firstName = "";
         this.lastName = "";
@@ -96,8 +96,8 @@ public class User {
     }
 
     // Constructor for leaderboard purposes
-    public User(String uuid, String userName, String firstName, String lastName, double score) {
-        this.userId = uuid != null ? uuid : UUID.randomUUID().toString();
+    public User(UUID uuid, String userName, String firstName, String lastName, double score) {
+        this.userId = uuid != null ? uuid : UUID.randomUUID();
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -118,7 +118,7 @@ public class User {
     }
 
     // Getter for userId
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
