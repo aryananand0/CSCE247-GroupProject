@@ -219,7 +219,7 @@ public class Main {
         String jsonFilePath = "json/Lesson.json"; // Adjust the path as needed
 
         // Load courses from the JSON file
-        ArrayList<Course> courses = DataLoader.loadCoursesFromJson(jsonFilePath);
+        ArrayList<Course> courses = DataLoader.loadCoursesFromJson();
 
         // Check if courses were loaded successfully
         if (courses.isEmpty()) {
