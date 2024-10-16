@@ -382,12 +382,6 @@ public class DataLoader extends DataConstants {
         return coursesList;
     }
 
-    /**
-     * Capitalizes the first letter of a given string.
-     *
-     * @param input The input string.
-     * @return The string with the first letter capitalized.
-     */
     private static String capitalizeFirstLetter(String input) {
         if (input == null || input.isEmpty()) return input;
         return input.substring(0, 1).toUpperCase() + input.substring(1);

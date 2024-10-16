@@ -8,43 +8,43 @@ import java.util.UUID;
 public class User {
 
     // Attributes
-    private final String userId;                              // Unique identifier for the user
+    private final String userId;                              
     private String userName;
     private String firstName;
     private String lastName;
     private String email;
-    private String password;                                // Should be hashed
+    private String password;                                
     private double score;
     private boolean dailyReminder;
     private List<Language> favoriteLanguages;
     private ArrayList<Course> currentCourses;
     private List<Achievements> achievements;
-    private HashMap<String, Double> progressPerCourse;     // Maps courseId to progress percentage
+    private HashMap<String, Double> progressPerCourse;     
 
     // New Fields for Enhanced Tracking
-    private String currentCourseId;                        // ID of the current course
-    private String currentLessonId;                        // ID of the current lesson
-    private List<String> completedCourseIds;               // List of completed course IDs
-    private List<String> completedLessonIds;               // List of completed lesson IDs
-    private List<QuestionHistory> questionHistory;          // History of answered questions
-    private Question currentQuestion;                      // The current active question
+    private String currentCourseId;                        
+    private String currentLessonId;                       
+    private List<String> completedCourseIds;               
+    private List<String> completedLessonIds;               
+    private List<QuestionHistory> questionHistory;          
+    private Question currentQuestion;                      
 
     // Constructor with parameters
     public User(String userName, String firstName, String lastName, String email, String password) {
-        this.userId = UUID.randomUUID().toString();                    // Automatically generate a UUID
+        this.userId = UUID.randomUUID().toString();                    
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;                           // Ensure this is hashed before setting
+        this.password = password;                           
         this.score = 0.0;
         this.dailyReminder = false;
         this.favoriteLanguages = new ArrayList<>();
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
         this.progressPerCourse = new HashMap<>();
-        this.currentCourseId = "";                          // Initialize as empty
-        this.currentLessonId = "";                          // Initialize as empty
+        this.currentCourseId = "";                          
+        this.currentLessonId = "";                          
         this.completedCourseIds = new ArrayList<>();
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
@@ -58,15 +58,15 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = "";
-        this.password = "";                                  // Password should be set separately and hashed
+        this.password = "";                                  
         this.score = 0.0;
         this.dailyReminder = false;
         this.favoriteLanguages = new ArrayList<>();
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
         this.progressPerCourse = new HashMap<>();
-        this.currentCourseId = "";                          // Initialize as empty
-        this.currentLessonId = "";                          // Initialize as empty
+        this.currentCourseId = "";                          
+        this.currentLessonId = "";                          
         this.completedCourseIds = new ArrayList<>();
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
@@ -75,7 +75,7 @@ public class User {
 
     // Default Constructor
     public User() {
-        this.userId = UUID.randomUUID().toString();                    // Automatically generate a UUID
+        this.userId = UUID.randomUUID().toString();                    
         this.userName = "";
         this.firstName = "";
         this.lastName = "";
@@ -87,8 +87,8 @@ public class User {
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
         this.progressPerCourse = new HashMap<>();
-        this.currentCourseId = "";                          // Initialize as empty
-        this.currentLessonId = "";                          // Initialize as empty
+        this.currentCourseId = "";                          
+        this.currentLessonId = "";                          
         this.completedCourseIds = new ArrayList<>();
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
@@ -109,8 +109,8 @@ public class User {
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
         this.progressPerCourse = new HashMap<>();
-        this.currentCourseId = "";                          // Initialize as empty
-        this.currentLessonId = "";                          // Initialize as empty
+        this.currentCourseId = "";                          
+        this.currentLessonId = "";                          
         this.completedCourseIds = new ArrayList<>();
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
@@ -156,13 +156,12 @@ public class User {
         this.email = email;
     }
     
-    // **Important:** Ensure passwords are hashed before setting
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        this.password = password; // Should be hashed before setting
+        this.password = password; 
     }
 
     public double getScore() {
@@ -264,40 +263,20 @@ public class User {
         this.currentQuestion = currentQuestion;
     }
 
-    // ... (Other methods remain unchanged)
-
-    /**
-     * Logs in the user by verifying email and password.
-     *
-     * @param email The user's email.
-     * @param password The user's password.
-     * @return True if login is successful, false otherwise.
-     */
+    
     public boolean login(String email, String password) {
-        // Implement secure password verification (e.g., using BCrypt)
-        // Example:
-        // return this.email.equals(email) && PasswordUtils.checkPassword(password, this.password);
-        return this.email.equals(email) && this.password.equals(password); // Placeholder
+        
+        return this.email.equals(email) && this.password.equals(password); 
     }
 
-    /**
-     * Updates the user's profile information.
-     *
-     * @param firstName The new first name.
-     * @param lastName The new last name.
-     * @param email The new email.
-     */
+    
     public void updateProfile(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    /**
-     * Marks a lesson as completed.
-     *
-     * @param lessonId The ID of the lesson to mark as completed.
-     */
+    
     public void markLessonAsCompleted(String lessonId) {
         if (!completedLessonIds.contains(lessonId)) {
             completedLessonIds.add(lessonId);
@@ -305,11 +284,7 @@ public class User {
         }
     }
 
-    /**
-     * Marks a course as completed.
-     *
-     * @param courseId The ID of the course to mark as completed.
-     */
+    
     public void markCourseAsCompleted(String courseId) {
         if (!completedCourseIds.contains(courseId)) {
             completedCourseIds.add(courseId);
@@ -384,7 +359,6 @@ public class User {
         if (!achievements.contains(achievement)) {
             achievements.add(achievement);
             System.out.println("🏅 Achievement Unlocked: " + title);
-            // Optionally, increase user score based on rewardPoints
             this.increaseScore(rewardPoints);
         }
     }

@@ -7,15 +7,15 @@ import java.util.Objects;
 public class Course {
 
     // Attributes
-    private final String courseId;           // Unique identifier for the course
+    private final String courseId;           
     private String courseName;
     private String difficulty;
-    private List<Lesson> lessons;            // List of lessons in the course
-    private double courseCompletion;         // Represents completion percentage (0.0 to 100.0)
+    private List<Lesson> lessons;            
+    private double courseCompletion;         
 
     // Constructor with parameters (auto-generates courseId)
     public Course(String courseName, String difficulty) {
-        this.courseId = java.util.UUID.randomUUID().toString(); // Automatically generate a unique courseId
+        this.courseId = java.util.UUID.randomUUID().toString(); 
         this.courseName = courseName;
         this.difficulty = difficulty;
         this.lessons = new ArrayList<>();
@@ -23,7 +23,7 @@ public class Course {
     }
 
     public Course(String courseName, String difficulty, double completion) {
-        this.courseId = java.util.UUID.randomUUID().toString(); // Automatically generate a unique courseId
+        this.courseId = java.util.UUID.randomUUID().toString(); 
         this.courseName = courseName;
         this.difficulty = difficulty;
         this.lessons = new ArrayList<>();
@@ -41,18 +41,14 @@ public class Course {
 
     // Default Constructor
     public Course() {
-        this.courseId = java.util.UUID.randomUUID().toString(); // Automatically generate a unique courseId
+        this.courseId = java.util.UUID.randomUUID().toString(); 
         this.courseName = "";
         this.difficulty = "";
         this.lessons = new ArrayList<>();
         this.courseCompletion = 0.0;
     }
 
-    /**
-     * Adds a lesson to the course.
-     *
-     * @param lesson The lesson to add.
-     */
+    
     public void addLesson(Lesson lesson) {
         if (lesson != null && !this.lessons.contains(lesson)) {
             this.lessons.add(lesson);
@@ -60,12 +56,7 @@ public class Course {
         }
     }
 
-    /**
-     * Retrieves a lesson by its lessonId.
-     *
-     * @param lessonId The ID of the lesson to retrieve.
-     * @return The Lesson object if found, null otherwise.
-     */
+    
     public Lesson getLessonById(String lessonId) {
         for (Lesson lesson : lessons) {
             if (lesson.getLessonId().equals(lessonId)) {
@@ -75,11 +66,7 @@ public class Course {
         return null; // Lesson not found
     }
 
-    /**
-     * Updates the course completion percentage based on the user's completed lessons.
-     *
-     * @param user The user whose progress is being tracked.
-     */
+    
     public void updateCourseCompletion(User user) {
         if (lessons.isEmpty()) {
             this.courseCompletion = 0.0;
@@ -94,12 +81,7 @@ public class Course {
         this.courseCompletion = ((double) completedLessons / lessons.size()) * 100.0;
     }
 
-    /**
-     * Checks if the course is completed by the user.
-     *
-     * @param user The user whose progress is being checked.
-     * @return True if the course is completed, false otherwise.
-     */
+    
     public boolean isCourseCompleted(User user) {
         // Assuming a course is completed when all its lessons are completed
         for (Lesson lesson : lessons) {

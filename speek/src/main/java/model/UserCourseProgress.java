@@ -9,9 +9,9 @@ public class UserCourseProgress {
     private String courseName;
     private String currentLessonId;
     private String currentLessonName;
-    private String lessonProgress; // This might represent progress in the current lesson (e.g., "50%")
-    private String courseProgress; // Represents overall course progress (e.g., "75%")
-    private List<Lesson> lessons;  // List of lessons in the course
+    private String lessonProgress; 
+    private String courseProgress; 
+    private List<Lesson> lessons;  
 
     // Constructor with all parameters
     public UserCourseProgress(String courseId, String courseName, List<Lesson> lessons) {
@@ -98,11 +98,7 @@ public class UserCourseProgress {
         this.lessons = lessons != null ? new ArrayList<>(lessons) : new ArrayList<>();
     }
 
-    /**
-     * Moves to the next lesson in the course.
-     *
-     * @return True if successfully moved to next lesson, false if already at the last lesson.
-     */
+    
     public boolean goToNextLesson() {
         if (lessons.isEmpty()) {
             System.out.println("⚠️ No lessons available in this course.");

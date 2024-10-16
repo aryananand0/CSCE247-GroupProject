@@ -15,10 +15,7 @@ public class CourseList {
         DataLoader.loadCourses();
     }
 
-    /* This method will return an instance of this class 
-     * @return new instance of this class
-     *
-     */
+    
     public static CourseList getInstance() {
         if (instance == null) {
             instance = new CourseList();
@@ -47,7 +44,6 @@ public class CourseList {
             System.out.println("ERROR: COULD NOT FIND USER. CourseList.getCourse(uuid)");
         }
         return u.getCurrentCourses();
-        // return the courses for that user 
     }
 
     // Method to get a specific course by name
@@ -57,7 +53,7 @@ public class CourseList {
                 return course;
             }
         }
-        return null;  // Return null if course not found
+        return null;  
     }
 
     // Method to remove a course by name
@@ -65,10 +61,10 @@ public class CourseList {
         for (Course course : courses) {
             if (course.getCourseName().equalsIgnoreCase(courseName)) {
                 courses.remove(course);
-                return true;  // Return true if course was successfully removed
+                return true;  
             }
         }
-        return false;  // Return false if course not found
+        return false;  
     }
 
     // Method to get the total number of courses
