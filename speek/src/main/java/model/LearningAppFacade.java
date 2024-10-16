@@ -15,11 +15,8 @@ public class LearningAppFacade {
 
     private UserList user;
     private CourseList course;
-<<<<<<< HEAD
     private static final String USER_FILE_PATH = "/json/User.json";
-=======
     private User currentUser;  // Store the current logged-in user
->>>>>>> 6f461779232eb5f8a4d5dfe0331ffc43eee789fa
 
     // Constructor
     public LearningAppFacade() {
@@ -27,7 +24,6 @@ public class LearningAppFacade {
         course = CourseList.getInstance();
     }
 
-<<<<<<< HEAD
     // Methods
 
     // Registers a new user with email and password, returns the created User object
@@ -73,14 +69,6 @@ public class LearningAppFacade {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-=======
-    // Registers a new user with email and password
-    public boolean registerUser(String username, String firstName, String lastName, String email, String password) {
-        if (!user.haveUser(username)) {
-            return user.addUser(username, firstName, lastName, email, password);
-        }
-        return false;
->>>>>>> 6f461779232eb5f8a4d5dfe0331ffc43eee789fa
     }
 
     // Logs in a user with username or email and password
