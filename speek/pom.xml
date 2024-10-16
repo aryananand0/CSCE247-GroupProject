@@ -89,6 +89,11 @@
             <version>2.1.0-alpha1</version>
         </dependency>
         
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version>
+        </dependency>
 
     </dependencies>
 </project>
