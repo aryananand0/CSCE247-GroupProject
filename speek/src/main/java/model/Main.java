@@ -89,31 +89,31 @@ public class Main {
         }
         System.out.println("");
         
-        // login-valid
+        // Login scenarios
         System.out.println("Attempting valid login...");
-        UserList userList = UserList.getInstance();
+        LearningAppFacade appFacade = LearningAppFacade.getInstance();
 
         String usernameOrEmail = "johndoe@example.com"; 
         String password = "hashedpassword123";
 
-        boolean loginSuccess = userList.LoginCheck(usernameOrEmail, password);
+        User loggedInUser = appFacade.loginUser(usernameOrEmail, password);
 
-        if (loginSuccess) {
+        if (loggedInUser != null) {
             System.out.println("Login successful for: " + usernameOrEmail);
         } else {
             System.out.println("Login failed. Invalid credentials.");
         }
         System.out.println("");
 
-        // login-invalid
+        // Check invalid login
         System.out.println("Attempting invalid login...");
 
         String invalidUsernameOrEmail = "johnDoe";
         String invalidPassword = "wrongPassword";
 
-        boolean invalidLogin = userList.LoginCheck(invalidUsernameOrEmail, invalidPassword);
+        User invalidLoginUser = appFacade.loginUser(invalidUsernameOrEmail, invalidPassword);
 
-        if (invalidLogin) {
+        if (invalidLoginUser != null) {
             System.out.println("Login successful for: " + invalidUsernameOrEmail);
         } else {
             System.out.println("Login failed. Invalid credentials.");
@@ -167,6 +167,19 @@ public class Main {
         //     System.out.println("Error signing out.");
         // }
         // System.out.println("");
+
+
+        // Signout scenario
+        System.out.println("Signing out...");
+
+        boolean logoutSuccess = appFacade.logout();
+
+        if (logoutSuccess) {
+            System.out.println("Sign out successful for " + usernameOrEmail);
+         } else {
+            System.out.println("Error signing out.");
+        }
+        System.out.println("");
 
 
         System.out.println("Loading Question class stuff...");

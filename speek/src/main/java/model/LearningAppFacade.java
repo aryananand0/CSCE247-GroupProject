@@ -17,11 +17,20 @@ public class LearningAppFacade {
     private CourseList course;
     private static final String USER_FILE_PATH = "/json/User.json";
     private User currentUser;  // Store the current logged-in user
+    private static LearningAppFacade instance;  // Singleton instance
 
     // Constructor
     public LearningAppFacade() {
         user = UserList.getInstance();
         course = CourseList.getInstance();
+    }
+
+    // Get the singleton instance of LearningAppFacade
+    public static LearningAppFacade getInstance() {
+        if (instance == null) {
+            instance = new LearningAppFacade();
+        }
+        return instance;
     }
 
     // Methods
@@ -87,10 +96,9 @@ public class LearningAppFacade {
     }
 
     // Logs out the current user
-    public static boolean logout() {
-        LearningAppFacade facade = new LearningAppFacade();
-        if (facade.getCurrentUser() != null) {
-            facade.currentUser = null;
+    public boolean logout() {
+        if (currentUser != null) {
+            currentUser = null;
             return true;
         }
         return false;
