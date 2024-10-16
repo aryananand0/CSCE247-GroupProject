@@ -120,54 +120,6 @@ public class Main {
         }
         System.out.println("");
 
-        // addUser-valid
-        // System.out.println("Adding new user - valid case...");
-
-        // String username = "janeDoe";
-        // String firstName = "Jane";
-        // String lastName = "Doe";
-        // String email = "janedoe@example.com";
-        // String newPassword = "newpassword123";
-
-        // boolean userAdded = userList.addUser(username, firstName, lastName, email, newPassword);
-
-        // if (userAdded) {
-        //     System.out.println("User added successfully: " + username);
-        // } else {
-        //     System.out.println("Failed to add user. Username already exists.");
-        // }
-        // System.out.println("");
-
-        // // addUser-invalid
-        // System.out.println("Adding new user - invalid case...");
-
-        // String existingUsername = "johnDoe"; 
-        // String existingFirstName = "John";
-        // String existingLastName = "Doe";
-        // String existingEmail = "johndoe@example.com";
-        // String existingPassword = "hashedpassword123";
-
-        // boolean invalidUserAdded = userList.addUser(existingUsername, existingFirstName, existingLastName, existingEmail, existingPassword);
-
-        // if (invalidUserAdded) {
-        //     System.out.println("User added successfully: " + existingUsername);
-        // } else {
-        //     System.out.println("Failed to add user. Username already exists.");
-        // }
-        // System.out.println("");
-
-        // // signout.facade
-        // System.out.println("Signing out...");
-
-        // boolean logoutSuccess = LearningAppFacade.logout();
-
-        // if (logoutSuccess) {
-        //     System.out.println("User signed out successfully.");
-        // } else {
-        //     System.out.println("Error signing out.");
-        // }
-        // System.out.println("");
-
 
         // Signout scenario
         System.out.println("Signing out...");

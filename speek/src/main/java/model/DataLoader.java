@@ -35,7 +35,7 @@ public class DataLoader extends DataConstants {
                 // Create a new User object
                 User user = new User(uuid.toString(), userName, firstName, lastName);
                 user.setPassword(password);
-
+                user.setEmail(email);
                 // Load achievements
                 JSONArray achievementsJSON = (JSONArray) usersJSON.get("achievements");
                 ArrayList<Achievements> achievements = new ArrayList<>();
