@@ -48,7 +48,23 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: '¿Cómo estás?' is a formal way to ask 'How are you?' in Spanish.",
                       "correctAnswer": "False"
-                    }
+                    },
+                    {
+                      "questionId": "q1a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5p8",
+                      "type": "MatchWords",
+                      "text": "Match the Spanish greetings to their English meanings.",
+                      "pairs": {
+                        "Hola": "Hello",
+                        "Buenos días": "Good morning",
+                        "Buenas noches": "Good night"
+                      }
+                    },
+                    {
+                      "questionId": "q38a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5r1",
+                      "type": "ShortAnswer",
+                      "text": "Translate to Spanish: 'Good night.'",
+                      "correctAnswer": "Buenas noches"
+                    }                    
                   ]
                 }
               ]
@@ -92,7 +108,20 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: '¿Qué hora es?' means 'What time is it?' in Spanish.",
                       "correctAnswer": "True"
-                    }
+                    },
+                    {
+                      "questionId": "q39a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5r2",
+                      "type": "TrueOrFalse",
+                      "text": "True or False: 'Enero' means 'February' in English.",
+                      "correctAnswer": "False"
+                    },
+                    {
+                      "questionId": "q40a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5r3",
+                      "type": "MultipleChoice",
+                      "text": "How do you say 'Tuesday' in Spanish?",
+                      "options": ["Martes", "Miércoles", "Jueves", "Viernes"],
+                      "correctAnswer": "Martes"
+                    }                    
                   ]
                 }
               ]
@@ -139,7 +168,23 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: '¿Cuánto cuesta?' means 'How much is it?' in Spanish.",
                       "correctAnswer": "True"
-                    }
+                    },
+                    {
+                      "questionId": "q41a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5r4",
+                      "type": "MatchWords",
+                      "text": "Match the Spanish words to their English equivalents.",
+                      "pairs": {
+                        "Dinero": "Money",
+                        "Artículo": "Item",
+                        "Tienda": "Store"
+                      }
+                    },
+                    {
+                      "questionId": "q42a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5r5",
+                      "type": "ShortAnswer",
+                      "text": "Translate to Spanish: 'How much does it cost?'",
+                      "correctAnswer": "¿Cuánto cuesta?"
+                    }                    
                   ]
                 }
               ]
@@ -186,7 +231,20 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Tren' means 'Bus' in English.",
                       "correctAnswer": "False"
-                    }
+                    },
+                    {
+                      "questionId": "q43a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5r6",
+                      "type": "TrueOrFalse",
+                      "text": "True or False: 'Calle' means 'Street' in English.",
+                      "correctAnswer": "True"
+                    },
+                    {
+                      "questionId": "q44a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5r7",
+                      "type": "MultipleChoice",
+                      "text": "How do you say 'Right' in Spanish?",
+                      "options": ["Derecha", "Izquierda", "Adelante", "Abajo"],
+                      "correctAnswer": "Derecha"
+                    }                    
                   ]
                 }
               ]
@@ -239,7 +297,20 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: '¿Qué me recomienda?' means 'What do you recommend?' in English.",
                       "correctAnswer": "True"
-                    }
+                    },
+                    {
+                      "questionId": "q45a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5r8",
+                      "type": "MultipleChoice",
+                      "text": "How do you say 'Drink' in Spanish?",
+                      "options": ["Comida", "Bebida", "Sopa", "Agua"],
+                      "correctAnswer": "Bebida"
+                    },
+                    {
+                      "questionId": "q46a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5r9",
+                      "type": "ShortAnswer",
+                      "text": "Translate to Spanish: 'I would like water, please.'",
+                      "correctAnswer": "Quisiera agua, por favor."
+                    }                    
                   ]
                 }
               ]
@@ -285,7 +356,23 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Dolor de cabeza' means 'Stomach ache' in English.",
                       "correctAnswer": "False"
-                    }
+                    },
+                    {
+                      "questionId": "q47a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5s0",
+                      "type": "MatchWords",
+                      "text": "Match the Spanish health terms to their English equivalents.",
+                      "pairs": {
+                        "Dolor de cabeza": "Headache",
+                        "Gripe": "Flu",
+                        "Fiebre": "Fever"
+                      }
+                    },
+                    {
+                      "questionId": "q48a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5s1",
+                      "type": "TrueOrFalse",
+                      "text": "True or False: 'Tengo fiebre' means 'I have a headache' in English.",
+                      "correctAnswer": "False"
+                    }                    
                   ]
                 }
               ]
@@ -331,7 +418,20 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Contrato' means 'House' in English.",
                       "correctAnswer": "False"
-                    }
+                    },
+                    {
+                      "questionId": "q49a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5s2",
+                      "type": "ShortAnswer",
+                      "text": "Translate to English: '¿Cuánto cuesta el alquiler?'",
+                      "correctAnswer": "How much is the rent?"
+                    },
+                    {
+                      "questionId": "q50a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5s3",
+                      "type": "MultipleChoice",
+                      "text": "How do you say 'Room' in Spanish?",
+                      "options": ["Casa", "Habitación", "Calle", "Apartamento"],
+                      "correctAnswer": "Habitación"
+                    }                    
                   ]
                 }
               ]
@@ -377,7 +477,19 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Ingeniero' means 'Teacher' in English.",
                       "correctAnswer": "False"
-                    }
+                    },
+                    {
+                      "questionId": "q51a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5s4",
+                      "type": "TrueOrFalse",
+                      "text": "True or False: 'Abogado' means 'Doctor' in English.",
+                      "correctAnswer": "False"
+                    },
+                    {
+                      "questionId": "q52a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5s5",
+                      "type": "ShortAnswer",
+                      "text": "Translate to Spanish: 'I am an engineer.'",
+                      "correctAnswer": "Soy ingeniero."
+                    }                    
                   ]
                 }
               ]
@@ -430,7 +542,22 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Reunión' means 'Party' in English.",
                       "correctAnswer": "False"
-                    }
+                    },
+                    {
+                      "questionId": "q53a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5s6",
+                      "type": "MatchWords",
+                      "text": "Match the social terms to their English equivalents.",
+                      "pairs": {
+                        "Fiesta": "Party",
+                        "Reunión": "Meeting"
+                      }
+                    },
+                    {
+                      "questionId": "q54a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5s7",
+                      "type": "TrueOrFalse",
+                      "text": "True or False: 'Te presento a' means 'I introduce you to' in English.",
+                      "correctAnswer": "True"
+                    }                    
                   ]
                 }
               ]
@@ -476,7 +603,20 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Hacer retiros' means 'Make withdrawals' in English.",
                       "correctAnswer": "True"
-                    }
+                    },
+                    {
+                      "questionId": "q55a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5s8",
+                      "type": "ShortAnswer",
+                      "text": "Translate to Spanish: 'I need to pay my bill.'",
+                      "correctAnswer": "Necesito pagar mi factura."
+                    },
+                    {
+                      "questionId": "q56a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5s9",
+                      "type": "MultipleChoice",
+                      "text": "How do you say 'Gas' in Spanish?",
+                      "options": ["Electricidad", "Agua", "Gas", "Aire"],
+                      "correctAnswer": "Gas"
+                    }                    
                   ]
                 }
               ]
@@ -529,7 +669,19 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Medios de comunicación en español' means 'Spanish communication media' in English.",
                       "correctAnswer": "True"
-                    }
+                    },
+                    {
+                      "questionId": "q57a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t0",
+                      "type": "TrueOrFalse",
+                      "text": "True or False: 'Política' means 'Politics' in English.",
+                      "correctAnswer": "True"
+                    },
+                    {
+                      "questionId": "q58a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t1",
+                      "type": "ShortAnswer",
+                      "text": "Translate to Spanish: 'The news is important.'",
+                      "correctAnswer": "Las noticias son importantes."
+                    }                    
                   ]
                 }
               ]
@@ -575,7 +727,23 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Negociar y resolver conflictos' means 'Negotiate and resolve conflicts' in English.",
                       "correctAnswer": "True"
-                    }
+                    },
+                    {
+                      "questionId": "q59a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t2",
+                      "type": "MultipleChoice",
+                      "text": "How do you say 'Problem' in Spanish?",
+                      "options": ["Solución", "Problema", "Pregunta", "Respuesta"],
+                      "correctAnswer": "Problema"
+                    },
+                    {
+                      "questionId": "q60a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t3",
+                      "type": "MatchWords",
+                      "text": "Match the conflict resolution terms to their English meanings.",
+                      "pairs": {
+                        "Resolver": "Resolve",
+                        "Negociar": "Negotiate"
+                      }
+                    }                    
                   ]
                 }
               ]
@@ -621,7 +789,23 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Voy a viajar a España el próximo mes' means 'I am going to travel to Spain next month.' in English.",
                       "correctAnswer": "True"
-                    }
+                    },
+                    {
+                      "questionId": "q73a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5q1",
+                      "type": "MatchWords",
+                      "text": "Match the Spanish travel terms to their English equivalents.",
+                      "pairs": {
+                        "Billete de avión": "Plane ticket",
+                        "Reservar": "Book",
+                        "Viajar": "Travel"
+                      }
+                    },
+                    {
+                      "questionId": "q74a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5q2",
+                      "type": "TrueOrFalse",
+                      "text": "True or False: 'Disfruto viajar' means 'I enjoy traveling.' in English.",
+                      "correctAnswer": "True"
+                    }                    
                   ]
                 }
               ]
@@ -675,7 +859,20 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Hablar con funcionarios del gobierno' means 'Talk to government officials' in English.",
                       "correctAnswer": "True"
-                    }
+                    },
+                    {
+                      "questionId": "q61a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t4",
+                      "type": "TrueOrFalse",
+                      "text": "True or False: 'Pasaporte' means 'Passport' in English.",
+                      "correctAnswer": "True"
+                    },
+                    {
+                      "questionId": "q62a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t5",
+                      "type": "MultipleChoice",
+                      "text": "How do you say 'Contract' in Spanish?",
+                      "options": ["Permiso", "Formulario", "Contrato", "Documento"],
+                      "correctAnswer": "Contrato"
+                    }                    
                   ]
                 }
               ]
@@ -722,7 +919,19 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Negociar contratos' means 'Negotiate contracts' in English.",
                       "correctAnswer": "True"
-                    }
+                    },
+                    {
+                      "questionId": "q63a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t6",
+                      "type": "ShortAnswer",
+                      "text": "Translate to Spanish: 'I want to rent an apartment.'",
+                      "correctAnswer": "Quiero alquilar un apartamento."
+                    },
+                    {
+                      "questionId": "q64a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t7",
+                      "type": "TrueOrFalse",
+                      "text": "True or False: 'Hipoteca' means 'Rent' in English.",
+                      "correctAnswer": "False"
+                    }                    
                   ]
                 }
               ]
@@ -769,7 +978,20 @@
                       "type": "TrueOrFalse",
                       "text": "True or False: 'Hacer retiros' means 'Make withdrawals' in English.",
                       "correctAnswer": "True"
-                    }
+                    },
+                    {
+                      "questionId": "q65a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t8",
+                      "type": "MultipleChoice",
+                      "text": "How do you say 'Bank account' in Spanish?",
+                      "options": ["Tarjeta de crédito", "Cuenta bancaria", "Depósito", "Retiro"],
+                      "correctAnswer": "Cuenta bancaria"
+                    },
+                    {
+                      "questionId": "q66a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t9",
+                      "type": "TrueOrFalse",
+                      "text": "True or False: 'Depósito' means 'Deposit' in English.",
+                      "correctAnswer": "True"
+                    }                    
                   ]
                 }
               ]
