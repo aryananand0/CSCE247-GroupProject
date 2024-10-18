@@ -58,4 +58,13 @@ public abstract class DataConstants {
     protected static final String LEADERBOARD_USER_SCORE = "score";
     protected static final String LEADERBOARD_USER_NAME = "userName";
     protected static final String LEADERBOARD_USER_UUID = "userId";
+
+    // Game fields
+    protected static final String GAME_FILE = "json/Game.json";
+    protected static final String GAME_QUESTION = "Question";
+    protected static final String GAME_ANSWER = "Answer";
+    protected static final String GAME_EASY= "easy";
+    protected static final String GAME_MED = "medium";
+    protected static final String GAME_HARD = "hard";
+
 }
