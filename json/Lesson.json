@@ -116,12 +116,15 @@
                       "correctAnswer": "False"
                     },
                     {
-                      "questionId": "q40a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5r3",
-                      "type": "MultipleChoice",
-                      "text": "How do you say 'Tuesday' in Spanish?",
-                      "options": ["Martes", "Miércoles", "Jueves", "Viernes"],
-                      "correctAnswer": "Martes"
-                    }                    
+                      "questionId": "q75a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5t0",
+                      "type": "MatchWords",
+                      "text": "Match the Spanish days of the week to their English equivalents.",
+                      "pairs": {
+                        "Lunes": "Monday",
+                        "Martes": "Tuesday",
+                        "Miércoles": "Wednesday"
+                      }
+                    }                                        
                   ]
                 }
               ]

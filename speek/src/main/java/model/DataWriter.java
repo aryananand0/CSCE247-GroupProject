@@ -11,58 +11,98 @@ public class DataWriter extends DataConstants {
 
     // Method to write users to the JSON file
     @SuppressWarnings("unchecked")
-    public static void saveUsers(ArrayList<User> users) {
-        JSONArray userArray = new JSONArray();
+public static void saveUsers(ArrayList<User> users) {
+    JSONArray userArray = new JSONArray();
 
-        for (User user : users) {
-            JSONObject userDetails = new JSONObject();
-            userDetails.put(USER_ID, user.getUserId().toString());
-            userDetails.put(USER_FIRST_NAME, user.getFirstName());
-            userDetails.put(USER_LAST_NAME, user.getLastName());
-            userDetails.put(USER_EMAIL, user.getEmail());
-            userDetails.put(USER_PASSWORD, user.getPassword());
-            userDetails.put(USER_PROGRESS, user.getProgress(null));
-            userDetails.put(USER_DAILY_REMINDER, user.isDailyReminder());
+    for (User user : users) {
+        JSONObject userDetails = new JSONObject();
+        userDetails.put(USER_ID, user.getUserId().toString());
+        userDetails.put(USER_FIRST_NAME, user.getFirstName());
+        userDetails.put(USER_LAST_NAME, user.getLastName());
+        userDetails.put(USER_EMAIL, user.getEmail());
+        userDetails.put(USER_PASSWORD, user.getPassword());
+        userDetails.put(USER_PROGRESS, user.trackProgress());  // Updated to handle progress
+        userDetails.put(USER_DAILY_REMINDER, user.isDailyReminder());
 
-            // Add favorite languages
-            JSONArray favLanguagesArray = new JSONArray();
-            for (Language lang : user.getFavoriteLanguages()) {
-                favLanguagesArray.add(lang.getLanguageName());
-            }
-            userDetails.put(USER_FAVORITE_LANGUAGES, favLanguagesArray);
+        // Add favorite languages
+        JSONArray favLanguagesArray = new JSONArray();
+        for (Language lang : user.getFavoriteLanguages()) {
+            favLanguagesArray.add(lang.getLanguageName());
+        }
+        userDetails.put(USER_FAVORITE_LANGUAGES, favLanguagesArray);
 
-            // Add current courses
-            JSONArray coursesArray = new JSONArray();
-            for (Course course : user.getCurrentCourses()) {
-                JSONObject courseDetails = new JSONObject();
-                courseDetails.put(COURSE_ID, course.getCourseName()); // Assuming course ID
-                courseDetails.put(COURSE_PROGRESS, course.getCourseCompletion());
-                coursesArray.add(courseDetails);
-            }
-            userDetails.put(USER_CURRENT_COURSES, coursesArray);
+        // Add current courses with more details
+        JSONArray coursesArray = new JSONArray();
+        for (Course course : user.getCurrentCourses()) {
+            JSONObject courseDetails = new JSONObject();
+            courseDetails.put(COURSE_ID, course.getCourseId().toString());
+            courseDetails.put(COURSE_NAME, course.getCourseName());
+            courseDetails.put(COURSE_PROGRESS, user.getProgress(course.getCourseId().toString()));  // Track progress per course
+            courseDetails.put("currentLessonId", user.getCurrentLessonId());
+            coursesArray.add(courseDetails);
+        }
+        userDetails.put(USER_CURRENT_COURSES, coursesArray);
 
-            // Add achievements
-            JSONArray achievementsArray = new JSONArray();
-            for (Achievements achievement : user.getAchievements()) {
-                JSONObject achievementDetails = new JSONObject();
-                achievementDetails.put(ACHIEVEMENT_ID, achievement.getAchievementId());
-                achievementDetails.put(ACHIEVEMENTS_TITLE, achievement.getTitle());
-                achievementDetails.put(ACHIEVEMENTS_DESCRIPTION, achievement.getDescription());
-                achievementDetails.put(ACHIEVEMENTS_REWARD_POINTS, achievement.getRewardPoints());
-                achievementsArray.add(achievementDetails);
-            }
-            userDetails.put(USER_ACHIEVEMENTS, achievementsArray);
+        // Add achievements
+        JSONArray achievementsArray = new JSONArray();
+        for (Achievements achievement : user.getAchievements()) {
+            JSONObject achievementDetails = new JSONObject();
+            achievementDetails.put(ACHIEVEMENT_ID, achievement.getAchievementId());
+            achievementDetails.put(ACHIEVEMENTS_TITLE, achievement.getTitle());
+            achievementDetails.put(ACHIEVEMENTS_DESCRIPTION, achievement.getDescription());
+            achievementDetails.put(ACHIEVEMENTS_REWARD_POINTS, achievement.getRewardPoints());
+            achievementsArray.add(achievementDetails);
+        }
+        userDetails.put(USER_ACHIEVEMENTS, achievementsArray);
 
-            userArray.add(userDetails);
+        // Add completed course IDs
+        JSONArray completedCoursesArray = new JSONArray();
+        for (String courseId : user.getCompletedCourseIds()) {
+            completedCoursesArray.add(courseId);
+        }
+        userDetails.put("completedCourseIds", completedCoursesArray);
+
+        // Add completed lesson IDs
+        JSONArray completedLessonsArray = new JSONArray();
+        for (String lessonId : user.getCompletedLessonIds()) {
+            completedLessonsArray.add(lessonId);
+        }
+        userDetails.put("completedLessonIds", completedLessonsArray);
+
+        // Add question history
+        JSONArray questionHistoryArray = new JSONArray();
+        for (QuestionHistory history : user.getQuestionHistory()) {
+            JSONObject historyDetails = new JSONObject();
+            historyDetails.put("questionId", history.getQuestionId());
+            historyDetails.put("questionText", history.getQuestionText());
+            historyDetails.put("userAnswer", history.getUserAnswer());
+            historyDetails.put("correctAnswer", history.getCorrectAnswer());
+            historyDetails.put("isCorrect", history.isCorrect());
+            questionHistoryArray.add(historyDetails);
+        }
+        userDetails.put("questionHistory", questionHistoryArray);
+
+        // Add current question
+        if (user.getCurrentQuestion() != null) {
+            JSONObject currentQuestionDetails = new JSONObject();
+            currentQuestionDetails.put("questionId", user.getCurrentQuestion().getId());
+            currentQuestionDetails.put("type", user.getCurrentQuestion().getType());
+            currentQuestionDetails.put("text", user.getCurrentQuestion().getText());
+            currentQuestionDetails.put("correctAnswer", user.getCurrentQuestion().getCorrectAnswer());
+            userDetails.put("currentQuestion", currentQuestionDetails);
         }
 
-        try (FileWriter file = new FileWriter(USER_FILE)) {
-            file.write(userArray.toJSONString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        userArray.add(userDetails);
     }
+
+    try (FileWriter file = new FileWriter(USER_FILE)) {
+        file.write(userArray.toJSONString());
+        file.flush();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
 
     // Method to write courses to the JSON file
     @SuppressWarnings("unchecked")
