@@ -25,6 +25,14 @@ public class Leaderboard {
         return this.users;
     }
 
+    public double getScore(){
+        return this.score;
+    }
+
+    public void setScore(double score){
+        this.score = score;
+    }
+
     // Methods
     public ArrayList<User> displayLeaderboard() {
         // (implement logic later)

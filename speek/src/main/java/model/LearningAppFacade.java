@@ -120,8 +120,7 @@ public class LearningAppFacade {
     }
 
     // Retrieves the leaderboard
-    public ArrayList<User> getLeaderboard() {
-        // Method stub
-        return new ArrayList<>();  // Placeholder return
+    public Leaderboard getLeaderboard() {
+        return DataLoader.loadLeaderboard();
     }
 }
