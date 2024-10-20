@@ -24,6 +24,36 @@ public class Main {
             System.out.println("No users found.");
         }
         
+        // Check if Alice Smith already exists
+        String newUserEmail = "alicesmith@example.com";
+        boolean userExists = false;
+        
+        for (User user : users) {
+            if (user.getEmail().equals(newUserEmail)) {
+                userExists = true;
+                break;
+            }
+        }
+        
+        // Add new user only if they don't already exist
+        if (!userExists) {
+            System.out.println("Adding new user...");
+            User newUser = new User("jakeadams123", "Jake", "adams", newUserEmail, "password123");
+            users.add(newUser);
+            
+            // Save users to file
+            DataWriter.saveUsers(users);
+            System.out.println("New user added and users saved to JSON file.");
+        } else {
+            System.out.println("User already exists, skipping addition.");
+        }
+        
+        System.out.println("\nReloaded users from file:");
+        ArrayList<User> reloadedUsers = DataLoader.loadUsers();
+        for (User user : reloadedUsers) {
+            System.out.println(user.toString());
+        }
+        
         System.out.println("");
         
         // Loading courses
