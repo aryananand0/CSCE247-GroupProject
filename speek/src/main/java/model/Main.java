@@ -243,8 +243,6 @@ public class Main {
     
     public static void ShowLessons(){
         // Specify the path to your JSON file
-        String jsonFilePath = "json/Lesson.json"; // Adjust the path as needed
-
         // Load courses from the JSON file
         ArrayList<Course> courses = DataLoader.loadCoursesFromJson();
 
