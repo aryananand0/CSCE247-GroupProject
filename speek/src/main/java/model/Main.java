@@ -164,8 +164,8 @@ public class Main {
         System.out.println("Loading Question class stuff...");
         testingQuestionClass();
         System.out.println("");
-        // System.out.println("Loading Lessons...\n");
-        // ShowLessons();
+        System.out.println("Loading Lessons...\n");
+        ShowLessons();
     }
 
     public static void testingQuestionClass(){
