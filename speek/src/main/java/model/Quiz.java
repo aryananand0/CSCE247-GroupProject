@@ -7,7 +7,7 @@ public class Quiz {
 
     // Attributes
     private String quizName;
-    private ArrayList<Questions> questions;
+    private ArrayList<Question> questions;
     private String feedback;
 
     // Constructor
@@ -22,18 +22,16 @@ public class Quiz {
         int score = 0;
         Scanner scanner = new Scanner(System.in);
 
-        for (Questions question : questions) {
+        for (Question question : questions) {
             // Display question (handles multiple-choice options too)
-            System.out.println(question.displayQuestion());
+            System.out.println(question.display());
 
             // Get user input
             String userAnswer = scanner.nextLine();
 
-            // Store user's answer
-            question.storeUserAnswer(user, userAnswer);
 
             // Check if the answer is correct
-            if (question.checkAnswer(user)) {
+            if (question.validateAnswer(userAnswer)) {
                 score++;
                 System.out.println("Correct!");
             } else {
@@ -50,7 +48,7 @@ public class Quiz {
     }
 
     // Method to add a question to the quiz
-    public void addQuestion(Questions question) {
+    public void addQuestion(Question question) {
         questions.add(question);
     }
 
@@ -68,11 +66,11 @@ public class Quiz {
         this.quizName = quizName;
     }
 
-    public ArrayList<Questions> getQuestions() {
+    public ArrayList<Question> getQuestions() {
         return this.questions;
     }
 
-    public void setQuestions(ArrayList<Questions> questions) {
+    public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
 }
