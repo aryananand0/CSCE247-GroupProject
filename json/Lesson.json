@@ -260,7 +260,7 @@
           "difficulty": "Intermediate",
           "lessons": [
             {
-              "lessonId": "b2c3d4e5-f6g7-4h8i-9j0k-2l3m4n5o6p7q",
+              "lessonId": "b2c3d4e5-f67a-4b8c-9d0e-2f3a4b5c6d7e",
               "lessonName": "Lesson 5: At the Restaurant and Ordering Food",
               "content": {
                 "vocabulary": ["Comida", "Bebida", "Menú"],
@@ -319,7 +319,7 @@
               ]
             },
             {
-              "lessonId": "b2c3d4e5-f6g7-4h8i-9j0k-2l3m4n5o6p7r",
+              "lessonId": "b2c3d4e5-f6c7-4a8d-9e0b-234567a",
               "lessonName": "Lesson 6: Health and Emergency Vocabulary",
               "content": {
                 "vocabulary": ["Dolor de cabeza", "Gripe"],
@@ -381,7 +381,7 @@
               ]
             },
             {
-              "lessonId": "b2c3d4e5-f6g7-4h8i-9j0k-2l3m4n5o6p7s",
+              "lessonId": "b2c3d4e5-f67-4h8i-9j0k-2l3m4n5o6p7s",
               "lessonName": "Lesson 7: Housing and Renting",
               "content": {
                 "vocabulary": ["Alquiler", "Contrato", "Habitación"],
