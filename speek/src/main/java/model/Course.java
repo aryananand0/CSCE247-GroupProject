@@ -23,6 +23,13 @@ public class Course {
         this.courseCompletion = 0.0;
     }
 
+    public Course(UUID courseUUID, String courseName) {
+        this.courseId = courseUUID; 
+        this.courseName = courseName;
+        this.lessons = new ArrayList<>();
+        this.courseCompletion = 0.0;
+    }
+
     public Course(String courseName, String difficulty, double completion) {
         this.courseId = java.util.UUID.randomUUID(); 
         this.courseName = courseName;
@@ -53,7 +60,6 @@ public class Course {
     public void addLesson(Lesson lesson) {
         if (lesson != null && !this.lessons.contains(lesson)) {
             this.lessons.add(lesson);
-            System.out.println("📖 Lesson \"" + lesson.getLessonTitle() + "\" added to course \"" + courseName + "\".");
         }
     }
 

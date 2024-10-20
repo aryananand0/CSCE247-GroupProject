@@ -1,15 +1,24 @@
 package model;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class MultipleChoiceQuestion extends Question {
     private List<String> options; 
-    private String correctAnswer; 
-
+    private String correctAnswer;
+    private UUID id; 
     
+    public MultipleChoiceQuestion(UUID id,String text, List<String> options, String correctAnswer) {
+        super(text);
+        this.id = id;
+        this.options = new ArrayList<>(options);
+        this.correctAnswer = correctAnswer;
+    }
+
     public MultipleChoiceQuestion(String text, List<String> options, String correctAnswer) {
         super(text);
+        this.id = UUID.randomUUID();
         this.options = new ArrayList<>(options);
         this.correctAnswer = correctAnswer;
     }
@@ -43,6 +52,10 @@ public class MultipleChoiceQuestion extends Question {
 
     public List<String> getOptions() {
         return new ArrayList<>(options);
+    }
+
+    public UUID getId(){
+        return this.id;
     }
 
     public void setOptions(List<String> options) {

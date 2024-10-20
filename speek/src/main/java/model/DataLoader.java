@@ -47,9 +47,52 @@ public class DataLoader extends DataConstants {
                     // Add achievement to the list
                     achievements.add(new Achievements(title, description, rewardPoints));
                 }
-
                 // Add achievements to the user
                 user.setAchievements(achievements);
+
+                  // Load currentCourses
+            JSONArray currentCoursesJSON = (JSONArray) usersJSON.get("currentCourses");
+            ArrayList<Course> currentCourses = new ArrayList<>();
+            for (Object courseObj : currentCoursesJSON) {
+                JSONObject courseJSON = (JSONObject) courseObj;
+                UUID courseId = UUID.fromString((String) courseJSON.get("courseId"));
+                String courseName = (String) courseJSON.get("courseName");
+                String currentLessonId = (String) courseJSON.get("currentLessonId");
+                String currentLessonName = (String) courseJSON.get("currentLessonName");
+                String lessonProgress = (String) courseJSON.get("lessonProgress");
+                String courseProgress = (String) courseJSON.get("courseProgress");
+
+                // Create a new Course object and set the current lesson and progress
+                Course course = new Course(courseId, courseName);
+                course.setCourseCompletion(Double.parseDouble(courseProgress));
+
+                // Create a new Lesson object for the current lesson
+                Lesson currentLesson = new Lesson(UUID.fromString(currentLessonId), currentLessonName);
+                currentLesson.setContent(""); // Assuming content is not part of the provided JSON
+
+                // Add lesson to the course
+                course.addLesson(currentLesson);
+
+                // Add course to currentCourses list
+                currentCourses.add(course);
+            }
+            user.setCurrentCourses(currentCourses);
+
+            // Load questionHistory
+            JSONArray questionHistoryJSON = (JSONArray) usersJSON.get("questionHistory");
+            ArrayList<QuestionHistory> questionHistory = new ArrayList<>();
+            for (Object questionObj : questionHistoryJSON) {
+                JSONObject questionJSON = (JSONObject) questionObj;
+                String questionId = (String) questionJSON.get("questionId");
+                String questionText = (String) questionJSON.get("questionText");
+                String userAnswer = (String) questionJSON.get("userAnswer");
+                String correctAnswer = (String) questionJSON.get("correctAnswer");
+                boolean isCorrect = (Boolean) questionJSON.get("isCorrect");
+
+                QuestionHistory history = new QuestionHistory(questionId, questionText, userAnswer, correctAnswer, isCorrect);
+                questionHistory.add(history);
+            }
+            user.setQuestionHistory(questionHistory);
 
                 // Add the user to the users list
                 users.add(user);
@@ -229,30 +272,11 @@ public class DataLoader extends DataConstants {
     }
 
     public static User getUser(String usernameOrEmail, String password) {
-        try {
-            FileReader reader = new FileReader(USER_FILE);
-            JSONArray userJSON = (JSONArray) new JSONParser().parse(reader);
-    
-            for (int i = 0; i < userJSON.size(); i++) {
-                JSONObject usersJSON = (JSONObject) userJSON.get(i);
-                String email = (String) usersJSON.get(USER_EMAIL);
-                String userName = (String) usersJSON.get(USER_USER_NAME);
-                String UserPassword = (String) usersJSON.get(USER_PASSWORD);
-                if((userName.equals(usernameOrEmail) || email.equalsIgnoreCase(usernameOrEmail)) && UserPassword.equals(password)){
-                    String firstName = (String) usersJSON.get(USER_FIRST_NAME);
-                    String lastName = (String) usersJSON.get(USER_LAST_NAME);
-                    UUID uuid = UUID.fromString((String) usersJSON.get(USER_UUID));
-                    return new User(uuid.toString(), userName, firstName, lastName, email);
-                    
-                }
-
-                //get users courses
-                //Course course = CourseList.getInstance().getCourse(uuid);
-
-
+        ArrayList<User> users = loadUsers();
+        for (User user : users) {
+            if((user.getUserName().equals(usernameOrEmail) || user.getEmail().equalsIgnoreCase(usernameOrEmail)) && user.getPassword().equals(password)){
+                return user;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;  // Return null if user not found
     }
@@ -263,39 +287,39 @@ public class DataLoader extends DataConstants {
     public static ArrayList<Course> loadCoursesFromJson() {
         ArrayList<Course> coursesList = new ArrayList<>();
         JSONParser parser = new JSONParser();
-
+    
         try (FileReader reader = new FileReader("json/Lesson.json")) {
             JSONObject root = (JSONObject) parser.parse(reader);
             JSONArray languages = (JSONArray) root.get("languages");
-
+    
             for (Object langObj : languages) {
                 JSONObject language = (JSONObject) langObj;
                 String languageId = (String) language.get("languageId");
                 String languageName = (String) language.get("languageName");
-
+    
                 JSONArray courses = (JSONArray) language.get("courses");
                 for (Object courseObj : courses) {
                     JSONObject courseJson = (JSONObject) courseObj;
                     UUID courseId = UUID.fromString((String) courseJson.get("courseId"));
                     String courseName = (String) courseJson.get("courseName");
                     String difficulty = (String) courseJson.get("difficulty");
-
+    
                     Course course = new Course(courseId, courseName, difficulty, 0.0);
-
+    
                     JSONArray lessons = (JSONArray) courseJson.get("lessons");
                     for (Object lessonObj : lessons) {
                         JSONObject lessonJson = (JSONObject) lessonObj;
-                        String lessonId = (String) lessonJson.get("lessonId");
+                        UUID lessonId = UUID.fromString((String) lessonJson.get("lessonId"));
                         String lessonName = (String) lessonJson.get("lessonName");
                         JSONObject contentJson = (JSONObject) lessonJson.get("content");
-
+    
                         // Convert contentJson to a formatted string
                         StringBuilder contentBuilder = new StringBuilder();
                         for (Object keyObj : contentJson.keySet()) {
                             String key = (String) keyObj;
                             Object value = contentJson.get(key);
                             contentBuilder.append(capitalizeFirstLetter(key)).append(": ");
-
+    
                             if (value instanceof JSONArray) {
                                 JSONArray array = (JSONArray) value;
                                 List<String> items = new ArrayList<>();
@@ -308,19 +332,22 @@ public class DataLoader extends DataConstants {
                             }
                         }
                         String content = contentBuilder.toString().trim();
-
+    
                         Lesson lesson = new Lesson(lessonId, lessonName, content, new ArrayList<>());
-
+    
+                        // Parse tests
                         JSONArray tests = (JSONArray) lessonJson.get("tests");
                         for (Object testObj : tests) {
                             JSONObject testJson = (JSONObject) testObj;
+    
+                            // Parse questions within each test
                             JSONArray questions = (JSONArray) testJson.get("questions");
                             for (Object questionObj : questions) {
                                 JSONObject questionJson = (JSONObject) questionObj;
-                                String questionId = (String) questionJson.get("questionId");
+                                UUID questionId = UUID.fromString((String) questionJson.get("questionId"));
                                 String type = (String) questionJson.get("type");
                                 String text = (String) questionJson.get("text");
-
+    
                                 Question question = null;
                                 switch (type) {
                                     case "MultipleChoice":
@@ -330,16 +357,16 @@ public class DataLoader extends DataConstants {
                                             optionsList.add((String) option);
                                         }
                                         String correctAnswerMC = (String) questionJson.get("correctAnswer");
-                                        question = new MultipleChoiceQuestion(text, optionsList, correctAnswerMC);
+                                        question = new MultipleChoiceQuestion(questionId,text, optionsList, correctAnswerMC);
                                         break;
                                     case "ShortAnswer":
                                         String correctAnswerSA = (String) questionJson.get("correctAnswer");
-                                        question = new ShortAnswerQuestion(text, correctAnswerSA);
+                                        question = new ShortAnswerQuestion(questionId,text, correctAnswerSA);
                                         break;
                                     case "TrueOrFalse":
                                         String correctAnswerTF = (String) questionJson.get("correctAnswer");
                                         boolean correctBool = correctAnswerTF.equalsIgnoreCase("True");
-                                        question = new TrueFalseQuestion(text, correctBool);
+                                        question = new TrueFalseQuestion(questionId,text, correctBool);
                                         break;
                                     case "MatchWords":
                                         JSONObject pairsJson = (JSONObject) questionJson.get("pairs");
@@ -352,7 +379,7 @@ public class DataLoader extends DataConstants {
                                             }
                                             List<String> prompts = new ArrayList<>(correctMatches.keySet());
                                             List<String> responses = new ArrayList<>(correctMatches.values());
-                                            question = new MatchWordsQuestion(text, prompts, responses, correctMatches);
+                                            question = new MatchWordsQuestion(questionId,text, prompts, responses, correctMatches);
                                         } else {
                                             System.out.println("⚠️ 'pairs' not found for MatchWords question ID: " + questionId);
                                         }
@@ -361,20 +388,20 @@ public class DataLoader extends DataConstants {
                                         System.out.println("❗ Unknown question type: " + type + " for question ID: " + questionId);
                                         break;
                                 }
-
+    
                                 if (question != null) {
-                                    lesson.getQuestions().add(question);
+                                    lesson.addQuestion(question); // Correctly adding questions to the lesson
                                 }
                             }
                         }
-
+    
                         course.addLesson(lesson);
                     }
-
+    
                     coursesList.add(course);
                 }
             }
-
+    
         } catch (IOException e) {
             System.out.println(" IO Error: " + e.getMessage());
             e.printStackTrace();
@@ -382,15 +409,16 @@ public class DataLoader extends DataConstants {
             System.out.println("Failed to parse JSON: " + e.getMessage());
             e.printStackTrace();
         }
-
+    
         return coursesList;
     }
-
+    
     private static String capitalizeFirstLetter(String input) {
         if (input == null || input.isEmpty()) return input;
         return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
-}
 
+}
+    
 
 

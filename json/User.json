@@ -11,17 +11,17 @@
       "favoriteLanguages": ["Spanish", "French"],
       "currentCourses": [
         {
-          "courseId": "890e1234-e89b-45d3-b789-12345678900",
+          "courseId": "890e1234-a89b-4d3b-b789-abcdef123456",
           "courseName": "Module 4: Advanced Communication",
-          "currentLessonId": "d4e5f697-h8i9-4j1k-l2m3-n4o5p6q7r8s9",
+          "currentLessonId": "d4e5f697-a8b9-4a1b-b2a3-cdefa5b6c7d8",
           "currentLessonName": "Lesson 13: Talking About News and Current Events",
           "lessonProgress": "45%",
           "courseProgress": "80"
         },
         {
-          "courseId": "789e1234-e89b-45d3-b789-123456789000",
+          "courseId": "789e1234-b89a-4d3b-a789-abcdef123457",
           "courseName": "Module 3: Cultural Integration",
-          "currentLessonId": "c3d4e5f6-g7h8-4i9j-0k1l-m3n4o5p6q7r9",
+          "currentLessonId": "c3d4e5f6-a7b8-4b9a-0b1a-b3a4c5d6e7f9",
           "currentLessonName": "Lesson 9: Socializing and Making Friends",
           "lessonProgress": "20%",
           "courseProgress": "25"
@@ -29,7 +29,7 @@
       ],
       "achievements": [
         {
-          "achievementId": "achieve-1",
+          "achievementId": "a1b2c3d4-e5f6-7a8b-9c0d-abcdef123458",
           "title": "Beginner Spanish",
           "description": "Completed Beginner Spanish course",
           "rewardPoints": 100
@@ -37,14 +37,14 @@
       ],
       "questionHistory": [
         {
-          "questionId": "q1a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5o6",
+          "questionId": "a1b2c3d4-e5f6-7a8b-9c0d-abcdef123459",
           "questionText": "How do you say 'Good morning' in Spanish?",
           "userAnswer": "Buenos días",
           "correctAnswer": "Buenos días",
           "isCorrect": true
         },
         {
-          "questionId": "q2a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5o7",
+          "questionId": "b2c3d4e5-a6b7-8a9b-9c0d-abcdef123460",
           "questionText": "Translate to Spanish: 'I am a teacher.'",
           "userAnswer": "Soy profesor.",
           "correctAnswer": "Soy profesor.",
@@ -52,7 +52,7 @@
         }
       ],
       "currentQuestion": {
-        "questionId": "q3a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5o8",
+        "questionId": "c3d4e5f6-a7b8-9a0b-9c0d-abcdef123461",
         "type": "MultipleChoice",
         "text": "What does 'Autobús' mean in English?",
         "options": ["Bus", "Train", "Car", "Bicycle"],
@@ -60,7 +60,7 @@
       }
     },
     {
-      "userId": "1040d8d8-dbe9-4c58-b9d0-f39193ab5526",
+      "userId": "1040d8d8-a1b2-4c58-b9d0-abcdef123462",
       "userName": "janeSmith123",
       "firstName": "Jane",
       "lastName": "Smith",
@@ -71,17 +71,17 @@
       "favoriteLanguages": ["German"],
       "currentCourses": [
         {
-          "courseId": "123e4567-e89b-12d3-a456-426614174000",
+          "courseId": "123e4567-a8b9-12d3-a456-abcdef123463",
           "courseName": "Module 2: Everyday Life",
-          "currentLessonId": "b2c3d4e5-f6g7-4h8i-9j0k-2l3m4n5o6p7q",
+          "currentLessonId": "b2c3d4e5-a6b7-12d3-9f0d-abcdef123464",
           "currentLessonName": "Lesson 5: At the Restaurant and Ordering Food",
           "lessonProgress": "50%",
           "courseProgress": "10"
         },
         {
-          "courseId": "456e7890-e89b-12d3-a456-426614174001",
+          "courseId": "456e7890-a8b9-12d3-a456-abcdef123465",
           "courseName": "Module 1: Survival Spanish",
-          "currentLessonId": "a1b2c3d4-e5f6-4a8b-9c0d-e1f2a3b4c5d0",
+          "currentLessonId": "a1b2c3d4-e5f6-4a8b-9c0d-abcdef123466",
           "currentLessonName": "Lesson 2: Numbers, Dates, and Telling Time",
           "lessonProgress": "60%",
           "courseProgress": "30"
@@ -89,7 +89,7 @@
       ],
       "achievements": [
         {
-          "achievementId": "achieve-2",
+          "achievementId": "d5e6f7a8-b9c0-12d3-a456-abcdef123467",
           "title": "Intermediate German",
           "description": "Completed Intermediate German course",
           "rewardPoints": 150
@@ -97,14 +97,14 @@
       ],
       "questionHistory": [
         {
-          "questionId": "q4a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5p0",
+          "questionId": "d6e7f8a9-b0c1-2d3a-a4b5-abcdef123468",
           "questionText": "Translate to English: '¿Cuánto cuesta esta casa?'",
           "userAnswer": "How much is this house?",
           "correctAnswer": "How much is this house?",
           "isCorrect": true
         },
         {
-          "questionId": "q5a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5p1",
+          "questionId": "d7e8f9a0-b1c2-3d4a-b5a6-abcdef123469",
           "questionText": "True or False: 'Tren' means 'Bus' in English.",
           "userAnswer": "False",
           "correctAnswer": "False",
@@ -112,7 +112,7 @@
         }
       ],
       "currentQuestion": {
-        "questionId": "q6a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5p2",
+        "questionId": "e7f8g9a0-b1c2-4d5a-b5a6-abcdef123470",
         "type": "ShortAnswer",
         "text": "Translate to Spanish: 'I enjoy reading.'",
         "correctAnswer": "Disfruto leer."

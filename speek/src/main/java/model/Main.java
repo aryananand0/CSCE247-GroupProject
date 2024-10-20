@@ -24,6 +24,36 @@ public class Main {
             System.out.println("No users found.");
         }
         
+        // Check if Alice Smith already exists
+        String newUserEmail = "alicesmith@example.com";
+        boolean userExists = false;
+        
+        for (User user : users) {
+            if (user.getEmail().equals(newUserEmail)) {
+                userExists = true;
+                break;
+            }
+        }
+        
+        // Add new user only if they don't already exist
+        if (!userExists) {
+            System.out.println("Adding new user...");
+            User newUser = new User("jakeadams123", "Jake", "adams", newUserEmail, "password123");
+            users.add(newUser);
+            
+            // Save users to file
+            DataWriter.saveUsers(users);
+            System.out.println("New user added and users saved to JSON file.");
+        } else {
+            System.out.println("User already exists, skipping addition.");
+        }
+        
+        System.out.println("\nReloaded users from file:");
+        ArrayList<User> reloadedUsers = DataLoader.loadUsers();
+        for (User user : reloadedUsers) {
+            System.out.println(user.toString());
+        }
+        
         System.out.println("");
         
         // Loading courses
@@ -213,8 +243,6 @@ public class Main {
     
     public static void ShowLessons(){
         // Specify the path to your JSON file
-        String jsonFilePath = "json/Lesson.json"; // Adjust the path as needed
-
         // Load courses from the JSON file
         ArrayList<Course> courses = DataLoader.loadCoursesFromJson();
 
@@ -237,37 +265,14 @@ public class Main {
                 System.out.println("  Lesson ID: " + lesson.getLessonId());
                 System.out.println("  Content:\n" + lesson.getContent());
 
-                // Iterate through questions
-                for (Question question : lesson.getQuestions()) {
-                    System.out.println("\n    * Question ID: " + question.getId());
-                    System.out.println("      Type: " + question.getClass().getSimpleName());
-                    System.out.println("      Text: " + question.getText());
-
-                    if (question instanceof MultipleChoiceQuestion) {
-                        MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
-                        System.out.println("      Options:");
-                        List<String> options = mcq.getOptions();
-                        for (int i = 0; i < options.size(); i++) {
-                            System.out.println("        " + (i + 1) + ". " + options.get(i));
-                        }
-                        System.out.println("      Correct Answer: " + mcq.getCorrectAnswer());
-                    } else if (question instanceof MatchWordsQuestion) {
-                        MatchWordsQuestion mwq = (MatchWordsQuestion) question;
-                        System.out.println("      Pairs:");
-                        Map<String, String> pairs = mwq.getCorrectMatches();
-                        for (Map.Entry<String, String> entry : pairs.entrySet()) {
-                            System.out.println("        " + entry.getKey() + " -> " + entry.getValue());
-                        }
-                    } else if (question instanceof TrueFalseQuestion) {
-                        TrueFalseQuestion tfq = (TrueFalseQuestion) question;
-                        System.out.println("      Correct Answer: " + (tfq.isCorrectAnswer() ? "True" : "False"));
-                    } else if (question instanceof ShortAnswerQuestion) {
-                        ShortAnswerQuestion saq = (ShortAnswerQuestion) question;
-                        System.out.println("      Correct Answer: " + saq.getCorrectAnswer());
-                    }
-
-                    System.out.println();
-                }
+                System.out.println("\nQuestions:\n");
+            for (Question question : lesson.getQuestions()) {
+                System.out.println("Question ID: "+question.getId());
+                System.out.println("Type: " + question.getType());
+                System.out.println(question.display());
+                System.out.println("Correct Answer: " + question.getCorrectAnswer());
+                System.out.println();
+            }
             }
         
 }

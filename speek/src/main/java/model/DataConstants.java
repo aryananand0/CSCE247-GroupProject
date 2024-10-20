@@ -3,7 +3,8 @@ package model;
 public abstract class DataConstants {
 
     // File paths
-    protected static final String USER_FILE = "json/User.json"; 
+    protected static final String USER_FILE = "json/User.json";
+    protected static final String WRITER_USER_FILE = "json/User1.json";  
     protected static final String COURSE_FILE = "json/Course.json";  
     protected static final String ACHIEVEMENT_FILE = "json/Achievement.json";
     protected static final String LANGUAGE_FILE = "json/Language.json";

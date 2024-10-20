@@ -3,16 +3,27 @@ package model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class MatchWordsQuestion extends Question {
     private List<String> prompts; 
     private List<String> responses; 
-    private Map<String, String> correctMatches; 
+    private Map<String, String> correctMatches;
+    private UUID id; 
+ 
 
     
+    public MatchWordsQuestion(UUID id,String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches) {
+        super(text);
+        this.id = id;
+        this.prompts = prompts;
+        this.responses = responses;
+        this.correctMatches = new HashMap<>(correctMatches);
+    }
     public MatchWordsQuestion(String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches) {
         super(text);
+        this.id = UUID.randomUUID();
         this.prompts = prompts;
         this.responses = responses;
         this.correctMatches = new HashMap<>(correctMatches);
@@ -68,6 +79,10 @@ public class MatchWordsQuestion extends Question {
 
     public List<String> getPrompts() {
         return prompts;
+    }
+
+    public UUID getId(){
+        return this.id;
     }
 
     public void setPrompts(List<String> prompts) {

@@ -7,7 +7,7 @@ import java.util.UUID;
 public class Lesson {
 
     // Attributes
-    private final String lessonId;                   
+    private UUID lessonId;                   
     private String lessonTitle;
     private String content;
     private List<Question> questions;               
@@ -15,16 +15,23 @@ public class Lesson {
 
     // Constructor with parameters (auto-generates lessonId and initializes questions)
     public Lesson(String lessonTitle, String content, List<Question> questions) {
-        this.lessonId = UUID.randomUUID().toString(); // Automatically generate a unique lessonId
+        this.lessonId = UUID.randomUUID(); // Automatically generate a unique lessonId
         this.lessonTitle = lessonTitle;
         this.content = content;
         this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
         this.isCompleted = false;
     }
 
+    public Lesson(UUID uid, String lessonName){
+        this.lessonId = uid;
+        this.lessonTitle = lessonName;
+        this.questions = new ArrayList<>();
+        this.isCompleted = false;
+    }
+
     // Constructor with predefined lessonId (useful for deserialization)
-    public Lesson(String lessonId, String lessonTitle, String content, List<Question> questions) {
-        this.lessonId = lessonId != null ? lessonId : UUID.randomUUID().toString();
+    public Lesson(UUID lessonId, String lessonTitle, String content, List<Question> questions) {
+        this.lessonId = lessonId != null ? lessonId : UUID.randomUUID();
         this.lessonTitle = lessonTitle;
         this.content = content;
         this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
@@ -33,7 +40,7 @@ public class Lesson {
 
     // Default Constructor
     public Lesson() {
-        this.lessonId = java.util.UUID.randomUUID().toString(); 
+        this.lessonId = java.util.UUID.randomUUID(); 
         this.lessonTitle = "";
         this.content = "";
         this.questions = new ArrayList<>();
@@ -42,7 +49,7 @@ public class Lesson {
 
     // Getters and Setters
 
-    public String getLessonId() {
+    public UUID getLessonId() {
         return lessonId;
     }
 
@@ -69,7 +76,9 @@ public class Lesson {
     public void setQuestions(List<Question> questions) {
         this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
     }
-
+    public void addQuestion(Question newQ){
+        this.questions.add(newQ);
+    }
     public boolean isCompleted() {
         return isCompleted;
     }

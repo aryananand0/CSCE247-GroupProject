@@ -2,12 +2,13 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class UserCourseProgress {
     // Attributes
     private String courseId;
     private String courseName;
-    private String currentLessonId;
+    private UUID currentLessonId;
     private String currentLessonName;
     private String lessonProgress; 
     private String courseProgress; 
@@ -24,7 +25,7 @@ public class UserCourseProgress {
             this.lessonProgress = "0%";
             this.courseProgress = "0%";
         } else {
-            this.currentLessonId = "";
+            this.currentLessonId = null;
             this.currentLessonName = "";
             this.lessonProgress = "0%";
             this.courseProgress = "0%";
@@ -58,11 +59,11 @@ public class UserCourseProgress {
         this.courseName = courseName;
     }
 
-    public String getCurrentLessonId() {
+    public UUID getCurrentLessonId() {
         return currentLessonId;
     }
 
-    public void setCurrentLessonId(String currentLessonId) {
+    public void setCurrentLessonId(UUID currentLessonId) {
         this.currentLessonId = currentLessonId;
     }
 
