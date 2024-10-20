@@ -32,15 +32,28 @@ public class UserList {
         return false;
     }
 
-    // Search and return the user matching the username or email
     public User getUser(String keyword) {
         for (User user : users) {
-            if (user.getUserName().equals(keyword) || user.getEmail().equalsIgnoreCase(keyword)) {
+            String currentUsername = user.getUserName();
+            String currentEmail = user.getEmail().toLowerCase();
+            
+            if (currentUsername.equals(keyword)) {
+                System.out.println("Match found using username: " + currentUsername);
                 return user;
             }
+            
+            if (currentEmail.equalsIgnoreCase(keyword)) {
+                System.out.println("Match found using email: " + currentEmail);
+                return user;
+            }
+    
+            System.out.println("No match for keyword: " + keyword + " with current user: " + currentUsername + ", " + currentEmail);
         }
+        
+        System.out.println("No user found matching the keyword: " + keyword);
         return null;
     }
+    
 
     // Check if a user exists by username
     public boolean haveUser(String username) {
