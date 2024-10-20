@@ -1,13 +1,12 @@
 package model;
 
+import java.util.UUID;
 
 public abstract class Question {
-    private final String id; 
     private String text; 
 
     
     public Question(String text) {
-        this.id = java.util.UUID.randomUUID().toString();
         this.text = text;
     }
 
@@ -20,11 +19,11 @@ public abstract class Question {
     
     public abstract boolean validateAnswer(String userAnswer);
 
+    public abstract UUID getId();
+
     // Getters and Setters
 
-    public String getId() {
-        return id;
-    }
+    
 
     public String getText() {
         return text;
@@ -36,6 +35,6 @@ public abstract class Question {
 
     @Override
     public String toString() {
-        return "Question ID: " + id + "\n" + display();
+        return display();
     }
 }

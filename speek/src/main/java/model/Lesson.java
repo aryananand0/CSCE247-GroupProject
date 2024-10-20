@@ -76,7 +76,9 @@ public class Lesson {
     public void setQuestions(List<Question> questions) {
         this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
     }
-
+    public void addQuestion(Question newQ){
+        this.questions.add(newQ);
+    }
     public boolean isCompleted() {
         return isCompleted;
     }

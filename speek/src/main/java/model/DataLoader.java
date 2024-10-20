@@ -408,39 +408,39 @@ public class DataLoader extends DataConstants {
     public static ArrayList<Course> loadCoursesFromJson() {
         ArrayList<Course> coursesList = new ArrayList<>();
         JSONParser parser = new JSONParser();
-
+    
         try (FileReader reader = new FileReader("json/Lesson.json")) {
             JSONObject root = (JSONObject) parser.parse(reader);
             JSONArray languages = (JSONArray) root.get("languages");
-
+    
             for (Object langObj : languages) {
                 JSONObject language = (JSONObject) langObj;
                 String languageId = (String) language.get("languageId");
                 String languageName = (String) language.get("languageName");
-
+    
                 JSONArray courses = (JSONArray) language.get("courses");
                 for (Object courseObj : courses) {
                     JSONObject courseJson = (JSONObject) courseObj;
                     UUID courseId = UUID.fromString((String) courseJson.get("courseId"));
                     String courseName = (String) courseJson.get("courseName");
                     String difficulty = (String) courseJson.get("difficulty");
-
+    
                     Course course = new Course(courseId, courseName, difficulty, 0.0);
-
+    
                     JSONArray lessons = (JSONArray) courseJson.get("lessons");
                     for (Object lessonObj : lessons) {
                         JSONObject lessonJson = (JSONObject) lessonObj;
                         UUID lessonId = UUID.fromString((String) lessonJson.get("lessonId"));
                         String lessonName = (String) lessonJson.get("lessonName");
                         JSONObject contentJson = (JSONObject) lessonJson.get("content");
-
+    
                         // Convert contentJson to a formatted string
                         StringBuilder contentBuilder = new StringBuilder();
                         for (Object keyObj : contentJson.keySet()) {
                             String key = (String) keyObj;
                             Object value = contentJson.get(key);
                             contentBuilder.append(capitalizeFirstLetter(key)).append(": ");
-
+    
                             if (value instanceof JSONArray) {
                                 JSONArray array = (JSONArray) value;
                                 List<String> items = new ArrayList<>();
@@ -453,19 +453,22 @@ public class DataLoader extends DataConstants {
                             }
                         }
                         String content = contentBuilder.toString().trim();
-
+    
                         Lesson lesson = new Lesson(lessonId, lessonName, content, new ArrayList<>());
-
+    
+                        // Parse tests
                         JSONArray tests = (JSONArray) lessonJson.get("tests");
                         for (Object testObj : tests) {
                             JSONObject testJson = (JSONObject) testObj;
+    
+                            // Parse questions within each test
                             JSONArray questions = (JSONArray) testJson.get("questions");
                             for (Object questionObj : questions) {
                                 JSONObject questionJson = (JSONObject) questionObj;
-                                String questionId = (String) questionJson.get("questionId");
+                                UUID questionId = UUID.fromString((String) questionJson.get("questionId"));
                                 String type = (String) questionJson.get("type");
                                 String text = (String) questionJson.get("text");
-
+    
                                 Question question = null;
                                 switch (type) {
                                     case "MultipleChoice":
@@ -475,16 +478,16 @@ public class DataLoader extends DataConstants {
                                             optionsList.add((String) option);
                                         }
                                         String correctAnswerMC = (String) questionJson.get("correctAnswer");
-                                        question = new MultipleChoiceQuestion(text, optionsList, correctAnswerMC);
+                                        question = new MultipleChoiceQuestion(questionId,text, optionsList, correctAnswerMC);
                                         break;
                                     case "ShortAnswer":
                                         String correctAnswerSA = (String) questionJson.get("correctAnswer");
-                                        question = new ShortAnswerQuestion(text, correctAnswerSA);
+                                        question = new ShortAnswerQuestion(questionId,text, correctAnswerSA);
                                         break;
                                     case "TrueOrFalse":
                                         String correctAnswerTF = (String) questionJson.get("correctAnswer");
                                         boolean correctBool = correctAnswerTF.equalsIgnoreCase("True");
-                                        question = new TrueFalseQuestion(text, correctBool);
+                                        question = new TrueFalseQuestion(questionId,text, correctBool);
                                         break;
                                     case "MatchWords":
                                         JSONObject pairsJson = (JSONObject) questionJson.get("pairs");
@@ -497,7 +500,7 @@ public class DataLoader extends DataConstants {
                                             }
                                             List<String> prompts = new ArrayList<>(correctMatches.keySet());
                                             List<String> responses = new ArrayList<>(correctMatches.values());
-                                            question = new MatchWordsQuestion(text, prompts, responses, correctMatches);
+                                            question = new MatchWordsQuestion(questionId,text, prompts, responses, correctMatches);
                                         } else {
                                             System.out.println("⚠️ 'pairs' not found for MatchWords question ID: " + questionId);
                                         }
@@ -506,20 +509,20 @@ public class DataLoader extends DataConstants {
                                         System.out.println("❗ Unknown question type: " + type + " for question ID: " + questionId);
                                         break;
                                 }
-
+    
                                 if (question != null) {
-                                    lesson.getQuestions().add(question);
+                                    lesson.addQuestion(question); // Correctly adding questions to the lesson
                                 }
                             }
                         }
-
+    
                         course.addLesson(lesson);
                     }
-
+    
                     coursesList.add(course);
                 }
             }
-
+    
         } catch (IOException e) {
             System.out.println(" IO Error: " + e.getMessage());
             e.printStackTrace();
@@ -527,15 +530,16 @@ public class DataLoader extends DataConstants {
             System.out.println("Failed to parse JSON: " + e.getMessage());
             e.printStackTrace();
         }
-
+    
         return coursesList;
     }
-
+    
     private static String capitalizeFirstLetter(String input) {
         if (input == null || input.isEmpty()) return input;
         return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
-}
 
+}
+    
 
 

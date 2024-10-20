@@ -267,37 +267,14 @@ public class Main {
                 System.out.println("  Lesson ID: " + lesson.getLessonId());
                 System.out.println("  Content:\n" + lesson.getContent());
 
-                // Iterate through questions
-                for (Question question : lesson.getQuestions()) {
-                    System.out.println("\n    * Question ID: " + question.getId());
-                    System.out.println("      Type: " + question.getClass().getSimpleName());
-                    System.out.println("      Text: " + question.getText());
-
-                    if (question instanceof MultipleChoiceQuestion) {
-                        MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
-                        System.out.println("      Options:");
-                        List<String> options = mcq.getOptions();
-                        for (int i = 0; i < options.size(); i++) {
-                            System.out.println("        " + (i + 1) + ". " + options.get(i));
-                        }
-                        System.out.println("      Correct Answer: " + mcq.getCorrectAnswer());
-                    } else if (question instanceof MatchWordsQuestion) {
-                        MatchWordsQuestion mwq = (MatchWordsQuestion) question;
-                        System.out.println("      Pairs:");
-                        Map<String, String> pairs = mwq.getCorrectMatches();
-                        for (Map.Entry<String, String> entry : pairs.entrySet()) {
-                            System.out.println("        " + entry.getKey() + " -> " + entry.getValue());
-                        }
-                    } else if (question instanceof TrueFalseQuestion) {
-                        TrueFalseQuestion tfq = (TrueFalseQuestion) question;
-                        System.out.println("      Correct Answer: " + (tfq.isCorrectAnswer() ? "True" : "False"));
-                    } else if (question instanceof ShortAnswerQuestion) {
-                        ShortAnswerQuestion saq = (ShortAnswerQuestion) question;
-                        System.out.println("      Correct Answer: " + saq.getCorrectAnswer());
-                    }
-
-                    System.out.println();
-                }
+                System.out.println("\nQuestions:\n");
+            for (Question question : lesson.getQuestions()) {
+                System.out.println("Question ID: "+question.getId());
+                System.out.println("Type: " + question.getType());
+                System.out.println(question.display());
+                System.out.println("Correct Answer: " + question.getCorrectAnswer());
+                System.out.println();
+            }
             }
         
 }

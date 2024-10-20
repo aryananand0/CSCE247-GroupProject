@@ -1,12 +1,21 @@
 package model;
 
+import java.util.UUID;
 
 public class TrueFalseQuestion extends Question {
     private boolean correctAnswer; 
+    private UUID id;
 
     
+    public TrueFalseQuestion(UUID id,String text, boolean correctAnswer) {
+        super(text);
+        this.id = id;
+        this.correctAnswer = correctAnswer;
+    }
+
     public TrueFalseQuestion(String text, boolean correctAnswer) {
         super(text);
+        this.id = UUID.randomUUID();
         this.correctAnswer = correctAnswer;
     }
 
@@ -30,6 +39,10 @@ public class TrueFalseQuestion extends Question {
     @Override
     public String getType() {
         return "TrueFalse";
+    }
+
+    public UUID getId(){
+        return this.id;
     }
 
     @Override
