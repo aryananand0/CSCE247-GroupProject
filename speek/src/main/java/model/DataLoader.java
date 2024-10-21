@@ -418,6 +418,107 @@ public class DataLoader extends DataConstants {
         return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
 
+    public static ArrayList<Lesson> loadLessons() {
+        ArrayList<Lesson> lessonsList = new ArrayList<>();
+        JSONParser parser = new JSONParser();
+    
+        try (FileReader reader = new FileReader("json/Lesson.json")) {
+            JSONObject root = (JSONObject) parser.parse(reader);
+            JSONArray languages = (JSONArray) root.get("languages");
+    
+            for (Object langObj : languages) {
+                JSONObject language = (JSONObject) langObj;
+    
+                JSONArray courses = (JSONArray) language.get("courses");
+                for (Object courseObj : courses) {
+                    JSONObject courseJson = (JSONObject) courseObj;
+    
+                    // Extract lessons
+                    JSONArray lessons = (JSONArray) courseJson.get("lessons");
+                    for (Object lessonObj : lessons) {
+                        JSONObject lessonJson = (JSONObject) lessonObj;
+                        UUID lessonId = UUID.fromString((String) lessonJson.get("lessonId"));
+                        String lessonName = (String) lessonJson.get("lessonName");
+    
+                        // Create a new Lesson object with an empty content (or set default content if needed)
+                        Lesson lesson = new Lesson(lessonId, lessonName, "", new ArrayList<>());
+    
+                        // Load tests and questions for the lesson
+                        JSONArray tests = (JSONArray) lessonJson.get("tests");
+                        for (Object testObj : tests) {
+                            JSONObject testJson = (JSONObject) testObj;
+                            JSONArray questions = (JSONArray) testJson.get("questions");
+    
+                            for (Object questionObj : questions) {
+                                JSONObject questionJson = (JSONObject) questionObj;
+                                String questionId = (String) questionJson.get("questionId");
+                                String type = (String) questionJson.get("type");
+                                String text = (String) questionJson.get("text");
+    
+                                Question question = null;
+                                switch (type) {
+                                    case "MultipleChoice":
+                                        JSONArray optionsJson = (JSONArray) questionJson.get("options");
+                                        List<String> optionsList = new ArrayList<>();
+                                        for (Object option : optionsJson) {
+                                            optionsList.add((String) option);
+                                        }
+                                        String correctAnswerMC = (String) questionJson.get("correctAnswer");
+                                        question = new MultipleChoiceQuestion(text, optionsList, correctAnswerMC);
+                                        break;
+                                    case "ShortAnswer":
+                                        String correctAnswerSA = (String) questionJson.get("correctAnswer");
+                                        question = new ShortAnswerQuestion(text, correctAnswerSA);
+                                        break;
+                                    case "TrueOrFalse":
+                                        String correctAnswerTF = (String) questionJson.get("correctAnswer");
+                                        boolean correctBool = correctAnswerTF.equalsIgnoreCase("True");
+                                        question = new TrueFalseQuestion(text, correctBool);
+                                        break;
+                                    case "MatchWords":
+                                        JSONObject pairsJson = (JSONObject) questionJson.get("pairs");
+                                        if (pairsJson != null) {
+                                            Map<String, String> correctMatches = new HashMap<>();
+                                            for (Object pairKey : pairsJson.keySet()) {
+                                                String key = (String) pairKey;
+                                                String value = (String) pairsJson.get(key);
+                                                correctMatches.put(key, value);
+                                            }
+                                            List<String> prompts = new ArrayList<>(correctMatches.keySet());
+                                            List<String> responses = new ArrayList<>(correctMatches.values());
+                                            question = new MatchWordsQuestion(text, prompts, responses, correctMatches);
+                                        } else {
+                                            System.out.println("⚠️ 'pairs' not found for MatchWords question ID: " + questionId);
+                                        }
+                                        break;
+                                    default:
+                                        System.out.println("❗ Unknown question type: " + type + " for question ID: " + questionId);
+                                        break;
+                                }
+    
+                                if (question != null) {
+                                    lesson.getQuestions().add(question);
+                                }
+                            }
+                        }
+    
+                        // Add the lesson with its questions to the list
+                        lessonsList.add(lesson);
+                    }
+                }
+            }
+    
+        } catch (IOException e) {
+            System.out.println("IO Error: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Failed to parse JSON: " + e.getMessage());
+            e.printStackTrace();
+        }
+    
+        return lessonsList;
+    }
+
 }
     
 
