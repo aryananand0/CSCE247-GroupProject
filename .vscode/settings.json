@@ -1,5 +1,6 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
     "editor.guides.highlightActiveBracketPair": false,
-    "editor.minimap.enabled": true
+    "editor.minimap.enabled": false,
+    "java.debug.settings.onBuildFailureProceed": true
 }

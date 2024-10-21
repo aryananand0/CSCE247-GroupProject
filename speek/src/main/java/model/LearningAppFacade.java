@@ -36,16 +36,16 @@ public class LearningAppFacade {
 
     // Registers a new user with email and password, returns the created User object
     public boolean registerUser(String username, String firstName, String lastName,String email, String password) {
-        if(!user.haveUser(username)) {
-            boolean isUserAdded = user.addUser(username, firstName, lastName, email, password);
-            if(isUserAdded) {
-                addUserToJson(username, firstName, lastName, email, password);
-                return true;
-            }
-        }  
-        return false;
+        UserList ul = UserList.getInstance();
+        if(ul.haveUser(username)) {
+            return false;
+        } else {
+            ul.addUser(username, firstName, lastName, email, password);
+            return true;
+        }
     }
 
+    /**
     private void addUserToJson(String username, String firstName, String lastName, String email, String password) {
         try {
             String s = new String(Files.readAllBytes(Paths.get(USER_FILE_PATH)));
@@ -78,7 +78,8 @@ public class LearningAppFacade {
             ioe.printStackTrace();
         }
     }
-
+    */
+    
     // Logs in a user with username or email and password
     public User loginUser(String usernameOrEmail, String password) {
         // Check if login is valid
