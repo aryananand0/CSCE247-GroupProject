@@ -14,7 +14,7 @@ public class LearningAppFacade {
 
     private UserList user;
     private CourseList course;
-    private static final String USER_FILE_PATH = "/json/User.json";
+    // private static final String USER_FILE_PATH = "/json/User.json";
     private User currentUser;  // Store the current logged-in user
     private static LearningAppFacade instance;  // Singleton instance
 
@@ -36,11 +36,11 @@ public class LearningAppFacade {
 
     // Registers a new user with email and password, returns the created User object
     public boolean registerUser(String username, String firstName, String lastName,String email, String password) {
-        UserList ul = UserList.getInstance();
-        if(ul.haveUser(username)) {
+        user = UserList.getInstance();
+        if(user.haveUser(username)) {
             return false;
         } else {
-            ul.addUser(username, firstName, lastName, email, password);
+            user.addUser(username, firstName, lastName, email, password);
             return true;
         }
     }
