@@ -75,7 +75,7 @@ public class LearningAppFacade {
     // Logs in a user with username or email and password
     public User loginUser(String usernameOrEmail, String password) {
         // Check if login is valid
-        if (user.LoginCheck(usernameOrEmail, password)) {
+        if (user.loginCheck(usernameOrEmail, password)) {
             currentUser = DataLoader.getUser(usernameOrEmail, password);  // Retrieve the user
             return currentUser;  // Return the user on successful login
         }
