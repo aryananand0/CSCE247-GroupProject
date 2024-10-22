@@ -4,18 +4,23 @@ import java.util.ArrayList;
 
 public class LearningAppFacade {
 
-    private Language languages; 
+    private ArrayList<Language> languages; 
     private UserList user;
     private CourseList course;
     private LessonList lessons;
     private User currentUser;  // Store the current logged-in user
     private static LearningAppFacade instance;  // Singleton instance
+    private ArrayList<Achievements> achievements;
+    private Leaderboard leaderboard;
 
     // Constructor
-    public LearningAppFacade() {
+    private LearningAppFacade() {
         user = UserList.getInstance();
         course = CourseList.getInstance();
         lessons = LessonList.getInstance();
+        languages = DataLoader.loadLanguages();
+        achievements = DataLoader.loadAchievements();
+        leaderboard = DataLoader.loadLeaderboard();
     }
 
     // Get the singleton instance of LearningAppFacade
@@ -56,20 +61,19 @@ public class LearningAppFacade {
 
     // Load languages 
     public ArrayList<Language> loadLanguages() {
-        return DataLoader.loadLanguages();
+        return this.languages;
     }
 
     // Load achievments 
     public ArrayList<Achievements> loadAchievements() {
-        return DataLoader.loadAchievements();
+        return this.achievements;
     }
 
     // Load courses 
     
-
     // Load leaderboard
     public Leaderboard loadLeaderboard() {
-        return DataLoader.loadLeaderboard();
+        return this.leaderboard;
     }
 
     
