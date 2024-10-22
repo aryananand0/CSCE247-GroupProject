@@ -87,7 +87,7 @@ public class UserList {
 
     // Method to retrieve all users (getter)
     public ArrayList<User> getUsers() {
-        return new ArrayList<>(users); // Return a copy of the user list
+        return this.users;
     }
 
     // Method to update user information
@@ -117,6 +117,6 @@ public class UserList {
     // Method to clear the entire user list (useful for testing or resetting the system)
     public void clearUserList() {
         users.clear();
-        DataWriter.saveUsers(users); // Save changes after clearing the list
+        DataWriter.saveUsers(users); 
     }
 }

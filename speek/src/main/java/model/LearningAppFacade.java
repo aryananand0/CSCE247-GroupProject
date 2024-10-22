@@ -1,12 +1,12 @@
 package model;
 
-
+import java.util.ArrayList;
 
 public class LearningAppFacade {
 
     private UserList user;
     private CourseList course;
-    // private static final String USER_FILE_PATH = "/json/User.json";
+    private LessonList lessons;
     private User currentUser;  // Store the current logged-in user
     private static LearningAppFacade instance;  // Singleton instance
 
@@ -14,6 +14,7 @@ public class LearningAppFacade {
     public LearningAppFacade() {
         user = UserList.getInstance();
         course = CourseList.getInstance();
+        lessons = LessonList.getInstance();
     }
 
     // Get the singleton instance of LearningAppFacade
@@ -37,40 +38,21 @@ public class LearningAppFacade {
         }
     }
 
-    /**
-    private void addUserToJson(String username, String firstName, String lastName, String email, String password) {
-        try {
-            String s = new String(Files.readAllBytes(Paths.get(USER_FILE_PATH)));
-            JSONArray usersArray = new JSONArray(s);
-
-            // Create a new user
-            JSONObject newUser = new JSONObject();
-            newUser.put("userId", UUID.randomUUID().toString());
-            newUser.put("userName", username);
-            newUser.put("firstName", firstName);
-            newUser.put("lastName", lastName);
-            newUser.put("email", email);
-            newUser.put("password", password);
-            newUser.put("progress", 0);
-            newUser.put("dailyReminder", false);
-            newUser.put("favoriteLanguages", new JSONArray());
-
-            // Start each new user with a fresh wipe
-            newUser.put("currentCourses", new JSONArray());
-            newUser.put("achievments", new JSONArray());
-            newUser.put("questionHistory", new JSONArray());
-            newUser.put("currentQuestion", JSONObject.NULL);
-
-            usersArray.put(newUser);
-
-            try (FileWriter file = new FileWriter(USER_FILE_PATH)) {
-                file.write(usersArray.toString(4));
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+    // Loads the users
+    public ArrayList<User> loadUsers(){
+        return this.user.getUsers();
     }
-    */
+
+    // Loads the Courses
+    public ArrayList<Course> loadCourses(){
+        return this.course.getCourses();
+    }
+
+    // loads the lessons
+    public ArrayList<Lesson> loadLesson(){
+        return this.lessons.getLessons();
+    }
+
     
     // Logs in a user with username or email and password
     public User loginUser(String usernameOrEmail, String password) {

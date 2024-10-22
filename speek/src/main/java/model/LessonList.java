@@ -67,6 +67,6 @@ public class LessonList {
 
     // Get the list of all lessons
     public ArrayList<Lesson> getLessons() {
-        return lessons;
+        return this.lessons;
     }
 }
