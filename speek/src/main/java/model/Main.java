@@ -177,25 +177,24 @@ public class Main {
     }
 
     private static void performLoginScenarios() {
-        LearningAppFacade appFacade = LearningAppFacade.getInstance();
 
         // Valid login attempt
         System.out.println("Attempting valid login...");
         String usernameOrEmail = "johndoe@example.com"; 
         String password = "hashedpassword123";
-        User loggedInUser = appFacade.loginUser(usernameOrEmail, password);
+        User loggedInUser = facade.loginUser(usernameOrEmail, password);
         displayLoginResult(usernameOrEmail, loggedInUser);
 
         // Invalid login attempt
         System.out.println("Attempting invalid login...");
         String invalidUsernameOrEmail = "johnDoe";
         String invalidPassword = "wrongPassword";
-        User invalidLoginUser = appFacade.loginUser(invalidUsernameOrEmail, invalidPassword);
+        User invalidLoginUser = facade.loginUser(invalidUsernameOrEmail, invalidPassword);
         displayLoginResult(invalidUsernameOrEmail, invalidLoginUser);
 
         // Signout scenario
         System.out.println("Signing out...");
-        boolean logoutSuccess = appFacade.logout();
+        boolean logoutSuccess = facade.logout();
         if (logoutSuccess) {
             System.out.println("Sign out successful for " + usernameOrEmail);
         } else {
@@ -301,7 +300,7 @@ public class Main {
     public static void ShowLessons() {
         // Load courses from the JSON file
         // TODO:
-        ArrayList<Course> courses = facade.loadCoursesFromJson();
+        ArrayList<Course> courses = facade.loadCourses();
 
         // Check if courses were loaded successfully
         if (courses.isEmpty()) {

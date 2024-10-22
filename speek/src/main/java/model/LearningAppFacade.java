@@ -16,7 +16,6 @@ public class LearningAppFacade {
         user = UserList.getInstance();
         course = CourseList.getInstance();
         lessons = LessonList.getInstance();
-        languages = 
     }
 
     // Get the singleton instance of LearningAppFacade
@@ -57,22 +56,20 @@ public class LearningAppFacade {
 
     // Load languages 
     public ArrayList<Language> loadLanguages() {
-        //return this.languages.getLanguageName();
+        return DataLoader.loadLanguages();
     }
 
     // Load achievments 
     public ArrayList<Achievements> loadAchievements() {
-        return 
+        return DataLoader.loadAchievements();
     }
 
     // Load courses 
-    public ArrayList<Course> loadCoursesFromJson() {
-        return 
-    }
+    
 
     // Load leaderboard
     public Leaderboard loadLeaderboard() {
-        return 
+        return DataLoader.loadLeaderboard();
     }
 
     
