@@ -11,17 +11,17 @@
     "favoriteLanguages": ["Spanish", "French"],
     "currentCourses": [
       {
-        "courseId": "890e1234-a89b-4d3b-b789-abcdef123456",
+        "courseId": "890e1234-e89b-45d3-b789-123456789000",
         "courseName": "Module 4: Advanced Communication",
-        "currentLessonId": "d4e5f697-a8b9-4a1b-b2a3-cdefa5b6c7d8",
+        "currentLessonId": "b8aab9e3-44c1-40ba-a093-4d046079de83",
         "currentLessonName": "Lesson 13: Talking About News and Current Events",
         "lessonProgress": "45%",
         "courseProgress": "80"
       },
       {
-        "courseId": "789e1234-b89a-4d3b-a789-abcdef123457",
+        "courseId": "789e1234-e89b-45d3-b789-123456789000",
         "courseName": "Module 3: Cultural Integration",
-        "currentLessonId": "c3d4e5f6-a7b8-4b9a-0b1a-b3a4c5d6e7f9",
+        "currentLessonId": "8d64573f-e419-4286-adc0-f7b35cba9cc1",
         "currentLessonName": "Lesson 9: Socializing and Making Friends",
         "lessonProgress": "20%",
         "courseProgress": "25"
@@ -71,17 +71,17 @@
     "favoriteLanguages": ["German"],
     "currentCourses": [
       {
-        "courseId": "123e4567-a8b9-12d3-a456-abcdef123463",
+        "courseId": "456e7890-e89b-12d3-a456-426614174001",
         "courseName": "Module 2: Everyday Life",
-        "currentLessonId": "b2c3d4e5-a6b7-12d3-9f0d-abcdef123464",
+        "currentLessonId": "b2c3d4e5-f67a-4b8c-9d0e-2f3a4b5c6d7e",
         "currentLessonName": "Lesson 5: At the Restaurant and Ordering Food",
         "lessonProgress": "50%",
         "courseProgress": "10"
       },
       {
-        "courseId": "456e7890-a8b9-12d3-a456-abcdef123465",
+        "courseId": "123e4567-e89b-12d3-a456-426614174000",
         "courseName": "Module 1: Survival Spanish",
-        "currentLessonId": "a1b2c3d4-e5f6-4a8b-9c0d-abcdef123466",
+        "currentLessonId": "a1b2c3d4-e5f6-4a8b-9c0d-e1f2a3b4c5d7",
         "currentLessonName": "Lesson 2: Numbers, Dates, and Telling Time",
         "lessonProgress": "60%",
         "courseProgress": "30"

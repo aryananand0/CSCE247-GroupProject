@@ -18,93 +18,106 @@ public class DataLoader extends DataConstants {
 
     public static ArrayList<User> loadUsers() {
         ArrayList<User> users = new ArrayList<>();
-
+        CourseList cl = CourseList.getInstance();
+        LessonList ll = LessonList.getInstance();
+    
         try {
             FileReader reader = new FileReader(USER_FILE);
             JSONArray userJSON = (JSONArray) new JSONParser().parse(reader);
-
-            for (int i = 0; i < userJSON.size(); i++) {
-                JSONObject usersJSON = (JSONObject) userJSON.get(i);
-                String firstName = (String) usersJSON.get(USER_FIRST_NAME);
-                String lastName = (String) usersJSON.get(USER_LAST_NAME);
-                String email = (String) usersJSON.get(USER_EMAIL);
-                UUID uuid = UUID.fromString((String) usersJSON.get(USER_UUID));
-                String userName = (String) usersJSON.get(USER_USER_NAME);
-                String password = (String) usersJSON.get(USER_PASSWORD);
+    
+            for (Object userObj : userJSON) {
+                JSONObject usersJSON = (JSONObject) userObj;
+    
                 // Create a new User object
-                User user = new User(uuid, userName, firstName, lastName);
-                user.setPassword(password);
-                user.setEmail(email);
-                // Load achievements
-                JSONArray achievementsJSON = (JSONArray) usersJSON.get("achievements");
-                ArrayList<Achievements> achievements = new ArrayList<>();
-                for (int j = 0; j < achievementsJSON.size(); j++) {
-                    JSONObject achievementJSON = (JSONObject) achievementsJSON.get(j);
-                    String title = (String) achievementJSON.get("title");
-                    String description = (String) achievementJSON.get("description");
-                    int rewardPoints = ((Long) achievementJSON.get("rewardPoints")).intValue();
-
-                    // Add achievement to the list
-                    achievements.add(new Achievements(title, description, rewardPoints));
-                }
-                // Add achievements to the user
-                user.setAchievements(achievements);
-
-                  // Load currentCourses
-            JSONArray currentCoursesJSON = (JSONArray) usersJSON.get("currentCourses");
-            ArrayList<Course> currentCourses = new ArrayList<>();
-            for (Object courseObj : currentCoursesJSON) {
-                JSONObject courseJSON = (JSONObject) courseObj;
-                UUID courseId = UUID.fromString((String) courseJSON.get("courseId"));
-                String courseName = (String) courseJSON.get("courseName");
-                String currentLessonId = (String) courseJSON.get("currentLessonId");
-                String currentLessonName = (String) courseJSON.get("currentLessonName");
-                String lessonProgress = (String) courseJSON.get("lessonProgress");
-                String courseProgress = (String) courseJSON.get("courseProgress");
-
-                // Create a new Course object and set the current lesson and progress
-                Course course = new Course(courseId, courseName);
-                course.setCourseCompletion(Double.parseDouble(courseProgress));
-
-                // Create a new Lesson object for the current lesson
-                Lesson currentLesson = new Lesson(UUID.fromString(currentLessonId), currentLessonName);
-                currentLesson.setContent(""); // Assuming content is not part of the provided JSON
-
-                // Add lesson to the course
-                course.addLesson(currentLesson);
-
-                // Add course to currentCourses list
-                currentCourses.add(course);
-            }
-            user.setCurrentCourses(currentCourses);
-
-            // Load questionHistory
-            JSONArray questionHistoryJSON = (JSONArray) usersJSON.get("questionHistory");
-            ArrayList<QuestionHistory> questionHistory = new ArrayList<>();
-            for (Object questionObj : questionHistoryJSON) {
-                JSONObject questionJSON = (JSONObject) questionObj;
-                String questionId = (String) questionJSON.get("questionId");
-                String questionText = (String) questionJSON.get("questionText");
-                String userAnswer = (String) questionJSON.get("userAnswer");
-                String correctAnswer = (String) questionJSON.get("correctAnswer");
-                boolean isCorrect = (Boolean) questionJSON.get("isCorrect");
-
-                QuestionHistory history = new QuestionHistory(questionId, questionText, userAnswer, correctAnswer, isCorrect);
-                questionHistory.add(history);
-            }
-            user.setQuestionHistory(questionHistory);
-
+                User user = createUser(usersJSON);
+                user.setAchievements(loadAchievements(usersJSON));
+                user.setCurrentCourses(loadCurrentCourses(usersJSON, cl, ll));
+                user.setQuestionHistory(loadQuestionHistory(usersJSON));
+    
                 // Add the user to the users list
                 users.add(user);
             }
             return users;
-
+    
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-
+    
+    // Create a new user object from JSON
+    private static User createUser(JSONObject usersJSON) {
+        UUID uuid = UUID.fromString((String) usersJSON.get(USER_UUID));
+        String userName = (String) usersJSON.get(USER_USER_NAME);
+        String firstName = (String) usersJSON.get(USER_FIRST_NAME);
+        String lastName = (String) usersJSON.get(USER_LAST_NAME);
+        String password = (String) usersJSON.get(USER_PASSWORD);
+        String email = (String) usersJSON.get(USER_EMAIL);
+    
+        User user = new User(uuid, userName, firstName, lastName);
+        user.setPassword(password);
+        user.setEmail(email);
+    
+        return user;
+    }
+    
+    // Load achievements from JSON
+    private static ArrayList<Achievements> loadAchievements(JSONObject usersJSON) {
+        ArrayList<Achievements> achievements = new ArrayList<>();
+        JSONArray achievementsJSON = (JSONArray) usersJSON.get("achievements");
+    
+        for (Object achievementObj : achievementsJSON) {
+            JSONObject achievementJSON = (JSONObject) achievementObj;
+            String title = (String) achievementJSON.get("title");
+            String description = (String) achievementJSON.get("description");
+            int rewardPoints = ((Long) achievementJSON.get("rewardPoints")).intValue();
+    
+            achievements.add(new Achievements(title, description, rewardPoints));
+        }
+        return achievements;
+    }
+    
+    // Load current courses from JSON
+    private static ArrayList<Course> loadCurrentCourses(JSONObject usersJSON, CourseList cl, LessonList ll) {
+        ArrayList<Course> currentCourses = new ArrayList<>();
+        JSONArray currentCoursesJSON = (JSONArray) usersJSON.get("currentCourses");
+    
+        for (Object courseObj : currentCoursesJSON) {
+            JSONObject courseJSON = (JSONObject) courseObj;
+            UUID courseId = UUID.fromString((String) courseJSON.get("courseId"));
+            String currentLessonId = (String) courseJSON.get("currentLessonId");
+            String lessonProgress = (String) courseJSON.get("lessonProgress");
+            String courseProgress = (String) courseJSON.get("courseProgress");
+    
+            // Retrieve the course and current lesson, and set progress
+            Course course = cl.getCourse(courseId);
+            course.setCourseCompletion(Double.parseDouble(courseProgress));
+    
+            Lesson currentLesson = ll.getLessonById(UUID.fromString(currentLessonId));
+            course.addLesson(currentLesson);
+    
+            currentCourses.add(course);
+        }
+        return currentCourses;
+    }
+    
+    // Load question history from JSON
+    private static ArrayList<QuestionHistory> loadQuestionHistory(JSONObject usersJSON) {
+        ArrayList<QuestionHistory> questionHistory = new ArrayList<>();
+        JSONArray questionHistoryJSON = (JSONArray) usersJSON.get("questionHistory");
+    
+        for (Object questionObj : questionHistoryJSON) {
+            JSONObject questionJSON = (JSONObject) questionObj;
+            String questionId = (String) questionJSON.get("questionId");
+            String questionText = (String) questionJSON.get("questionText");
+            String userAnswer = (String) questionJSON.get("userAnswer");
+            String correctAnswer = (String) questionJSON.get("correctAnswer");
+            boolean isCorrect = (Boolean) questionJSON.get("isCorrect");
+    
+            questionHistory.add(new QuestionHistory(questionId, questionText, userAnswer, correctAnswer, isCorrect));
+        }
+        return questionHistory;
+    }
     public static ArrayList<Course> loadCourses() {
         ArrayList<Course> courses = new ArrayList<>();
 
