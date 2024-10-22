@@ -38,20 +38,29 @@ public class Main {
         // Load question class and lessons
         loadQuestionClass();
         loadLessons();
+
+        // Print summary report
+        printSummary(users);
     }
 
     private static ArrayList<User> loadAndDisplayUsers() {
         System.out.println("Loading users...");
-        ArrayList<User> users = DataLoader.loadUsers();
-
-        if (!users.isEmpty()) {
-            System.out.println("Users loaded successfully.");
-            for (User user : users) {
-                System.out.println(user.toString());
+        ArrayList<User> users = new ArrayList<>();
+        
+        try {
+            users = DataLoader.loadUsers();
+            if (!users.isEmpty()) {
+                System.out.println("Users loaded successfully.");
+                for (User user : users) {
+                    System.out.println(user.toString());
+                }
+            } else {
+                System.out.println("No users found.");
             }
-        } else {
-            System.out.println("No users found.");
+        } catch (Exception e) {
+            System.out.println("Error loading users: " + e.getMessage());
         }
+        
         return users;
     }
 
@@ -81,60 +90,80 @@ public class Main {
 
     private static void loadAndDisplayCourses() {
         System.out.println("Loading courses...");
-        ArrayList<Course> courses = DataLoader.loadCourses();
-
-        if (!courses.isEmpty()) {
-            System.out.println("Courses loaded successfully.");
-            for (Course course : courses) {
-                System.out.println(course.toString());
+        ArrayList<Course> courses = new ArrayList<>();
+        
+        try {
+            courses = DataLoader.loadCourses();
+            if (!courses.isEmpty()) {
+                System.out.println("Courses loaded successfully.");
+                for (Course course : courses) {
+                    System.out.println(course.toString());
+                }
+            } else {
+                System.out.println("No courses found.");
             }
-        } else {
-            System.out.println("No courses found.");
+        } catch (Exception e) {
+            System.out.println("Error loading courses: " + e.getMessage());
         }
         System.out.println("");
     }
 
     private static void loadAndDisplayLanguages() {
         System.out.println("Loading languages...");
-        ArrayList<Language> languages = DataLoader.loadLanguages();
-
-        if (!languages.isEmpty()) {
-            System.out.println("Languages loaded successfully.");
-            for (Language language : languages) {
-                System.out.println(language.toString());
+        ArrayList<Language> languages = new ArrayList<>();
+        
+        try {
+            languages = DataLoader.loadLanguages();
+            if (!languages.isEmpty()) {
+                System.out.println("Languages loaded successfully.");
+                for (Language language : languages) {
+                    System.out.println(language.toString());
+                }
+            } else {
+                System.out.println("No languages found.");
             }
-        } else {
-            System.out.println("No languages found.");
+        } catch (Exception e) {
+            System.out.println("Error loading languages: " + e.getMessage());
         }
         System.out.println("");
     }
 
     private static void loadAndDisplayLeaderboard() {
         System.out.println("Loading Leader Board...");
-        Leaderboard lead = DataLoader.loadLeaderboard();
-
-        if (!lead.getUser().isEmpty()) {
-            System.out.println("Leader Board loaded successfully.");
-            for (User user : lead.getUser()) {
-                System.out.println(user.PrintLeaderboard());
+        Leaderboard lead = new Leaderboard();
+        
+        try {
+            lead = DataLoader.loadLeaderboard();
+            if (!lead.getUser().isEmpty()) {
+                System.out.println("Leader Board loaded successfully.");
+                for (User user : lead.getUser()) {
+                    System.out.println(user.PrintLeaderboard());
+                }
+            } else {
+                System.out.println("No Leader Board found.");
             }
-        } else {
-            System.out.println("No Leader Board found.");
+        } catch (Exception e) {
+            System.out.println("Error loading Leader Board: " + e.getMessage());
         }
         System.out.println("");
     }
 
     private static void loadAndDisplayAchievements() {
         System.out.println("Loading Achievements...");
-        ArrayList<Achievements> achievements = DataLoader.loadAchievements();
-
-        if (!achievements.isEmpty()) {
-            System.out.println("Achievements loaded successfully.");
-            for (Achievements achiv : achievements) {
-                System.out.println(achiv.toString());
+        ArrayList<Achievements> achievements = new ArrayList<>();
+        
+        try {
+            achievements = DataLoader.loadAchievements();
+            if (!achievements.isEmpty()) {
+                System.out.println("Achievements loaded successfully.");
+                for (Achievements achiv : achievements) {
+                    System.out.println(achiv.toString());
+                }
+            } else {
+                System.out.println("No Achievements found.");
             }
-        } else {
-            System.out.println("No Achievements found.");
+        } catch (Exception e) {
+            System.out.println("Error loading Achievements: " + e.getMessage());
         }
         System.out.println("");
     }
@@ -262,6 +291,7 @@ public class Main {
     }
 
     public static void ShowLessons() {
+        // Load courses from the JSON file
         ArrayList<Course> courses = DataLoader.loadCoursesFromJson();
 
         // Check if courses were loaded successfully
@@ -293,5 +323,15 @@ public class Main {
                 }
             }
         }
+    }
+
+    private static void printSummary(ArrayList<User> users) {
+        System.out.println("\n=== Summary Report ===");
+        System.out.println("Total users loaded: " + users.size());
+        System.out.println("Total courses loaded: " + DataLoader.loadCourses().size());
+        System.out.println("Total languages loaded: " + DataLoader.loadLanguages().size());
+        System.out.println("Total achievements loaded: " + DataLoader.loadAchievements().size());
+        System.out.println("Completed successfully.");
+        System.out.println("======================");
     }
 }
