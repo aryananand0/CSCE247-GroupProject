@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class Main {
 
+    private static LearningAppFacade facade = LearningAppFacade.getInstance();
+
     public static void main(String[] args) {
         System.out.println("");
         
@@ -49,7 +51,7 @@ public class Main {
         
         try {
             // TODO: 
-            users = DataLoader.loadUsers();
+            users = facade.loadUsers();
             if (!users.isEmpty()) {
                 System.out.println("Users loaded successfully.");
                 for (User user : users) {
@@ -83,7 +85,7 @@ public class Main {
     private static void reloadAndDisplayUsers() {
         System.out.println("\nReloaded users from file:");
         // TODO: 
-        ArrayList<User> reloadedUsers = DataLoader.loadUsers();
+        ArrayList<User> reloadedUsers = facade.loadUsers();
         for (User user : reloadedUsers) {
             System.out.println(user.toString());
         }
@@ -96,7 +98,7 @@ public class Main {
         
         try {
             // TODO: 
-            courses = DataLoader.loadCourses();
+            courses = facade.loadCourses();
             if (!courses.isEmpty()) {
                 System.out.println("Courses loaded successfully.");
                 for (Course course : courses) {
@@ -117,7 +119,7 @@ public class Main {
         
         try {
             // TODO: 
-            languages = DataLoader.loadLanguages();
+            languages = facade.loadLanguages();
             if (!languages.isEmpty()) {
                 System.out.println("Languages loaded successfully.");
                 for (Language language : languages) {
@@ -138,7 +140,7 @@ public class Main {
         
         try {
             // TODO:
-            lead = DataLoader.loadLeaderboard();
+            lead = facade.loadLeaderboard();
             if (!lead.getUser().isEmpty()) {
                 System.out.println("Leader Board loaded successfully.");
                 for (User user : lead.getUser()) {
@@ -159,7 +161,7 @@ public class Main {
         
         try {
             // TODO:
-            achievements = DataLoader.loadAchievements();
+            achievements = facade.loadAchievements();
             if (!achievements.isEmpty()) {
                 System.out.println("Achievements loaded successfully.");
                 for (Achievements achiv : achievements) {
@@ -299,7 +301,7 @@ public class Main {
     public static void ShowLessons() {
         // Load courses from the JSON file
         // TODO:
-        ArrayList<Course> courses = DataLoader.loadCoursesFromJson();
+        ArrayList<Course> courses = facade.loadCoursesFromJson();
 
         // Check if courses were loaded successfully
         if (courses.isEmpty()) {
@@ -336,9 +338,9 @@ public class Main {
         // TODO:
         System.out.println("\n=== Summary Report ===");
         System.out.println("Total users loaded: " + users.size());
-        System.out.println("Total courses loaded: " + DataLoader.loadCourses().size());
-        System.out.println("Total languages loaded: " + DataLoader.loadLanguages().size());
-        System.out.println("Total achievements loaded: " + DataLoader.loadAchievements().size());
+        System.out.println("Total courses loaded: " + facade.loadCourses().size());
+        System.out.println("Total languages loaded: " + facade.loadLanguages().size());
+        System.out.println("Total achievements loaded: " + facade.loadAchievements().size());
         System.out.println("Completed successfully.");
         System.out.println("======================");
     }

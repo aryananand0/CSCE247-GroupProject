@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class LearningAppFacade {
 
+    private Language languages; 
     private UserList user;
     private CourseList course;
     private LessonList lessons;
@@ -15,6 +16,7 @@ public class LearningAppFacade {
         user = UserList.getInstance();
         course = CourseList.getInstance();
         lessons = LessonList.getInstance();
+        languages = 
     }
 
     // Get the singleton instance of LearningAppFacade
@@ -51,6 +53,26 @@ public class LearningAppFacade {
     // loads the lessons
     public ArrayList<Lesson> loadLesson(){
         return this.lessons.getLessons();
+    }
+
+    // Load languages 
+    public ArrayList<Language> loadLanguages() {
+        //return this.languages.getLanguageName();
+    }
+
+    // Load achievments 
+    public ArrayList<Achievements> loadAchievements() {
+        return 
+    }
+
+    // Load courses 
+    public ArrayList<Course> loadCoursesFromJson() {
+        return 
+    }
+
+    // Load leaderboard
+    public Leaderboard loadLeaderboard() {
+        return 
     }
 
     
