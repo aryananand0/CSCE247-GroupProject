@@ -48,6 +48,7 @@ public class Main {
         ArrayList<User> users = new ArrayList<>();
         
         try {
+            // TODO: 
             users = DataLoader.loadUsers();
             if (!users.isEmpty()) {
                 System.out.println("Users loaded successfully.");
@@ -81,6 +82,7 @@ public class Main {
 
     private static void reloadAndDisplayUsers() {
         System.out.println("\nReloaded users from file:");
+        // TODO: 
         ArrayList<User> reloadedUsers = DataLoader.loadUsers();
         for (User user : reloadedUsers) {
             System.out.println(user.toString());
@@ -93,6 +95,7 @@ public class Main {
         ArrayList<Course> courses = new ArrayList<>();
         
         try {
+            // TODO: 
             courses = DataLoader.loadCourses();
             if (!courses.isEmpty()) {
                 System.out.println("Courses loaded successfully.");
@@ -113,6 +116,7 @@ public class Main {
         ArrayList<Language> languages = new ArrayList<>();
         
         try {
+            // TODO: 
             languages = DataLoader.loadLanguages();
             if (!languages.isEmpty()) {
                 System.out.println("Languages loaded successfully.");
@@ -133,6 +137,7 @@ public class Main {
         Leaderboard lead = new Leaderboard();
         
         try {
+            // TODO:
             lead = DataLoader.loadLeaderboard();
             if (!lead.getUser().isEmpty()) {
                 System.out.println("Leader Board loaded successfully.");
@@ -153,6 +158,7 @@ public class Main {
         ArrayList<Achievements> achievements = new ArrayList<>();
         
         try {
+            // TODO:
             achievements = DataLoader.loadAchievements();
             if (!achievements.isEmpty()) {
                 System.out.println("Achievements loaded successfully.");
@@ -292,6 +298,7 @@ public class Main {
 
     public static void ShowLessons() {
         // Load courses from the JSON file
+        // TODO:
         ArrayList<Course> courses = DataLoader.loadCoursesFromJson();
 
         // Check if courses were loaded successfully
@@ -326,6 +333,7 @@ public class Main {
     }
 
     private static void printSummary(ArrayList<User> users) {
+        // TODO:
         System.out.println("\n=== Summary Report ===");
         System.out.println("Total users loaded: " + users.size());
         System.out.println("Total courses loaded: " + DataLoader.loadCourses().size());
@@ -335,3 +343,4 @@ public class Main {
         System.out.println("======================");
     }
 }
+
