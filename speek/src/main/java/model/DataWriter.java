@@ -77,6 +77,7 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to create favorite languages array
+    @SuppressWarnings("unchecked")
     private static JSONArray createFavLanguagesArray(User user) {
         JSONArray favLanguagesArray = new JSONArray();
         for (Language lang : user.getFavoriteLanguages()) {
@@ -86,6 +87,7 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to create courses array
+    @SuppressWarnings("unchecked")
     private static JSONArray createCoursesArray(User user) {
         JSONArray coursesArray = new JSONArray();
         for (Course course : user.getCurrentCourses()) {
@@ -100,6 +102,7 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to create achievements array
+    @SuppressWarnings("unchecked")
     private static JSONArray createAchievementsArray(User user) {
         JSONArray achievementsArray = new JSONArray();
         for (Achievements achievement : user.getAchievements()) {
@@ -114,6 +117,7 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to create completed courses array
+    @SuppressWarnings("unchecked")
     private static JSONArray createCompletedCoursesArray(User user) {
         JSONArray completedCoursesArray = new JSONArray();
         for (String courseId : user.getCompletedCourseIds()) {
@@ -123,6 +127,7 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to create completed lessons array
+    @SuppressWarnings("unchecked")
     private static JSONArray createCompletedLessonsArray(User user) {
         JSONArray completedLessonsArray = new JSONArray();
         for (String lessonId : user.getCompletedLessonIds()) {
@@ -132,6 +137,7 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to create question history array
+    @SuppressWarnings("unchecked")
     private static JSONArray createQuestionHistoryArray(User user) {
         JSONArray questionHistoryArray = new JSONArray();
         for (QuestionHistory history : user.getQuestionHistory()) {
@@ -147,6 +153,7 @@ public class DataWriter extends DataConstants {
     }
 
     // Method to create current question details
+    @SuppressWarnings("unchecked")
     private static JSONObject createCurrentQuestionDetails(User user) {
         JSONObject currentQuestionDetails = new JSONObject();
         currentQuestionDetails.put("questionId", user.getCurrentQuestion().getId());
