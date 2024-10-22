@@ -287,121 +287,24 @@ public class DataLoader extends DataConstants {
     public static ArrayList<Course> loadCoursesFromJson() {
         ArrayList<Course> coursesList = new ArrayList<>();
         JSONParser parser = new JSONParser();
-    
+
         try (FileReader reader = new FileReader("json/Lesson.json")) {
             JSONObject root = (JSONObject) parser.parse(reader);
             JSONArray languages = (JSONArray) root.get("languages");
-    
+
             for (Object langObj : languages) {
                 JSONObject language = (JSONObject) langObj;
-                String languageId = (String) language.get("languageId");
-                String languageName = (String) language.get("languageName");
-    
+
+                // Process courses for each language
                 JSONArray courses = (JSONArray) language.get("courses");
                 for (Object courseObj : courses) {
-                    JSONObject courseJson = (JSONObject) courseObj;
-                    UUID courseId = UUID.fromString((String) courseJson.get("courseId"));
-                    String courseName = (String) courseJson.get("courseName");
-                    String difficulty = (String) courseJson.get("difficulty");
-    
-                    Course course = new Course(courseId, courseName, difficulty, 0.0);
-    
-                    JSONArray lessons = (JSONArray) courseJson.get("lessons");
-                    for (Object lessonObj : lessons) {
-                        JSONObject lessonJson = (JSONObject) lessonObj;
-                        UUID lessonId = UUID.fromString((String) lessonJson.get("lessonId"));
-                        String lessonName = (String) lessonJson.get("lessonName");
-                        JSONObject contentJson = (JSONObject) lessonJson.get("content");
-    
-                        // Convert contentJson to a formatted string
-                        StringBuilder contentBuilder = new StringBuilder();
-                        for (Object keyObj : contentJson.keySet()) {
-                            String key = (String) keyObj;
-                            Object value = contentJson.get(key);
-                            contentBuilder.append(capitalizeFirstLetter(key)).append(": ");
-    
-                            if (value instanceof JSONArray) {
-                                JSONArray array = (JSONArray) value;
-                                List<String> items = new ArrayList<>();
-                                for (Object item : array) {
-                                    items.add((String) item);
-                                }
-                                contentBuilder.append(String.join(", ", items)).append("\n");
-                            } else {
-                                contentBuilder.append((String) value).append("\n");
-                            }
-                        }
-                        String content = contentBuilder.toString().trim();
-    
-                        Lesson lesson = new Lesson(lessonId, lessonName, content, new ArrayList<>());
-    
-                        // Parse tests
-                        JSONArray tests = (JSONArray) lessonJson.get("tests");
-                        for (Object testObj : tests) {
-                            JSONObject testJson = (JSONObject) testObj;
-    
-                            // Parse questions within each test
-                            JSONArray questions = (JSONArray) testJson.get("questions");
-                            for (Object questionObj : questions) {
-                                JSONObject questionJson = (JSONObject) questionObj;
-                                UUID questionId = UUID.fromString((String) questionJson.get("questionId"));
-                                String type = (String) questionJson.get("type");
-                                String text = (String) questionJson.get("text");
-    
-                                Question question = null;
-                                switch (type) {
-                                    case "MultipleChoice":
-                                        JSONArray optionsJson = (JSONArray) questionJson.get("options");
-                                        List<String> optionsList = new ArrayList<>();
-                                        for (Object option : optionsJson) {
-                                            optionsList.add((String) option);
-                                        }
-                                        String correctAnswerMC = (String) questionJson.get("correctAnswer");
-                                        question = new MultipleChoiceQuestion(questionId,text, optionsList, correctAnswerMC);
-                                        break;
-                                    case "ShortAnswer":
-                                        String correctAnswerSA = (String) questionJson.get("correctAnswer");
-                                        question = new ShortAnswerQuestion(questionId,text, correctAnswerSA);
-                                        break;
-                                    case "TrueOrFalse":
-                                        String correctAnswerTF = (String) questionJson.get("correctAnswer");
-                                        boolean correctBool = correctAnswerTF.equalsIgnoreCase("True");
-                                        question = new TrueFalseQuestion(questionId,text, correctBool);
-                                        break;
-                                    case "MatchWords":
-                                        JSONObject pairsJson = (JSONObject) questionJson.get("pairs");
-                                        if (pairsJson != null) {
-                                            Map<String, String> correctMatches = new HashMap<>();
-                                            for (Object pairKey : pairsJson.keySet()) {
-                                                String key = (String) pairKey;
-                                                String value = (String) pairsJson.get(key);
-                                                correctMatches.put(key, value);
-                                            }
-                                            List<String> prompts = new ArrayList<>(correctMatches.keySet());
-                                            List<String> responses = new ArrayList<>(correctMatches.values());
-                                            question = new MatchWordsQuestion(questionId,text, prompts, responses, correctMatches);
-                                        } else {
-                                            System.out.println("⚠️ 'pairs' not found for MatchWords question ID: " + questionId);
-                                        }
-                                        break;
-                                    default:
-                                        System.out.println("❗ Unknown question type: " + type + " for question ID: " + questionId);
-                                        break;
-                                }
-    
-                                if (question != null) {
-                                    lesson.addQuestion(question); // Correctly adding questions to the lesson
-                                }
-                            }
-                        }
-    
-                        course.addLesson(lesson);
+                    Course course = parseCourse((JSONObject) courseObj);
+                    if (course != null) {
+                        coursesList.add(course);
                     }
-    
-                    coursesList.add(course);
                 }
             }
-    
+
         } catch (IOException e) {
             System.out.println(" IO Error: " + e.getMessage());
             e.printStackTrace();
@@ -409,8 +312,136 @@ public class DataLoader extends DataConstants {
             System.out.println("Failed to parse JSON: " + e.getMessage());
             e.printStackTrace();
         }
-    
+
         return coursesList;
+    }
+
+    private static Course parseCourse(JSONObject courseJson) {
+        try {
+            UUID courseId = UUID.fromString((String) courseJson.get("courseId"));
+            String courseName = (String) courseJson.get("courseName");
+            String difficulty = (String) courseJson.get("difficulty");
+
+            Course course = new Course(courseId, courseName, difficulty, 0.0);
+
+            // Process lessons for each course
+            JSONArray lessons = (JSONArray) courseJson.get("lessons");
+            for (Object lessonObj : lessons) {
+                Lesson lesson = parseLesson((JSONObject) lessonObj);
+                if (lesson != null) {
+                    course.addLesson(lesson);
+                }
+            }
+
+            return course;
+        } catch (Exception e) {
+            System.out.println("Error parsing course: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private static Lesson parseLesson(JSONObject lessonJson) {
+        try {
+            UUID lessonId = UUID.fromString((String) lessonJson.get("lessonId"));
+            String lessonName = (String) lessonJson.get("lessonName");
+
+            // Process content for each lesson
+            String content = parseContent((JSONObject) lessonJson.get("content"));
+
+            Lesson lesson = new Lesson(lessonId, lessonName, content, new ArrayList<>());
+
+            // Process tests and questions for each lesson
+            JSONArray tests = (JSONArray) lessonJson.get("tests");
+            for (Object testObj : tests) {
+                parseQuestions((JSONObject) testObj, lesson);
+            }
+
+            return lesson;
+        } catch (Exception e) {
+            System.out.println("Error parsing lesson: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private static String parseContent(JSONObject contentJson) {
+        StringBuilder contentBuilder = new StringBuilder();
+        for (Object keyObj : contentJson.keySet()) {
+            String key = (String) keyObj;
+            Object value = contentJson.get(key);
+            contentBuilder.append(capitalizeFirstLetter(key)).append(": ");
+
+            if (value instanceof JSONArray) {
+                JSONArray array = (JSONArray) value;
+                List<String> items = new ArrayList<>();
+                for (Object item : array) {
+                    items.add((String) item);
+                }
+                contentBuilder.append(String.join(", ", items)).append("\n");
+            } else {
+                contentBuilder.append((String) value).append("\n");
+            }
+        }
+        return contentBuilder.toString().trim();
+    }
+
+    private static void parseQuestions(JSONObject testJson, Lesson lesson) {
+        JSONArray questions = (JSONArray) testJson.get("questions");
+        for (Object questionObj : questions) {
+            JSONObject questionJson = (JSONObject) questionObj;
+            UUID questionId = UUID.fromString((String) questionJson.get("questionId"));
+            String type = (String) questionJson.get("type");
+            String text = (String) questionJson.get("text");
+
+            Question question = createQuestion(questionJson, questionId, type, text);
+            if (question != null) {
+                lesson.addQuestion(question);  // Correctly adding questions to the lesson
+            }
+        }
+    }
+
+    private static Question createQuestion(JSONObject questionJson, UUID questionId, String type, String text) {
+        try {
+            switch (type) {
+                case "MultipleChoice":
+                    JSONArray optionsJson = (JSONArray) questionJson.get("options");
+                    List<String> optionsList = new ArrayList<>();
+                    for (Object option : optionsJson) {
+                        optionsList.add((String) option);
+                    }
+                    String correctAnswerMC = (String) questionJson.get("correctAnswer");
+                    return new MultipleChoiceQuestion(questionId, text, optionsList, correctAnswerMC);
+
+                case "ShortAnswer":
+                    String correctAnswerSA = (String) questionJson.get("correctAnswer");
+                    return new ShortAnswerQuestion(questionId, text, correctAnswerSA);
+
+                case "TrueOrFalse":
+                    String correctAnswerTF = (String) questionJson.get("correctAnswer");
+                    boolean correctBool = correctAnswerTF.equalsIgnoreCase("True");
+                    return new TrueFalseQuestion(questionId, text, correctBool);
+
+                case "MatchWords":
+                    JSONObject pairsJson = (JSONObject) questionJson.get("pairs");
+                    if (pairsJson != null) {
+                        Map<String, String> correctMatches = new HashMap<>();
+                        for (Object pairKey : pairsJson.keySet()) {
+                            String key = (String) pairKey;
+                            String value = (String) pairsJson.get(key);
+                            correctMatches.put(key, value);
+                        }
+                        List<String> prompts = new ArrayList<>(correctMatches.keySet());
+                        List<String> responses = new ArrayList<>(correctMatches.values());
+                        return new MatchWordsQuestion(questionId, text, prompts, responses, correctMatches);
+                    } else {
+                        System.out.println("⚠️ 'pairs' not found for MatchWords question ID: " + questionId);
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println("Error creating question: " + e.getMessage());
+        }
+
+        return null;
     }
     
     private static String capitalizeFirstLetter(String input) {
