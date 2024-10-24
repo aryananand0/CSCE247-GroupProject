@@ -38,7 +38,7 @@ public class AchievementList {
     }
 
     // Method to retrieve an achievement by its title
-    public Achievements getLessonByTitle(String lessonTitle) {
+    public Achievements getAchievementByTitle(String lessonTitle) {
         for (Achievements ach : achievements) {
             if (ach.getTitle().equalsIgnoreCase(lessonTitle)) {
                 return ach;
