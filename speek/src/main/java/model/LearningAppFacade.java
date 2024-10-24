@@ -36,13 +36,7 @@ public class LearningAppFacade {
 
     // Registers a new user with email and password, returns the created User object
     public boolean registerUser(String username, String firstName, String lastName,String email, String password) {
-        user = UserList.getInstance();
-        if(user.haveUser(username)) {
-            return false;
-        } else {
-            user.addUser(username, firstName, lastName, email, password);
-            return true;
-        }
+        return user.addUser(username, firstName, lastName, email, password);
     }
 
     // Loads the users
