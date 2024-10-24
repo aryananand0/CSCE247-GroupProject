@@ -1,249 +1,264 @@
 {
-    "languages": [
-      {
-        "languageId": "0d2f8294-0021-4f1b-92c0-3cad8a1db9f4",
-        "languageName": "Spanish",
-        "courses": [
-          {
-            "courseId": "123e4567-e89b-12d3-a456-426614174000",
-            "courseName": "Module 1: Survival Spanish",
-            "flashcards": [
-              {
-                "lessonName": "Lesson 1: Basic Greetings and Introductions",
-                "flashcards": [
-                  { "word": "Hola", "translation": "Hello" },
-                  { "word": "Buenos días", "translation": "Good morning" },
-                  { "word": "Buenas noches", "translation": "Good night" },
-                  { "word": "Me llamo", "translation": "My name is" },
-                  { "word": "Soy de", "translation": "I am from" },
-                  { "word": "¿Cómo está usted?", "translation": "How are you? (formal)" },
-                  { "word": "¿Cómo estás?", "translation": "How are you? (informal)" },
-                  { "word": "Adiós", "translation": "Goodbye" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 2: Numbers, Dates, and Telling Time",
-                "flashcards": [
-                  { "word": "Uno", "translation": "One" },
-                  { "word": "Dos", "translation": "Two" },
-                  { "word": "Tres", "translation": "Three" },
-                  { "word": "¿Qué hora es?", "translation": "What time is it?" },
-                  { "word": "Lunes", "translation": "Monday" },
-                  { "word": "Enero", "translation": "January" },
-                  { "word": "Son las dos", "translation": "It's two o'clock" },
-                  { "word": "Diez", "translation": "Ten" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 3: Basic Phrases for Shopping",
-                "flashcards": [
-                  { "word": "Tienda", "translation": "Store" },
-                  { "word": "Dinero", "translation": "Money" },
-                  { "word": "Artículo", "translation": "Item" },
-                  { "word": "¿Cuánto cuesta?", "translation": "How much does it cost?" },
-                  { "word": "Es muy caro", "translation": "It is very expensive" },
-                  { "word": "Camisa", "translation": "Shirt" },
-                  { "word": "Zapatos", "translation": "Shoes" },
-                  { "word": "Rebaja", "translation": "Discount" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 4: Directions and Transportation",
-                "flashcards": [
-                  { "word": "Calle", "translation": "Street" },
-                  { "word": "Izquierda", "translation": "Left" },
-                  { "word": "Derecha", "translation": "Right" },
-                  { "word": "Autobús", "translation": "Bus" },
-                  { "word": "Tren", "translation": "Train" },
-                  { "word": "¿Dónde está?", "translation": "Where is?" },
-                  { "word": "Siga derecho", "translation": "Go straight" },
-                  { "word": "Horario", "translation": "Schedule" }
-                ]
-              }
-            ]
-          },
-          {
-            "courseId": "456e7890-e89b-12d3-a456-426614174001",
-            "courseName": "Module 2: Everyday Life",
-            "flashcards": [
-              {
-                "lessonName": "Lesson 5: At the Restaurant and Ordering Food",
-                "flashcards": [
-                  { "word": "Comida", "translation": "Food" },
-                  { "word": "Bebida", "translation": "Drink" },
-                  { "word": "Menú", "translation": "Menu" },
-                  { "word": "Quisiera", "translation": "I would like" },
-                  { "word": "Para mí", "translation": "For me" },
-                  { "word": "¿Qué me recomienda?", "translation": "What do you recommend?" },
-                  { "word": "Cuenta", "translation": "Bill" },
-                  { "word": "Sopa", "translation": "Soup" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 6: Health and Emergency Vocabulary",
-                "flashcards": [
-                  { "word": "Dolor de cabeza", "translation": "Headache" },
-                  { "word": "Gripe", "translation": "Flu" },
-                  { "word": "Me duele", "translation": "It hurts" },
-                  { "word": "Tengo fiebre", "translation": "I have a fever" },
-                  { "word": "Necesito ayuda", "translation": "I need help" },
-                  { "word": "Ambulancia", "translation": "Ambulance" },
-                  { "word": "Medicamento", "translation": "Medicine" },
-                  { "word": "Hospital", "translation": "Hospital" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 7: Housing and Renting",
-                "flashcards": [
-                  { "word": "Alquiler", "translation": "Rent" },
-                  { "word": "Contrato", "translation": "Contract" },
-                  { "word": "Habitación", "translation": "Room" },
-                  { "word": "Apartamento", "translation": "Apartment" },
-                  { "word": "¿Cuánto cuesta el alquiler?", "translation": "How much is the rent?" },
-                  { "word": "Casa", "translation": "House" },
-                  { "word": "Cocina", "translation": "Kitchen" },
-                  { "word": "Baño", "translation": "Bathroom" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 8: Work and Professions",
-                "flashcards": [
-                  { "word": "Abogado", "translation": "Lawyer" },
-                  { "word": "Ingeniero", "translation": "Engineer" },
-                  { "word": "Profesor", "translation": "Teacher" },
-                  { "word": "Médico", "translation": "Doctor" },
-                  { "word": "Oficina", "translation": "Office" },
-                  { "word": "Trabajo", "translation": "Job" },
-                  { "word": "Empresa", "translation": "Company" },
-                  { "word": "¿Hay trabajo aquí?", "translation": "Is there work here?" }
-                ]
-              }
-            ]
-          },
-          {
-            "courseId": "789e1234-e89b-45d3-b789-123456789000",
-            "courseName": "Module 3: Cultural Integration",
-            "flashcards": [
-              {
-                "lessonName": "Lesson 9: Socializing and Making Friends",
-                "flashcards": [
-                  { "word": "Fiesta", "translation": "Party" },
-                  { "word": "Reunión", "translation": "Meeting" },
-                  { "word": "Te presento a", "translation": "I introduce you to" },
-                  { "word": "¿Qué te gusta hacer?", "translation": "What do you like to do?" },
-                  { "word": "¿Vienes a menudo aquí?", "translation": "Do you come here often?" },
-                  { "word": "Amigo", "translation": "Friend" },
-                  { "word": "Compañero", "translation": "Companion" },
-                  { "word": "Charlar", "translation": "Chat" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 10: Public Services and Utilities",
-                "flashcards": [
-                  { "word": "Agua", "translation": "Water" },
-                  { "word": "Electricidad", "translation": "Electricity" },
-                  { "word": "Gas", "translation": "Gas" },
-                  { "word": "Factura", "translation": "Bill" },
-                  { "word": "Quiero reportar un problema", "translation": "I want to report a problem" },
-                  { "word": "Contrato", "translation": "Contract" },
-                  { "word": "Servicio", "translation": "Service" },
-                  { "word": "Recibo", "translation": "Receipt" }
-                ]
-              }
-            ]
-          },
-          {
-            "courseId": "890e1234-e89b-45d3-b789-123456789000",
-            "courseName": "Module 4: Advanced Communication",
-            "flashcards": [
-              {
-                "lessonName": "Lesson 13: Talking About News and Current Events",
-                "flashcards": [
-                  { "word": "Noticia", "translation": "News" },
-                  { "word": "Política", "translation": "Politics" },
-                  { "word": "En las noticias hoy", "translation": "In the news today" },
-                  { "word": "Medios de comunicación", "translation": "Media" },
-                  { "word": "Importante", "translation": "Important" },
-                  { "word": "Saber", "translation": "To know" },
-                  { "word": "Evento", "translation": "Event" },
-                  { "word": "Reporte", "translation": "Report" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 14: Problem Solving in Spanish",
-                "flashcards": [
-                  { "word": "Quiero quejarme de", "translation": "I want to complain about" },
-                  { "word": "Negociar", "translation": "Negotiate" },
-                  { "word": "Resolver conflictos", "translation": "Resolve conflicts" },
-                  { "word": "Entender", "translation": "Understand" },
-                  { "word": "Problema", "translation": "Problem" },
-                  { "word": "Solución", "translation": "Solution" },
-                  { "word": "Acordar", "translation": "Agree" },
-                  { "word": "Desacuerdo", "translation": "Disagreement" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 15: Advanced Conversations about Hobbies and Travel",
-                "flashcards": [
-                  { "word": "Me gusta leer", "translation": "I like reading" },
-                  { "word": "Disfruto viajar", "translation": "I enjoy traveling" },
-                  { "word": "Billete de avión", "translation": "Airplane ticket" },
-                  { "word": "Reservar un hotel", "translation": "Book a hotel" },
-                  { "word": "Viajar", "translation": "Travel" },
-                  { "word": "Destino", "translation": "Destination" },
-                  { "word": "Equipaje", "translation": "Luggage" },
-                  { "word": "Guía de viaje", "translation": "Travel guide" }
-                ]
-              }
-            ]
-          },
-          {
-            "courseId": "901e1234-e89b-45d3-b789-123456789002",
-            "courseName": "Module 5: Mastering Spanish for Living Abroad",
-            "flashcards": [
-              {
-                "lessonName": "Lesson 16: Legal and Administrative Vocabulary",
-                "flashcards": [
-                  { "word": "Pasaporte", "translation": "Passport" },
-                  { "word": "Permiso de trabajo", "translation": "Work permit" },
-                  { "word": "Contratos", "translation": "Contracts" },
-                  { "word": "Completar formularios", "translation": "Fill out forms" },
-                  { "word": "Funcionario", "translation": "Official" },
-                  { "word": "Gobierno", "translation": "Government" },
-                  { "word": "Documento", "translation": "Document" },
-                  { "word": "Firma", "translation": "Signature" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 17: Renting or Buying a Property",
-                "flashcards": [
-                  { "word": "Comprar", "translation": "Buy" },
-                  { "word": "Hipoteca", "translation": "Mortgage" },
-                  { "word": "Propiedad", "translation": "Property" },
-                  { "word": "Alquilar", "translation": "Rent" },
-                  { "word": "Contrato", "translation": "Contract" },
-                  { "word": "Casa", "translation": "House" },
-                  { "word": "Apartamento", "translation": "Apartment" },
-                  { "word": "Términos legales", "translation": "Legal terms" }
-                ]
-              },
-              {
-                "lessonName": "Lesson 18: Handling Finances and Banking",
-                "flashcards": [
-                  { "word": "Cuenta bancaria", "translation": "Bank account" },
-                  { "word": "Depósito", "translation": "Deposit" },
-                  { "word": "Tarjeta de crédito", "translation": "Credit card" },
-                  { "word": "Retiro", "translation": "Withdrawal" },
-                  { "word": "Saldo", "translation": "Balance" },
-                  { "word": "Transferencia", "translation": "Transfer" },
-                  { "word": "Pago", "translation": "Payment" },
-                  { "word": "Interés", "translation": "Interest" }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-  
+  "languages": [
+    {
+      "languageId": "0d2f8294-0021-4f1b-92c0-3cad8a1db9f4",
+      "languageName": "Spanish",
+      "courses": [
+        {
+          "courseId": "123e4567-e89b-12d3-a456-426614174000",
+          "courseName": "Module 1: Survival Spanish",
+          "flashcards": [
+            {
+              "lessonId": "a1b2c3d4-e5f6-4a8b-9c0d-e1f2a3b4c5d6",
+              "lessonName": "Lesson 1: Basic Greetings and Introductions",
+              "flashcards": [
+                { "word": "Hola", "translation": "Hello" },
+                { "word": "Buenos días", "translation": "Good morning" },
+                { "word": "Buenas noches", "translation": "Good night" },
+                { "word": "Me llamo", "translation": "My name is" },
+                { "word": "Soy de", "translation": "I am from" },
+                { "word": "¿Cómo está usted?", "translation": "How are you? (formal)" },
+                { "word": "¿Cómo estás?", "translation": "How are you? (informal)" },
+                { "word": "Adiós", "translation": "Goodbye" }
+              ]
+            },
+            {
+              "lessonId": "a1b2c3d4-e5f6-4a8b-9c0d-e1f2a3b4c5d7",
+              "lessonName": "Lesson 2: Numbers, Dates, and Telling Time",
+              "flashcards": [
+                { "word": "Uno", "translation": "One" },
+                { "word": "Dos", "translation": "Two" },
+                { "word": "Tres", "translation": "Three" },
+                { "word": "¿Qué hora es?", "translation": "What time is it?" },
+                { "word": "Lunes", "translation": "Monday" },
+                { "word": "Enero", "translation": "January" },
+                { "word": "Son las dos", "translation": "It's two o'clock" },
+                { "word": "Diez", "translation": "Ten" }
+              ]
+            },
+            {
+              "lessonId": "a1b2c3d4-e5f6-4a8b-9c0d-e1f2a3b4c5d8",
+              "lessonName": "Lesson 3: Basic Phrases for Shopping",
+              "flashcards": [
+                { "word": "Tienda", "translation": "Store" },
+                { "word": "Dinero", "translation": "Money" },
+                { "word": "Artículo", "translation": "Item" },
+                { "word": "¿Cuánto cuesta?", "translation": "How much does it cost?" },
+                { "word": "Es muy caro", "translation": "It is very expensive" },
+                { "word": "Camisa", "translation": "Shirt" },
+                { "word": "Zapatos", "translation": "Shoes" },
+                { "word": "Rebaja", "translation": "Discount" }
+              ]
+            },
+            {
+              "lessonId": "a1b2c3d4-e5f6-4a8b-9c0d-e1f2a3b4c5d9",
+              "lessonName": "Lesson 4: Directions and Transportation",
+              "flashcards": [
+                { "word": "Calle", "translation": "Street" },
+                { "word": "Izquierda", "translation": "Left" },
+                { "word": "Derecha", "translation": "Right" },
+                { "word": "Autobús", "translation": "Bus" },
+                { "word": "Tren", "translation": "Train" },
+                { "word": "¿Dónde está?", "translation": "Where is?" },
+                { "word": "Siga derecho", "translation": "Go straight" },
+                { "word": "Horario", "translation": "Schedule" }
+              ]
+            }
+          ]
+        },
+        {
+          "courseId": "456e7890-e89b-12d3-a456-426614174001",
+          "courseName": "Module 2: Everyday Life",
+          "flashcards": [
+            {
+              "lessonId": "b2c3d4e5-f67a-4b8c-9d0e-2f3a4b5c6d7e",
+              "lessonName": "Lesson 5: At the Restaurant and Ordering Food",
+              "flashcards": [
+                { "word": "Comida", "translation": "Food" },
+                { "word": "Bebida", "translation": "Drink" },
+                { "word": "Menú", "translation": "Menu" },
+                { "word": "Quisiera", "translation": "I would like" },
+                { "word": "Para mí", "translation": "For me" },
+                { "word": "¿Qué me recomienda?", "translation": "What do you recommend?" },
+                { "word": "Cuenta", "translation": "Bill" },
+                { "word": "Sopa", "translation": "Soup" }
+              ]
+            },
+            {
+              "lessonId": "b2c3d4e5-f6c7-4a8d-9e0b-234567a",
+              "lessonName": "Lesson 6: Health and Emergency Vocabulary",
+              "flashcards": [
+                { "word": "Dolor de cabeza", "translation": "Headache" },
+                { "word": "Gripe", "translation": "Flu" },
+                { "word": "Me duele", "translation": "It hurts" },
+                { "word": "Tengo fiebre", "translation": "I have a fever" },
+                { "word": "Necesito ayuda", "translation": "I need help" },
+                { "word": "Ambulancia", "translation": "Ambulance" },
+                { "word": "Medicamento", "translation": "Medicine" },
+                { "word": "Hospital", "translation": "Hospital" }
+              ]
+            },
+            {
+              "lessonId": "e818b4ea-af71-46ad-aac4-ae6d84f18734",
+              "lessonName": "Lesson 7: Housing and Renting",
+              "flashcards": [
+                { "word": "Alquiler", "translation": "Rent" },
+                { "word": "Contrato", "translation": "Contract" },
+                { "word": "Habitación", "translation": "Room" },
+                { "word": "Apartamento", "translation": "Apartment" },
+                { "word": "¿Cuánto cuesta el alquiler?", "translation": "How much is the rent?" },
+                { "word": "Casa", "translation": "House" },
+                { "word": "Cocina", "translation": "Kitchen" },
+                { "word": "Baño", "translation": "Bathroom" }
+              ]
+            },
+            {
+              "lessonId": "bfbd4a00-c757-4fb0-89c9-8090c81e6f57",
+              "lessonName": "Lesson 8: Work and Professions",
+              "flashcards": [
+                { "word": "Abogado", "translation": "Lawyer" },
+                { "word": "Ingeniero", "translation": "Engineer" },
+                { "word": "Profesor", "translation": "Teacher" },
+                { "word": "Médico", "translation": "Doctor" },
+                { "word": "Oficina", "translation": "Office" },
+                { "word": "Trabajo", "translation": "Job" },
+                { "word": "Empresa", "translation": "Company" },
+                { "word": "¿Hay trabajo aquí?", "translation": "Is there work here?" }
+              ]
+            }
+          ]
+        },
+        {
+          "courseId": "789e1234-e89b-45d3-b789-123456789000",
+          "courseName": "Module 3: Cultural Integration",
+          "flashcards": [
+            {
+              "lessonId": "8d64573f-e419-4286-adc0-f7b35cba9cc1",
+              "lessonName": "Lesson 9: Socializing and Making Friends",
+              "flashcards": [
+                { "word": "Fiesta", "translation": "Party" },
+                { "word": "Reunión", "translation": "Meeting" },
+                { "word": "Te presento a", "translation": "I introduce you to" },
+                { "word": "¿Qué te gusta hacer?", "translation": "What do you like to do?" },
+                { "word": "¿Vienes a menudo aquí?", "translation": "Do you come here often?" },
+                { "word": "Amigo", "translation": "Friend" },
+                { "word": "Compañero", "translation": "Companion" },
+                { "word": "Charlar", "translation": "Chat" }
+              ]
+            },
+            {
+              "lessonId": "7002fada-7ef7-45ae-9cd6-8f970a223726",
+              "lessonName": "Lesson 10: Public Services and Utilities",
+              "flashcards": [
+                { "word": "Agua", "translation": "Water" },
+                { "word": "Electricidad", "translation": "Electricity" },
+                { "word": "Gas", "translation": "Gas" },
+                { "word": "Factura", "translation": "Bill" },
+                { "word": "Quiero reportar un problema", "translation": "I want to report a problem" },
+                { "word": "Contrato", "translation": "Contract" },
+                { "word": "Servicio", "translation": "Service" },
+                { "word": "Recibo", "translation": "Receipt" }
+              ]
+            }
+          ]
+        },
+        {
+          "courseId": "890e1234-e89b-45d3-b789-123456789000",
+          "courseName": "Module 4: Advanced Communication",
+          "flashcards": [
+            {
+              "lessonId": "b8aab9e3-44c1-40ba-a093-4d046079de83",
+              "lessonName": "Lesson 13: Talking About News and Current Events",
+              "flashcards": [
+                { "word": "Noticia", "translation": "News" },
+                { "word": "Política", "translation": "Politics" },
+                { "word": "En las noticias hoy", "translation": "In the news today" },
+                { "word": "Medios de comunicación", "translation": "Media" },
+                { "word": "Importante", "translation": "Important" },
+                { "word": "Saber", "translation": "To know" },
+                { "word": "Evento", "translation": "Event" },
+                { "word": "Reporte", "translation": "Report" }
+              ]
+            },
+            {
+              "lessonId": "4071f997-4bc9-4078-9c23-640c6eb9a565",
+              "lessonName": "Lesson 14: Problem Solving in Spanish",
+              "flashcards": [
+                { "word": "Quiero quejarme de", "translation": "I want to complain about" },
+                { "word": "Negociar", "translation": "Negotiate" },
+                { "word": "Resolver conflictos", "translation": "Resolve conflicts" },
+                { "word": "Entender", "translation": "Understand" },
+                { "word": "Problema", "translation": "Problem" },
+                { "word": "Solución", "translation": "Solution" },
+                { "word": "Acordar", "translation": "Agree" },
+                { "word": "Desacuerdo", "translation": "Disagreement" }
+              ]
+            },
+            {
+              "lessonId": "f82f1cb4-e17d-49b6-a309-481f52a003b4",
+              "lessonName": "Lesson 15: Advanced Conversations about Hobbies and Travel",
+              "flashcards": [
+                { "word": "Me gusta leer", "translation": "I like reading" },
+                { "word": "Disfruto viajar", "translation": "I enjoy traveling" },
+                { "word": "Billete de avión", "translation": "Airplane ticket" },
+                { "word": "Reservar un hotel", "translation": "Book a hotel" },
+                { "word": "Viajar", "translation": "Travel" },
+                { "word": "Destino", "translation": "Destination" },
+                { "word": "Equipaje", "translation": "Luggage" },
+                { "word": "Guía de viaje", "translation": "Travel guide" }
+              ]
+            }
+          ]
+        },
+        {
+          "courseId": "901e1234-e89b-45d3-b789-123456789002",
+          "courseName": "Module 5: Mastering Spanish for Living Abroad",
+          "flashcards": [
+            {
+              "lessonId": "503bfbcf-907f-4733-8e48-a7984124a231",
+              "lessonName": "Lesson 16: Legal and Administrative Vocabulary",
+              "flashcards": [
+                { "word": "Pasaporte", "translation": "Passport" },
+                { "word": "Permiso de trabajo", "translation": "Work permit" },
+                { "word": "Contratos", "translation": "Contracts" },
+                { "word": "Completar formularios", "translation": "Fill out forms" },
+                { "word": "Funcionario", "translation": "Official" },
+                { "word": "Gobierno", "translation": "Government" },
+                { "word": "Documento", "translation": "Document" },
+                { "word": "Firma", "translation": "Signature" }
+              ]
+            },
+            {
+              "lessonId": "72b1936f-9215-425b-82da-fa00dac20e84",
+              "lessonName": "Lesson 17: Renting or Buying a Property",
+              "flashcards": [
+                { "word": "Comprar", "translation": "Buy" },
+                { "word": "Hipoteca", "translation": "Mortgage" },
+                { "word": "Propiedad", "translation": "Property" },
+                { "word": "Alquilar", "translation": "Rent" },
+                { "word": "Contrato", "translation": "Contract" },
+                { "word": "Casa", "translation": "House" },
+                { "word": "Apartamento", "translation": "Apartment" },
+                { "word": "Términos legales", "translation": "Legal terms" }
+              ]
+            },
+            {
+              "lessonId": "2d6234d5-e207-46a7-814b-bf3540c2a246",
+              "lessonName": "Lesson 18: Handling Finances and Banking",
+              "flashcards": [
+                { "word": "Cuenta bancaria", "translation": "Bank account" },
+                { "word": "Depósito", "translation": "Deposit" },
+                { "word": "Tarjeta de crédito", "translation": "Credit card" },
+                { "word": "Retiro", "translation": "Withdrawal" },
+                { "word": "Saldo", "translation": "Balance" },
+                { "word": "Transferencia", "translation": "Transfer" },
+                { "word": "Pago", "translation": "Payment" },
+                { "word": "Interés", "translation": "Interest" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -2,6 +2,7 @@ package model;
 
 import java.io.FileReader;
 import java.io.IOException;
+import org.json.simple.parser.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -185,8 +186,8 @@ public class DataLoader extends DataConstants {
                     String translation = (String) flashcardJSON.get(FLASHCARD_TRANSLATION);
 
                     // Create Flashcard object and add to language
-                    Flashcard flashcard = new Flashcard(word, translation);
-                    language.getFlashcards().add(flashcard);
+                    // Flashcard flashcard = new Flashcard(word, translation);
+                    // language.getFlashcards().add(flashcard);
                 }
 
                 // Add the language to the list
@@ -339,7 +340,7 @@ public class DataLoader extends DataConstants {
             // Process lessons for each course
             JSONArray lessons = (JSONArray) courseJson.get("lessons");
             for (Object lessonObj : lessons) {
-                Lesson lesson = parseLesson((JSONObject) lessonObj);
+                Lesson lesson = parseLesson((JSONObject) lessonObj, courseId);
                 if (lesson != null) {
                     course.addLesson(lesson);
                 }
@@ -352,7 +353,7 @@ public class DataLoader extends DataConstants {
         }
     }
     
-    private static Lesson parseLesson(JSONObject lessonJson) {
+    private static Lesson parseLesson(JSONObject lessonJson,UUID courseID) {
         try {
             UUID lessonId = UUID.fromString((String) lessonJson.get("lessonId"));
             String lessonName = (String) lessonJson.get("lessonName");
@@ -364,6 +365,8 @@ public class DataLoader extends DataConstants {
             String contentStr = formatContentMap(content);
     
             Lesson lesson = new Lesson(lessonId, lessonName, contentStr, new ArrayList<>());
+
+            lesson.setFlashcard(loadFlashcardsForLesson(courseID, lessonId));
     
             // Process tests and questions for each lesson
             JSONArray tests = (JSONArray) lessonJson.get("tests");
@@ -589,6 +592,116 @@ public class DataLoader extends DataConstants {
         }
     
         return lessonsList;
+    }
+
+    public static Flashcard loadFlashcardsForLesson(UUID courseId, UUID lessonId) {
+        Flashcard flashcard = new Flashcard(); // Create an empty Flashcard object
+
+        try (FileReader reader = new FileReader("json/Flashcard.json")) { // Adjust the file path if necessary
+            // Parse the JSON file
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+
+            // Get the 'languages' array and assume the first one is Spanish
+            JSONArray languagesArray = (JSONArray) jsonObject.get("languages");
+            if (languagesArray == null || languagesArray.isEmpty()) {
+                System.err.println("Error: 'languages' array not found or empty in JSON file.");
+                return flashcard;
+            }
+
+            // Since Spanish is the default language, we can take the first language object
+            JSONObject language = (JSONObject) languagesArray.get(0);
+            if (language == null) {
+                System.err.println("Error: Language JSON object is null.");
+                return flashcard;
+            }
+
+            // Get the 'courses' array
+            JSONArray coursesArray = (JSONArray) language.get("courses");
+            if (coursesArray == null || coursesArray.isEmpty()) {
+                System.err.println("Error: 'courses' array not found or empty in language JSON object.");
+                return flashcard;
+            }
+
+            // Iterate over each course
+            for (Object courseObj : coursesArray) {
+                JSONObject course = (JSONObject) courseObj;
+                if (course == null) continue;
+
+                String courseIdStr = (String) course.get("courseId");
+                if (courseIdStr == null) {
+                    System.err.println("Warning: 'courseId' not found in course JSON object.");
+                    continue; // Proceed to the next course
+                }
+
+                // Check if the courseId matches
+                if (courseId.equals(UUID.fromString(courseIdStr))) {
+                    // Get the 'flashcards' array for the course
+                    JSONArray lessonsArray = (JSONArray) course.get("flashcards");
+                    if (lessonsArray == null || lessonsArray.isEmpty()) {
+                        System.err.println("Error: 'flashcards' array not found or empty in course JSON object.");
+                        return flashcard;
+                    }
+
+                    // Iterate over each lesson
+                    for (Object lessonObj : lessonsArray) {
+                        JSONObject lesson = (JSONObject) lessonObj;
+                        if (lesson == null) continue;
+
+                        String lessonIdStr = (String) lesson.get("lessonId");
+                        if (lessonIdStr == null) {
+                            System.err.println("Warning: 'lessonId' not found in lesson JSON object.");
+                            continue; // Proceed to the next lesson
+                        }
+
+                        // Check if the lessonId matches
+                        if (lessonId.equals(UUID.fromString(lessonIdStr))) {
+                            // Get the 'flashcards' array for the lesson
+                            JSONArray flashcardsArray = (JSONArray) lesson.get("flashcards");
+                            if (flashcardsArray == null || flashcardsArray.isEmpty()) {
+                                System.err.println("Error: 'flashcards' array not found or empty in lesson JSON object.");
+                                return flashcard;
+                            }
+
+                            // Iterate over each flashcard and add to the Flashcard object
+                            for (Object flashcardObj : flashcardsArray) {
+                                JSONObject flashcardEntry = (JSONObject) flashcardObj;
+                                if (flashcardEntry == null) continue;
+
+                                String word = (String) flashcardEntry.get("word");
+                                String translation = (String) flashcardEntry.get("translation");
+
+                                if (word == null || translation == null) {
+                                    System.err.println("Warning: 'word' or 'translation' missing in flashcard JSON object.");
+                                    continue; // Skip this flashcard
+                                }
+
+                                flashcard.addFlashcard(word, translation); // Add flashcard to the Flashcard object
+                            }
+
+                            // Return the flashcards for this lesson
+                            return flashcard;
+                        }
+                    }
+
+                    // If we reach here, the lessonId was not found in this course
+                    System.err.println("Error: Lesson ID " + lessonId + " not found in course ID " + courseId);
+                    return flashcard;
+                }
+            }
+
+            // If we reach here, the courseId was not found
+            System.err.println("Error: Course ID " + courseId + " not found in JSON file.");
+
+        } catch (IOException e) {
+            System.err.println("Error: Unable to read JSON file. " + e.getMessage());
+        } catch (ParseException e) {
+            System.err.println("Error: Unable to parse JSON file. " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error: Invalid UUID format. " + e.getMessage());
+        }
+
+        return flashcard;
     }
 
 }

@@ -214,8 +214,8 @@ public class DataWriter extends DataConstants {
             JSONArray flashcardsArray = new JSONArray();
             for (Flashcard flashcard : language.getFlashcards()) {
                 JSONObject flashcardDetails = new JSONObject();
-                flashcardDetails.put(FLASHCARD_WORD, flashcard.getWord());
-                flashcardDetails.put(FLASHCARD_TRANSLATION, flashcard.getTranslation());
+                // flashcardDetails.put(FLASHCARD_WORD, flashcard.getWord());
+                // flashcardDetails.put(FLASHCARD_TRANSLATION, flashcard.getTranslation());
                 flashcardsArray.add(flashcardDetails);
             }
             languageDetails.put(LANGUAGE_FLASHCARDS, flashcardsArray);
