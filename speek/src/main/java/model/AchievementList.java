@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class AchievementList {
 
@@ -24,6 +25,16 @@ public class AchievementList {
         if (ach != null && !achievements.contains(ach)) {
             achievements.add(ach);
         }
+    }
+
+    // Method to retrieve a lesson by its UUID
+    public Achievements getAchievementById(UUID achId) {
+        for (Achievements ach : achievements) {
+            if (ach.getAchievementId().equals(achId)) {
+                return ach;
+            }
+        }
+        return null; // Return null if lesson not found
     }
 
 
