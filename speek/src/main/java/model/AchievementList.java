@@ -34,7 +34,7 @@ public class AchievementList {
                 return ach;
             }
         }
-        return null; // Return null if lesson not found
+        return null; // Return null if achievement not found
     }
 
     // Method to retrieve an achievement by its title
@@ -44,7 +44,7 @@ public class AchievementList {
                 return ach;
             }
         }
-        return null; // Return null if lesson not found
+        return null; // Return null if achievement not found
     }
 
 
