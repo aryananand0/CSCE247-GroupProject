@@ -10,7 +10,8 @@ public class Lesson {
     private UUID lessonId;                   
     private String lessonTitle;
     private String content;
-    private List<Question> questions;               
+    private List<Question> questions;
+    private Flashcard flashcard;               
     private boolean isCompleted;                    
 
     // Constructor with parameters (auto-generates lessonId and initializes questions)
@@ -36,6 +37,7 @@ public class Lesson {
         this.content = content;
         this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
         this.isCompleted = false;
+        this.flashcard = new Flashcard();
     }
 
     // Default Constructor
@@ -45,6 +47,14 @@ public class Lesson {
         this.content = "";
         this.questions = new ArrayList<>();
         this.isCompleted = false;
+    }
+
+    public void setFlashcard(Flashcard flashcard){
+        this.flashcard = flashcard;
+    }
+
+    public Flashcard getFlashcard(){
+        return this.flashcard;
     }
 
     // Getters and Setters

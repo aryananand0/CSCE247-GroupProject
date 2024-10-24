@@ -12,6 +12,7 @@ public class LessonList {
     // Constructor
     private LessonList() {
         lessons = DataLoader.loadLessons(); // Assuming DataLoader is used to load lessons from a JSON file
+        
     }
 
     // Singleton pattern to ensure a single instance of LessonList

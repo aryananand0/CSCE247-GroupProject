@@ -1002,38 +1002,6 @@
             }
           ]
         }
-      ],
-      "flashcards": [
-        {
-          "word": "Hola",
-          "translation": "Hello",
-          "pronunciationAudio": "audio/hola.mp3"
-        },
-        {
-          "word": "Adiós",
-          "translation": "Goodbye",
-          "pronunciationAudio": "audio/adios.mp3"
-        },
-        {
-          "word": "Por favor",
-          "translation": "Please",
-          "pronunciationAudio": "audio/por_favor.mp3"
-        },
-        {
-          "word": "Gracias",
-          "translation": "Thank you",
-          "pronunciationAudio": "audio/gracias.mp3"
-        },
-        {
-          "word": "Lo siento",
-          "translation": "I'm sorry",
-          "pronunciationAudio": "audio/lo_siento.mp3"
-        },
-        {
-          "word": "Disculpe",
-          "translation": "Excuse me",
-          "pronunciationAudio": "audio/disculpe.mp3"
-        }
       ]
     }
   ]
