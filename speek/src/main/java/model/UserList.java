@@ -8,6 +8,7 @@ public class UserList {
     // Singleton instance
     private static UserList userList = null;
     private ArrayList<User> users;
+    private User currentUser;
 
     // Private constructor to load users from the data source
     private UserList() {
@@ -31,6 +32,15 @@ public class UserList {
             DataWriter.saveUsers(users);  // Persist the new user to the data store
             return true;
         }
+    }
+
+    // Logs out the current user
+    public boolean logout() {
+        if (currentUser != null) {
+            currentUser = null;
+            return true;
+        }
+        return false;
     }
 
     // Method to remove a user by userId

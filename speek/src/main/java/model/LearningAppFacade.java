@@ -6,7 +6,7 @@ public class LearningAppFacade {
 
     private ArrayList<Language> languages; 
     private UserList user;
-    private CourseList course;
+    private CourseList courses;
     private LessonList lessons;
     private User currentUser;  // Store the current logged-in user
     private static LearningAppFacade instance;  // Singleton instance
@@ -16,7 +16,7 @@ public class LearningAppFacade {
     // Constructor
     private LearningAppFacade() {
         user = UserList.getInstance();
-        course = CourseList.getInstance();
+        courses = CourseList.getInstance();
         lessons = LessonList.getInstance();
         // TODO: Change languages so not access DataLoader directly
         languages = DataLoader.loadLanguages();
@@ -52,7 +52,7 @@ public class LearningAppFacade {
 
     // Loads the Courses
     public ArrayList<Course> loadCourses(){
-        return this.course.getCourses();
+        return this.courses.getCourses();
     }
 
     // loads the lessons
@@ -96,11 +96,7 @@ public class LearningAppFacade {
 
     // Logs out the current user
     public boolean logout() {
-        if (currentUser != null) {
-            currentUser = null;
-            return true;
-        }
-        return false;
+        return user.logout();
     }
 
     // Enrolls a user in a course
