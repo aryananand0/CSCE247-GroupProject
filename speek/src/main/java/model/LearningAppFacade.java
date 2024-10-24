@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class LearningAppFacade {
 
@@ -32,8 +33,13 @@ public class LearningAppFacade {
         return instance;
     }
 
+
+
     // Methods
 
+    public ArrayList<Question> getQuestions(UUID lesson) {
+        
+    }
     // Registers a new user with email and password, returns the created User object
     public boolean registerUser(String username, String firstName, String lastName,String email, String password) {
         return user.addUser(username, firstName, lastName, email, password);

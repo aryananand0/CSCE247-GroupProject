@@ -1,5 +1,6 @@
 package model;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -28,6 +29,14 @@ public class LessonList {
         if (lesson != null && !lessons.contains(lesson)) {
             lessons.add(lesson);
         }
+    }
+
+    public List<Question> getQuestions(UUID lessonId) {
+        Lesson lesson = this.getLessonById(lessonId);
+        if(lesson == null) {
+            return null;
+        }
+        return lesson.getQuestions();
     }
 
     // Method to retrieve a lesson by its UUID
