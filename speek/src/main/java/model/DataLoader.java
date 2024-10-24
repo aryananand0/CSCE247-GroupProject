@@ -23,16 +23,16 @@ public class DataLoader extends DataConstants {
     
         try {
             FileReader reader = new FileReader(USER_FILE);
-            JSONArray userJSON = (JSONArray) new JSONParser().parse(reader);
+            JSONArray usersJSON = (JSONArray) new JSONParser().parse(reader);
     
-            for (Object userObj : userJSON) {
-                JSONObject usersJSON = (JSONObject) userObj;
+            for (Object userObj : usersJSON) {
+                JSONObject userJSON = (JSONObject) userObj;
     
                 // Create a new User object
-                User user = createUser(usersJSON);
-                user.setAchievements(loadAchievements(usersJSON));
-                user.setCurrentCourses(loadCurrentCourses(usersJSON, cl, ll));
-                user.setQuestionHistory(loadQuestionHistory(usersJSON));
+                User user = createUser(userJSON);
+                user.setAchievements(loadAchievements(userJSON));
+                user.setCurrentCourses(loadCurrentCourses(userJSON, cl, ll));
+                user.setQuestionHistory(loadQuestionHistory(userJSON));
     
                 // Add the user to the users list
                 users.add(user);
@@ -46,13 +46,13 @@ public class DataLoader extends DataConstants {
     }
     
     // Create a new user object from JSON
-    private static User createUser(JSONObject usersJSON) {
-        UUID uuid = UUID.fromString((String) usersJSON.get(USER_UUID));
-        String userName = (String) usersJSON.get(USER_USER_NAME);
-        String firstName = (String) usersJSON.get(USER_FIRST_NAME);
-        String lastName = (String) usersJSON.get(USER_LAST_NAME);
-        String password = (String) usersJSON.get(USER_PASSWORD);
-        String email = (String) usersJSON.get(USER_EMAIL);
+    private static User createUser(JSONObject userJSON) {
+        UUID uuid = UUID.fromString((String) userJSON.get(USER_UUID));
+        String userName = (String) userJSON.get(USER_USER_NAME);
+        String firstName = (String) userJSON.get(USER_FIRST_NAME);
+        String lastName = (String) userJSON.get(USER_LAST_NAME);
+        String password = (String) userJSON.get(USER_PASSWORD);
+        String email = (String) userJSON.get(USER_EMAIL);
     
         User user = new User(uuid, userName, firstName, lastName);
         user.setPassword(password);
@@ -62,9 +62,9 @@ public class DataLoader extends DataConstants {
     }
     
     // Load achievements from JSON
-    private static ArrayList<Achievements> loadAchievements(JSONObject usersJSON) {
+    private static ArrayList<Achievements> loadAchievements(JSONObject userJSON) {
         ArrayList<Achievements> achievements = new ArrayList<>();
-        JSONArray achievementsJSON = (JSONArray) usersJSON.get("achievements");
+        JSONArray achievementsJSON = (JSONArray) userJSON.get("achievements");
     
         for (Object achievementObj : achievementsJSON) {
             JSONObject achievementJSON = (JSONObject) achievementObj;
@@ -78,9 +78,9 @@ public class DataLoader extends DataConstants {
     }
     
     // Load current courses from JSON
-    private static ArrayList<Course> loadCurrentCourses(JSONObject usersJSON, CourseList cl, LessonList ll) {
+    private static ArrayList<Course> loadCurrentCourses(JSONObject userJSON, CourseList cl, LessonList ll) {
         ArrayList<Course> currentCourses = new ArrayList<>();
-        JSONArray currentCoursesJSON = (JSONArray) usersJSON.get("currentCourses");
+        JSONArray currentCoursesJSON = (JSONArray) userJSON.get("currentCourses");
     
         for (Object courseObj : currentCoursesJSON) {
             JSONObject courseJSON = (JSONObject) courseObj;
@@ -102,9 +102,9 @@ public class DataLoader extends DataConstants {
     }
     
     // Load question history from JSON
-    private static ArrayList<QuestionHistory> loadQuestionHistory(JSONObject usersJSON) {
+    private static ArrayList<QuestionHistory> loadQuestionHistory(JSONObject userJSON) {
         ArrayList<QuestionHistory> questionHistory = new ArrayList<>();
-        JSONArray questionHistoryJSON = (JSONArray) usersJSON.get("questionHistory");
+        JSONArray questionHistoryJSON = (JSONArray) userJSON.get("questionHistory");
     
         for (Object questionObj : questionHistoryJSON) {
             JSONObject questionJSON = (JSONObject) questionObj;
