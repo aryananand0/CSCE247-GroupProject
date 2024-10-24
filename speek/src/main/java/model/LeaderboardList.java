@@ -7,11 +7,13 @@ public class LeaderboardList {
 
     // Attributes
     private ArrayList<Leaderboard> leaderboards;
+    private Leaderboard leaderboard;
     private static LeaderboardList instance;
 
     // Private Constructor
     private LeaderboardList() {
         leaderboards = new ArrayList<>();
+        leaderboard = new Leaderboard();
         Leaderboard leaderboard = DataLoader.loadLeaderboard();
         if (leaderboard != null) {
             leaderboards.add(leaderboard);
@@ -44,7 +46,7 @@ public class LeaderboardList {
     // Method to retrieve the leaderboard
     // TODO: IMPLEMENT 
     public Leaderboard getLeaderboard() {
-        return null;
+        return this.leaderboard;
     }
 
     // Method to retrieve a leaderboard based on a user's UUID

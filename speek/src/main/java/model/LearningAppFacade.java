@@ -79,7 +79,6 @@ public class LearningAppFacade {
         return this.leaderboardList.getLeaderboard();
     }
 
-    
     // Logs in a user with username or email and password
     public User loginUser(String usernameOrEmail, String password) {
         // Check if login is valid
