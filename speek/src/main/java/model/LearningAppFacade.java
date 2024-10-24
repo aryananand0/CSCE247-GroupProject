@@ -18,6 +18,7 @@ public class LearningAppFacade {
         user = UserList.getInstance();
         course = CourseList.getInstance();
         lessons = LessonList.getInstance();
+        // TODO: Change languages so not access DataLoader directly
         languages = DataLoader.loadLanguages();
         achievements = AchievementList.getInstance();
         leaderboardList = LeaderboardList.getInstance();
@@ -74,8 +75,8 @@ public class LearningAppFacade {
     // Load courses TODO:
     
     // Load leaderboard
-    public ArrayList<Leaderboard> loadLeaderboard() {
-        return this.leaderboardList.getLeaderboards();
+    public Leaderboard loadLeaderboard() {
+        return this.leaderboardList.getLeaderboard();
     }
 
     

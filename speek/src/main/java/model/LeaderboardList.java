@@ -41,6 +41,12 @@ public class LeaderboardList {
         return null; 
     }
 
+    // Method to retrieve the leaderboard
+    // TODO: IMPLEMENT 
+    public Leaderboard getLeaderboard() {
+        return null;
+    }
+
     // Method to retrieve a leaderboard based on a user's UUID
     public Leaderboard getLeaderboardByUser(UUID userId) {
         for (Leaderboard lb : leaderboards) {
