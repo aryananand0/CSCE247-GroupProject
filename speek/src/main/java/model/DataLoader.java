@@ -285,6 +285,7 @@ public class DataLoader extends DataConstants {
         return null;
     }
 
+    /**
     public static User getUser(String usernameOrEmail, String password) {
         ArrayList<User> users = loadUsers();
         for (User user : users) {
@@ -294,7 +295,7 @@ public class DataLoader extends DataConstants {
         }
         return null;  // Return null if user not found
     }
-    
+    */
 
     
 

@@ -83,7 +83,7 @@ public class LearningAppFacade {
     public User loginUser(String usernameOrEmail, String password) {
         // Check if login is valid
         if (user.loginCheck(usernameOrEmail, password)) {
-            currentUser = DataLoader.getUser(usernameOrEmail, password);  // Retrieve the user
+            currentUser = user.getUser(usernameOrEmail, password);  // Retrieve the user
             return currentUser;  // Return the user on successful login
         }
         return null;  // Return null on login failure
@@ -115,8 +115,11 @@ public class LearningAppFacade {
         // Method stub
     }
 
+    /**
     // Retrieves the leaderboard
     public Leaderboard getLeaderboard() {
         return DataLoader.loadLeaderboard();
     }
+    */
+    
 }

@@ -95,9 +95,20 @@ public class UserList {
         return users.size();
     }
 
+    
     // Method to retrieve all users (getter)
     public ArrayList<User> getUsers() {
         return this.users;
+    }
+    
+    public User getUser(String usernameOrEmail, String password) {
+        users = DataLoader.loadUsers();
+        for (User user : users) {
+            if((user.getUserName().equals(usernameOrEmail) || user.getEmail().equalsIgnoreCase(usernameOrEmail)) && user.getPassword().equals(password)){
+                return user;
+            }
+        }
+        return null;  // Return null if user not found
     }
 
     // Method to update user information
