@@ -11,7 +11,7 @@ public class LearningAppFacade {
     private User currentUser;  // Store the current logged-in user
     private static LearningAppFacade instance;  // Singleton instance
     private AchievementList achievements;
-    private Leaderboard leaderboard;
+    private LeaderboardList leaderboardList;
 
     // Constructor
     private LearningAppFacade() {
@@ -20,7 +20,7 @@ public class LearningAppFacade {
         lessons = LessonList.getInstance();
         languages = DataLoader.loadLanguages();
         achievements = AchievementList.getInstance();
-        leaderboard = DataLoader.loadLeaderboard();
+        leaderboardList = LeaderboardList.getInstance();
     }
 
     // Get the singleton instance of LearningAppFacade
@@ -74,8 +74,8 @@ public class LearningAppFacade {
     // Load courses TODO:
     
     // Load leaderboard
-    public Leaderboard loadLeaderboard() {
-        return this.leaderboard;
+    public ArrayList<Leaderboard> loadLeaderboard() {
+        return this.leaderboardList.getLeaderboards();
     }
 
     
