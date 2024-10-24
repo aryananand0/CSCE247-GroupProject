@@ -9,10 +9,12 @@ public class AchievementList {
     private ArrayList<Achievements> achievements;
     private static AchievementList instance;
 
+    // Private Constructor
     private AchievementList() {
         achievements = DataLoader.loadAchievements();
     }
 
+    // Singleton pattern to ensure a single instance of AchievementList
     public static AchievementList getInstance() {
         if(instance == null) {
             instance = new AchievementList();
@@ -38,15 +40,36 @@ public class AchievementList {
     }
 
     // Method to retrieve an achievement by its title
-    public Achievements getAchievementByTitle(String lessonTitle) {
+    public Achievements getAchievementByTitle(String achievementTitle) {
         for (Achievements ach : achievements) {
-            if (ach.getTitle().equalsIgnoreCase(lessonTitle)) {
+            if (ach.getTitle().equalsIgnoreCase(achievementTitle)) {
                 return ach;
             }
         }
         return null; // Return null if achievement not found
     }
 
+    // Method to get the total number of achievement
+    public int getTotalAchievements() {
+        return achievements.size();
+    }
+
+    // Method to remove a achievements by title
+    public boolean removeAchievementByTitle(String achTitle) {
+        for (Achievements ach : achievements) {
+            if (ach.getTitle().equalsIgnoreCase(achTitle)) {
+                achievements.remove(ach);
+                return true;  // Achievement removed
+            }
+        }
+        return false;  // Achievement not found
+    }
+
+    // Get the list of all achievements
+    public ArrayList<Achievements> getAchievements() {
+        return this.achievements;
+    }
+}
 
 
 
