@@ -2,7 +2,9 @@ package model;
 
 import java.io.FileReader;
 import java.io.IOException;
+
 import org.json.simple.parser.ParseException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,6 +47,129 @@ public class DataLoader extends DataConstants {
         }
         return null;
     }
+
+    // Method to parse words from Word.json and use Course class
+    public static List<Course> parseWordsFromJson() {
+        List<Course> courses = new ArrayList<>();
+
+        try (FileReader reader = new FileReader(WORD_FILE)) { // Use the constant WORD_FILE
+            // Parse the JSON file
+            JSONParser parser = new JSONParser();
+            JSONArray jsonModulesArray = (JSONArray) parser.parse(reader);
+
+            // Iterate through each module
+            for (Object moduleObj : jsonModulesArray) {
+                JSONObject jsonModule = (JSONObject) moduleObj;
+
+                String moduleName = (String) jsonModule.get(MODULE);
+                String courseIdStr = (String) jsonModule.get(COURSE_ID);
+                UUID courseId = UUID.fromString(courseIdStr);
+
+                // Create a new Course object
+                Course course = new Course(courseId, moduleName, "", 0.0);
+
+                // Extract the lessons from the module
+                JSONArray lessonsArray = (JSONArray) jsonModule.get(WORDS);
+
+                for (Object lessonObj : lessonsArray) {
+                    JSONObject jsonLesson = (JSONObject) lessonObj;
+
+                    String lessonIdStr = (String) jsonLesson.get(LESSON_ID);
+                    UUID lessonId = UUID.fromString(lessonIdStr);
+                    String lessonName = (String) jsonLesson.get(LESSON_NAME);
+
+                    // Create a new Lesson object
+                    Lesson lesson = new Lesson(lessonId, lessonName, "", new ArrayList<>());
+
+                    // Extract words from the lesson
+                    JSONArray wordsArray = (JSONArray) jsonLesson.get(WORDS);
+
+                    for (Object wordObj : wordsArray) {
+                        JSONObject jsonWord = (JSONObject) wordObj;
+                        String word = (String) jsonWord.get(WORD);
+                        String translation = (String) jsonWord.get(TRANSLATION);
+
+                        // Create a new Word object
+                        Word wordObjParsed = new Word(word, translation);
+                        lesson.addWord(wordObjParsed); // Assuming Lesson has a method addWord
+                    }
+
+                    // Add the lesson to the course
+                    course.addLesson(lesson);
+                }
+
+                // Add the course to the courses list
+                courses.add(course);
+            }
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        return courses;
+    }
+
+    public static ArrayList<Word> loadWords() {
+        ArrayList<Word> words = new ArrayList<>();
+    
+        try (FileReader reader = new FileReader(WORD_FILE)) {
+            JSONParser parser = new JSONParser();
+            JSONArray modulesArray = (JSONArray) parser.parse(reader);
+    
+            System.out.println("Debug: Loaded modulesArray from JSON file.");
+    
+            for (Object moduleObj : modulesArray) {
+                JSONObject moduleJSON = (JSONObject) moduleObj;
+                //System.out.println("Debug: Processing module: " + moduleJSON.get("module"));
+    
+                // Ensure that "words" key exists and is not null
+                JSONArray lessonsArray = (JSONArray) moduleJSON.get("words");
+                if (lessonsArray == null) {
+                    System.out.println("Debug: No 'words' key found at module level.");
+                    continue; // Skip if "words" is not present
+                }
+    
+                // Loop through lessons in each module
+                for (Object lessonObj : lessonsArray) {
+                    JSONObject lessonJSON = (JSONObject) lessonObj;
+                    //System.out.println("Debug: Processing lesson: " + lessonJSON.get("lessonName"));
+    
+                    // Ensure that "words" key exists and is not null
+                    JSONArray wordsArray = (JSONArray) lessonJSON.get("words");
+                    if (wordsArray == null) {
+                        System.out.println("Debug: No 'words' key found at lesson level.");
+                        continue; // Skip if "words" is not present
+                    }
+    
+                    // Loop through words in each lesson
+                    for (Object wordObj : wordsArray) {
+                        JSONObject wordJSON = (JSONObject) wordObj;
+    
+                        // Retrieve word and translation
+                        String wordText = (String) wordJSON.get("word");
+                        String translation = (String) wordJSON.get("translation");
+    
+                        if (wordText != null && translation != null) {
+                            Word word = new Word(wordText, translation);
+                            words.add(word);
+                            //System.out.println("Debug: Successfully added word: " + wordText + " - " + translation);
+                        } else {
+                            System.out.println("⚠️ Missing data for word or translation in JSON object: " + wordJSON);
+                        }
+                    }
+                }
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    
+        return words;
+    }
+    
+    
+    
+    
+    
     
     // Create a new user object from JSON
     private static User createUser(JSONObject userJSON) {

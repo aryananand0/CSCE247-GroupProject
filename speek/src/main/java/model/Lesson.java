@@ -12,7 +12,8 @@ public class Lesson {
     private String content;
     private List<Question> questions;
     private Flashcard flashcard;               
-    private boolean isCompleted;                    
+    private boolean isCompleted;                
+    private List<Word> words;  // Add a list to store Word objects
 
     // Constructor with parameters (auto-generates lessonId and initializes questions)
     public Lesson(String lessonTitle, String content, List<Question> questions) {
@@ -21,13 +22,15 @@ public class Lesson {
         this.content = content;
         this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
         this.isCompleted = false;
+        this.words = new ArrayList<>();  // Initialize the words list
     }
 
-    public Lesson(UUID uid, String lessonName){
+    public Lesson(UUID uid, String lessonName) {
         this.lessonId = uid;
         this.lessonTitle = lessonName;
         this.questions = new ArrayList<>();
         this.isCompleted = false;
+        this.words = new ArrayList<>();  // Initialize the words list
     }
 
     // Constructor with predefined lessonId (useful for deserialization)
@@ -38,22 +41,41 @@ public class Lesson {
         this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
         this.isCompleted = false;
         this.flashcard = new Flashcard();
+        this.words = new ArrayList<>();  // Initialize the words list
     }
 
     // Default Constructor
     public Lesson() {
-        this.lessonId = java.util.UUID.randomUUID(); 
+        this.lessonId = UUID.randomUUID(); 
         this.lessonTitle = "";
         this.content = "";
         this.questions = new ArrayList<>();
         this.isCompleted = false;
+        this.words = new ArrayList<>();  // Initialize the words list
     }
 
-    public void setFlashcard(Flashcard flashcard){
+    // Method to add a Word to the lesson
+    public void addWord(Word word) {
+        if (word != null) {
+            this.words.add(word);
+        }
+    }
+
+    // Method to get all words in the lesson
+    public List<Word> getWords() {
+        return new ArrayList<>(words); // Return a copy of the words list
+    }
+
+    // Method to set words
+    public void setWords(List<Word> words) {
+        this.words = words != null ? new ArrayList<>(words) : new ArrayList<>();
+    }
+
+    public void setFlashcard(Flashcard flashcard) {
         this.flashcard = flashcard;
     }
 
-    public Flashcard getFlashcard(){
+    public Flashcard getFlashcard() {
         return this.flashcard;
     }
 
@@ -86,9 +108,11 @@ public class Lesson {
     public void setQuestions(List<Question> questions) {
         this.questions = questions != null ? new ArrayList<>(questions) : new ArrayList<>();
     }
-    public void addQuestion(Question newQ){
+
+    public void addQuestion(Question newQ) {
         this.questions.add(newQ);
     }
+
     public boolean isCompleted() {
         return isCompleted;
     }

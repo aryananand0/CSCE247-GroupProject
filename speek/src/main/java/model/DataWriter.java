@@ -38,6 +38,8 @@ public class DataWriter extends DataConstants {
         }
     }
 
+    
+
     // Method to check if user already exists in the JSON array
     private static boolean userExists(JSONArray existingUserArray, User user) {
         for (Object o : existingUserArray) {
