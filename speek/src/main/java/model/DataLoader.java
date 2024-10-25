@@ -108,6 +108,68 @@ public class DataLoader extends DataConstants {
 
         return courses;
     }
+
+    public static ArrayList<Word> loadWords() {
+        ArrayList<Word> words = new ArrayList<>();
+    
+        try (FileReader reader = new FileReader(WORD_FILE)) {
+            JSONParser parser = new JSONParser();
+            JSONArray modulesArray = (JSONArray) parser.parse(reader);
+    
+            System.out.println("Debug: Loaded modulesArray from JSON file.");
+    
+            for (Object moduleObj : modulesArray) {
+                JSONObject moduleJSON = (JSONObject) moduleObj;
+                //System.out.println("Debug: Processing module: " + moduleJSON.get("module"));
+    
+                // Ensure that "words" key exists and is not null
+                JSONArray lessonsArray = (JSONArray) moduleJSON.get("words");
+                if (lessonsArray == null) {
+                    System.out.println("Debug: No 'words' key found at module level.");
+                    continue; // Skip if "words" is not present
+                }
+    
+                // Loop through lessons in each module
+                for (Object lessonObj : lessonsArray) {
+                    JSONObject lessonJSON = (JSONObject) lessonObj;
+                    //System.out.println("Debug: Processing lesson: " + lessonJSON.get("lessonName"));
+    
+                    // Ensure that "words" key exists and is not null
+                    JSONArray wordsArray = (JSONArray) lessonJSON.get("words");
+                    if (wordsArray == null) {
+                        System.out.println("Debug: No 'words' key found at lesson level.");
+                        continue; // Skip if "words" is not present
+                    }
+    
+                    // Loop through words in each lesson
+                    for (Object wordObj : wordsArray) {
+                        JSONObject wordJSON = (JSONObject) wordObj;
+    
+                        // Retrieve word and translation
+                        String wordText = (String) wordJSON.get("word");
+                        String translation = (String) wordJSON.get("translation");
+    
+                        if (wordText != null && translation != null) {
+                            Word word = new Word(wordText, translation);
+                            words.add(word);
+                            //System.out.println("Debug: Successfully added word: " + wordText + " - " + translation);
+                        } else {
+                            System.out.println("⚠️ Missing data for word or translation in JSON object: " + wordJSON);
+                        }
+                    }
+                }
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    
+        return words;
+    }
+    
+    
+    
+    
+    
     
     // Create a new user object from JSON
     private static User createUser(JSONObject userJSON) {

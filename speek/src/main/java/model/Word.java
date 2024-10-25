@@ -10,26 +10,21 @@ public class Word {
         this.translation = translation;
     }
 
-    // Getters and Setters
+    // Getters
     public String getWord() {
         return word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
     }
 
     public String getTranslation() {
         return translation;
     }
 
-    public void setTranslation(String translation) {
-        this.translation = translation;
+    // Optional - Setters if needed
+    public void setWord(String word) {
+        this.word = word;
     }
 
-    // Overriding toString() for better display
-    @Override
-    public String toString() {
-        return "Word: " + word + ", Translation: " + translation;
+    public void setTranslation(String translation) {
+        this.translation = translation;
     }
 }
