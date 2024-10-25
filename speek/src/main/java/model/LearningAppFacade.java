@@ -32,9 +32,6 @@ public class LearningAppFacade {
         }
         return instance;
     }
-
-
-
     // Methods
 
     public ArrayList<Question> getQuestions(UUID lesson) {
