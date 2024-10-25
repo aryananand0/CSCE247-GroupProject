@@ -9,6 +9,7 @@ public abstract class DataConstants {
     protected static final String ACHIEVEMENT_FILE = "json/Achievement.json";
     protected static final String LANGUAGE_FILE = "json/Language.json";
     protected static final String LEADERBOARD_FILE = "json/Leaderboard.json";
+    protected static final String WORD_FILE = "json/Word.json";
 
     // User fields
     public static final String USER_ID = "userId";
@@ -32,6 +33,12 @@ public abstract class DataConstants {
     protected static final String COURSE_PROGRESS = "progress";
     protected static final String COURSES = "courses";
     protected static final String COURSE_COMPLETION = "courseCompletion";
+    protected static final String MODULE = "module";
+    protected static final String WORDS = "words";
+    protected static final String LESSON_ID = "lessonId";
+    protected static final String LESSON_NAME = "lessonName";
+    protected static final String WORD = "word";
+    protected static final String TRANSLATION = "translation";
 
     // Language fields
     protected static final String LANGUAGES = "languages";
