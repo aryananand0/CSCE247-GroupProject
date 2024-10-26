@@ -36,15 +36,17 @@ public class LearningAppFacade {
 
     // TODO: Maybe change or add method in User 
     // to add a setCurrentCourse(UUID courseId) method
-    public void registerCourse(User u, UUID courseId) {
-        
-        String id = courseId.toString();
-        /**
-        System.out.print(id);
-        User temp = user.getUserById(u.getUserId());
-        temp.setCurrentCourseId(id);
-        */
-        u.setCurrentCourseId(id);
+    public void registerCourse(UUID u, UUID courseId) {
+        user = UserList.getInstance();
+        // ArrayList<Course> c = user.getUserById(u).getCurrentCourses();
+        // for (Course course : c) {
+        //     System.out.println(course.getCourseName());
+        // }
+        user.getUserById(u).getCurrentCourses().add(courses.getCourse(courseId));  
+        // System.out.println("New ones: \n");
+        // for (Course course : c) {
+        //     System.out.println(course.getCourseName());
+        // }
     }
 
     public ArrayList<Question> getQuestions(UUID lesson) {

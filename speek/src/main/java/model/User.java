@@ -189,7 +189,7 @@ public class User {
     }
 
     public ArrayList<Course> getCurrentCourses() {
-        return new ArrayList<>(currentCourses);
+        return this.currentCourses;
     }
 
     public void setCurrentCourses(List<Course> currentCourses) {

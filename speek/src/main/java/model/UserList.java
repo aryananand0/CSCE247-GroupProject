@@ -128,7 +128,7 @@ public class UserList {
     // Method to retrieve a user by their UUID
     public User getUserById(UUID userId) {
         for (User user : users) {
-            if (user.getUserId().toString().equals(userId)) {
+            if (user.getUserId().equals(userId)) {
                 return user;
             }
         }
