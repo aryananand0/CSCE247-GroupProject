@@ -112,7 +112,7 @@ public class UserList {
     }
 
     // Method to update user information
-    public boolean updateUser(String userId, String firstName, String lastName, String email, String password) {
+    public boolean updateUser(UUID userId, String firstName, String lastName, String email, String password) {
         User user = getUserById(userId);
         if (user != null) {
             user.setFirstName(firstName);
@@ -126,7 +126,7 @@ public class UserList {
     }
 
     // Method to retrieve a user by their UUID
-    public User getUserById(String userId) {
+    public User getUserById(UUID userId) {
         for (User user : users) {
             if (user.getUserId().toString().equals(userId)) {
                 return user;
