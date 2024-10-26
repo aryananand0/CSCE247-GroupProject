@@ -24,12 +24,12 @@ public class DataWriter extends DataConstants {
             }
         }
 
-        writeToFile(existingUserArray, WRITER_USER_FILE);  // Write updated users to file
+        writeToFile(existingUserArray,"../json/User.json");  // Write updated users to file
     }
 
     // Method to load existing users from file
     private static JSONArray loadExistingUsers() {
-        try (FileReader reader = new FileReader(WRITER_USER_FILE)) {
+        try (FileReader reader = new FileReader("../json/User.json")) {
             JSONParser jsonParser = new JSONParser();
             Object obj = jsonParser.parse(reader);
             return (JSONArray) obj;

@@ -25,7 +25,7 @@ public class DataLoader extends DataConstants {
         LessonList ll = LessonList.getInstance();
     
         try {
-            FileReader reader = new FileReader(USER_FILE);
+            FileReader reader = new FileReader("../json/User.json");
             JSONArray usersJSON = (JSONArray) new JSONParser().parse(reader);
     
             for (Object userObj : usersJSON) {
@@ -376,7 +376,7 @@ public class DataLoader extends DataConstants {
         ArrayList<Achievements> achievements = new ArrayList<>();
 
         try {
-            FileReader reader = new FileReader(USER_FILE);
+            FileReader reader = new FileReader("../json/User.json");
             JSONParser parser = new JSONParser();
             JSONArray usersArray = (JSONArray) parser.parse(reader);  // This should be a JSONArray
            
@@ -428,7 +428,7 @@ public class DataLoader extends DataConstants {
         ArrayList<Course> coursesList = new ArrayList<>();
         JSONParser parser = new JSONParser();
     
-        try (FileReader reader = new FileReader("json/Lesson.json")) {
+        try (FileReader reader = new FileReader("../json/Lesson.json")) {
             JSONObject root = (JSONObject) parser.parse(reader);
             JSONArray languages = (JSONArray) root.get("languages");
     
@@ -623,7 +623,7 @@ public class DataLoader extends DataConstants {
         ArrayList<Lesson> lessonsList = new ArrayList<>();
         JSONParser parser = new JSONParser();
     
-        try (FileReader reader = new FileReader("json/Lesson.json")) {
+        try (FileReader reader = new FileReader("../json/Lesson.json")) {
             JSONObject root = (JSONObject) parser.parse(reader);
             JSONArray languages = (JSONArray) root.get("languages");
     
@@ -723,7 +723,7 @@ public class DataLoader extends DataConstants {
     public static Flashcard loadFlashcardsForLesson(UUID courseId, UUID lessonId) {
         Flashcard flashcard = new Flashcard(); // Create an empty Flashcard object
 
-        try (FileReader reader = new FileReader("json/Flashcard.json")) { // Adjust the file path if necessary
+        try (FileReader reader = new FileReader("../json/Flashcard.json")) { // Adjust the file path if necessary
             // Parse the JSON file
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(reader);

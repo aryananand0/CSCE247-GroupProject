@@ -78,12 +78,11 @@ public class UserList {
     // Method to validate login credentials (username or email, and password)
     public boolean loginCheck(String usernameOrEmail, String password) {
         for (User user : users) {
-            // Check if either the username or email matches
             boolean usernameMatches = user.getUserName() != null && user.getUserName().equalsIgnoreCase(usernameOrEmail);
             boolean emailMatches = user.getEmail() != null && user.getEmail().equalsIgnoreCase(usernameOrEmail);
 
-            // Validate the password
             if ((usernameMatches || emailMatches) && user.getPassword() != null && user.getPassword().equals(password)) {
+                currentUser = user; // Set the currentUser upon successful login in one version
                 return true;
             }
         }
@@ -95,16 +94,15 @@ public class UserList {
         return users.size();
     }
 
-    
     // Method to retrieve all users (getter)
     public ArrayList<User> getUsers() {
         return this.users;
     }
-    
+
+    // Method to get a user by their username or email and password
     public User getUser(String usernameOrEmail, String password) {
-        users = DataLoader.loadUsers();
         for (User user : users) {
-            if((user.getUserName().equals(usernameOrEmail) || user.getEmail().equalsIgnoreCase(usernameOrEmail)) && user.getPassword().equals(password)){
+            if ((user.getUserName().equals(usernameOrEmail) || user.getEmail().equalsIgnoreCase(usernameOrEmail)) && user.getPassword().equals(password)) {
                 return user;
             }
         }
@@ -138,6 +136,6 @@ public class UserList {
     // Method to clear the entire user list (useful for testing or resetting the system)
     public void clearUserList() {
         users.clear();
-        DataWriter.saveUsers(users); 
+        DataWriter.saveUsers(users);
     }
 }

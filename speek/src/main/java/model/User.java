@@ -8,43 +8,43 @@ import java.util.UUID;
 public class User {
 
     // Attributes
-    private UUID userId;                              
+    private UUID userId;
     private String userName;
     private String firstName;
     private String lastName;
     private String email;
-    private String password;                                
+    private String password;
     private double score;
     private boolean dailyReminder;
     private List<Language> favoriteLanguages;
     private ArrayList<Course> currentCourses;
     private List<Achievements> achievements;
-    private HashMap<String, Double> progressPerCourse;     
+    private HashMap<String, Double> progressPerCourse;
 
     // New Fields for Enhanced Tracking
-    private String currentCourseId;                        
-    private String currentLessonId;                       
-    private List<String> completedCourseIds;               
-    private List<String> completedLessonIds;               
-    private List<QuestionHistory> questionHistory;          
-    private Question currentQuestion;                      
+    private String currentCourseId;
+    private String currentLessonId;
+    private List<String> completedCourseIds;
+    private List<String> completedLessonIds;
+    private List<QuestionHistory> questionHistory;
+    private Question currentQuestion;
 
     // Constructor with parameters
     public User(String userName, String firstName, String lastName, String email, String password) {
-        this.userId = UUID.randomUUID();                    
+        this.userId = UUID.randomUUID();
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;                           
+        this.password = password;
         this.score = 0.0;
         this.dailyReminder = false;
         this.favoriteLanguages = new ArrayList<>();
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
         this.progressPerCourse = new HashMap<>();
-        this.currentCourseId = "";                          
-        this.currentLessonId = "";                          
+        this.currentCourseId = "";
+        this.currentLessonId = "";
         this.completedCourseIds = new ArrayList<>();
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
@@ -58,15 +58,15 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = "";
-        this.password = "";                                  
+        this.password = "";
         this.score = 0.0;
         this.dailyReminder = false;
         this.favoriteLanguages = new ArrayList<>();
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
         this.progressPerCourse = new HashMap<>();
-        this.currentCourseId = "";                          
-        this.currentLessonId = "";                          
+        this.currentCourseId = "";
+        this.currentLessonId = "";
         this.completedCourseIds = new ArrayList<>();
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
@@ -75,7 +75,7 @@ public class User {
 
     // Default Constructor
     public User() {
-        this.userId = UUID.randomUUID();                    
+        this.userId = UUID.randomUUID();
         this.userName = "";
         this.firstName = "";
         this.lastName = "";
@@ -87,8 +87,8 @@ public class User {
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
         this.progressPerCourse = new HashMap<>();
-        this.currentCourseId = "";                          
-        this.currentLessonId = "";                          
+        this.currentCourseId = "";
+        this.currentLessonId = "";
         this.completedCourseIds = new ArrayList<>();
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
@@ -109,20 +109,23 @@ public class User {
         this.currentCourses = new ArrayList<>();
         this.achievements = new ArrayList<>();
         this.progressPerCourse = new HashMap<>();
-        this.currentCourseId = "";                          
-        this.currentLessonId = "";                          
+        this.currentCourseId = "";
+        this.currentLessonId = "";
         this.completedCourseIds = new ArrayList<>();
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
         this.currentQuestion = null;
     }
 
-    // Getter for userId
+    // Getters and setters for all attributes, including new fields for enhanced tracking
     public UUID getUserId() {
         return userId;
     }
 
-    // Getter and Setter for userName
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -131,7 +134,6 @@ public class User {
         this.userName = userName;
     }
 
-    // Getters and Setters for other attributes
     public String getFirstName() {
         return firstName;
     }
@@ -155,13 +157,13 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        this.password = password; 
+        this.password = password;
     }
 
     public double getScore() {
@@ -189,14 +191,13 @@ public class User {
     }
 
     public ArrayList<Course> getCurrentCourses() {
-        return this.currentCourses;
+        return new ArrayList<>(currentCourses);
     }
 
-    public void setCurrentCourses(List<Course> currentCourses) {
+    public void setCurrentCourses(ArrayList<Course> currentCourses) {
         this.currentCourses = currentCourses != null ? new ArrayList<>(currentCourses) : new ArrayList<>();
     }
 
-    
     public List<Achievements> getAchievements() {
         return new ArrayList<>(achievements);
     }
@@ -212,8 +213,6 @@ public class User {
     public void setProgressPerCourse(HashMap<String, Double> progressPerCourse) {
         this.progressPerCourse = progressPerCourse != null ? new HashMap<>(progressPerCourse) : new HashMap<>();
     }
-
-    // **New Getters and Setters for Enhanced Fields**
 
     public String getCurrentCourseId() {
         return currentCourseId;
@@ -263,20 +262,17 @@ public class User {
         this.currentQuestion = currentQuestion;
     }
 
-    
+    // Behavioral methods and utility functions
     public boolean login(String email, String password) {
-        
-        return this.email.equals(email) && this.password.equals(password); 
+        return this.email.equals(email) && this.password.equals(password);
     }
 
-    
     public void updateProfile(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    
     public void markLessonAsCompleted(String lessonId) {
         if (!completedLessonIds.contains(lessonId)) {
             completedLessonIds.add(lessonId);
@@ -284,7 +280,6 @@ public class User {
         }
     }
 
-    
     public void markCourseAsCompleted(String courseId) {
         if (!completedCourseIds.contains(courseId)) {
             completedCourseIds.add(courseId);
@@ -296,10 +291,6 @@ public class User {
         }
     }
 
-    
-
-
-    
     public void removeCourse(String courseId) {
         boolean removed = currentCourses.removeIf(course -> course.getCourseId().equals(courseId));
         if (removed) {
@@ -310,7 +301,6 @@ public class User {
         }
     }
 
-    
     public double trackProgress() {
         if (progressPerCourse.isEmpty()) {
             return 0.0;
@@ -322,12 +312,10 @@ public class User {
         return totalProgress / progressPerCourse.size();
     }
 
-    
     public double getProgress(String courseId) {
         return progressPerCourse.getOrDefault(courseId, 0.0);
     }
 
-   
     public void updateUserProgress(String courseId, double completion) {
         if (progressPerCourse.containsKey(courseId)) {
             progressPerCourse.put(courseId, completion);
@@ -337,7 +325,6 @@ public class User {
         }
     }
 
-    
     public void displayProgress() {
         System.out.println("\n=== User Progress ===");
         System.out.println("Overall Progress: " + String.format("%.2f", trackProgress()) + "%");
@@ -346,14 +333,12 @@ public class User {
         System.out.println("=====================");
     }
 
-    
     public void sendDailyReminder() {
         if (dailyReminder) {
             System.out.println("⏰ Reminder: Continue your lessons to keep progressing!");
         }
     }
 
-    
     public void unlockAchievement(String achievementId, String title, String description, int rewardPoints) {
         Achievements achievement = new Achievements(achievementId, title, description, rewardPoints);
         if (!achievements.contains(achievement)) {
@@ -363,16 +348,14 @@ public class User {
         }
     }
 
-    
     public void increaseScore(double increment) {
         this.score += increment;
         System.out.println("Score increased by " + increment + ". New score: " + this.score);
     }
 
-    
     public void decreaseScore(double decrement) {
         this.score -= decrement;
-        System.out.println(" Score decreased by " + decrement + ". New score: " + this.score);
+        System.out.println("Score decreased by " + decrement + ". New score: " + this.score);
     }
 
     public String PrintLeaderboard() {
