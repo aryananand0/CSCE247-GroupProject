@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import model.User;
 import model.UserList;
 
@@ -7,34 +9,22 @@ public class Main1 {
 
     public static void main(String[] args) {
         // Singleton instance of UserList to manage users
-        UserList userList = UserList.getInstance();
-
-        // 1. Check if Tammy Tomacka exists and add her if she's not in users.json
-        System.out.println("Checking existing users...");
-        User tammy = userList.getUser("ttomacka","passwordTammy");
-        if (tammy == null) {
-            System.out.println("Tammy Tomacka is not in users.json. Adding Tammy...");
-            boolean tammyAdded = userList.addUser("ttomacka", "Tammy", "Tomacka", "tammy.tomacka@example.com", "passwordTammy");
-            if (tammyAdded) {
-                System.out.println("Tammy Tomacka successfully added to users.json.");
-            } else {
-                System.out.println("Error: Failed to add Tammy Tomacka. Check if the username 'ttomacka' is already in use.");
-                return;
+        System.out.println("Loading users...");
+        ArrayList<User> users = new ArrayList<>(); 
+        LearningAppFacade facade = LearningAppFacade.getInstance();
+        users = facade.loadUsers();
+        if (!users.isEmpty()) {
+            System.out.println("Users loaded successfully.");
+            for (User user : users) {
+                System.out.println(user.toString());
             }
         } else {
-            System.out.println("Tammy Tomacka is already present in users.json.");
+            System.out.println("No users found.");
         }
 
-        // 2. Check if Tim Tomacka already exists
-        User tim = userList.getUser("Tim Tomacka");
-        if (tim != null) {
-            System.out.println("Tim Tomacka already exists in users.json. Please remove him before running this scenario.");
-            return;
-        }
-
-        // 3. Attempt to create a user with the username "ttomacka" (should fail since Tammy uses it)
+        // 1. Attempt to create a user with the username "ttomacka" (should fail since Tammy uses it)
         System.out.println("\nAttempting to create user with username 'ttomacka'...");
-        boolean isAdded = userList.addUser("ttomacka", "Tim", "Tomacka", "tim.tomacka@example.com", "password123");
+        boolean isAdded = facade.registerUser("ttomacka", "Tim", "Tomacka", "tim.tomacka@example.com", "password123");
 
         if (!isAdded) {
             System.out.println("User creation failed: Username 'ttomacka' already exists.");
@@ -45,15 +35,15 @@ public class Main1 {
 
         // 4. Create a user with the username "ttom"
         System.out.println("\nCreating user with username 'ttom'...");
-        isAdded = userList.addUser("ttom", "Tim", "Tomacka", "tim.tomacka@example.com", "password123");
+        isAdded = facade.registerUser("ttom", "Tim", "Tomacka", "tim.tomacka@example.com", "password123");
 
         if (isAdded) {
             System.out.println("User 'ttom' successfully created.");
 
             // Automatically log in the newly created user
             System.out.println("Automatically logging in 'ttom'...");
-            boolean loginSuccess = userList.loginCheck("tim.tomacka@example.com", "password123");
-            if (loginSuccess) {
+            User user = facade.loginUser("tim.tomacka@example.com", "password123");
+            if (user != null) {
                 System.out.println("Login successful: 'ttom' is now logged in.");
             } else {
                 System.out.println("Error: Automatic login failed for user 'ttom'.");
@@ -66,7 +56,7 @@ public class Main1 {
 
         // 5. Log out the user
         System.out.println("\nLogging out the user...");
-        boolean isLoggedOut = userList.logout();
+        boolean isLoggedOut = facade.logout();
         if (isLoggedOut) {
             System.out.println("User successfully logged out.");
         } else {
@@ -75,19 +65,23 @@ public class Main1 {
         }
 
         // 6. Verify that the user "ttom" is saved in users.json
-        User savedUser = userList.getUser("ttom");
-        if (savedUser != null) {
-            System.out.println("Verification successful: 'ttom' exists in users.json.");
+        System.out.println("Loading users...");
+        LearningAppFacade facades = LearningAppFacade.getInstance();
+        users = facades.loadUsers();
+        if (!users.isEmpty()) {
+            System.out.println("Users loaded successfully.");
+            for (User user : users) {
+                System.out.println(user.toString());
+            }
         } else {
-            System.out.println("Error: User 'ttom' was not found in users.json after saving.");
-            return;
+            System.out.println("No users found.");
         }
 
         // 7. Log in the user "ttom" with email and password
         System.out.println("\nAttempting to log in with 'ttom'...");
-        boolean loginSuccess = userList.loginCheck("tim.tomacka@example.com", "password123");
+        User user = facade.loginUser("tim.tomacka@example.com", "password123");
 
-        if (loginSuccess) {
+        if (user != null) {
             System.out.println("Login successful: 'ttom' logged in successfully.");
         } else {
             System.out.println("Error: Login failed for user 'ttom'.");
