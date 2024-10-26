@@ -52,6 +52,15 @@ public class WordList {
         return this.words;
     }
 
+    public Word getWordbyID(String Name) {
+        for (Word word : words) {
+            if(word.getWord().equalsIgnoreCase(Name)){
+                return word;
+            }
+        }
+        return  null;
+    }
+
     /*// Method to retrieve a word by its UUID
     public Word getWordById(String wordId) {
         for (Word word : words) {

@@ -20,6 +20,7 @@ public class User {
     private ArrayList<Course> currentCourses;
     private List<Achievements> achievements;
     private HashMap<String, Double> progressPerCourse;
+    private List<Word> missedWords;
 
     // New Fields for Enhanced Tracking
     private String currentCourseId;
@@ -49,6 +50,7 @@ public class User {
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
         this.currentQuestion = null;
+        this.missedWords = new ArrayList<>();
     }
 
     // Constructor for existing users in DataLoader
@@ -71,6 +73,7 @@ public class User {
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
         this.currentQuestion = null;
+        this.missedWords = new ArrayList<>();
     }
 
     // Default Constructor
@@ -93,6 +96,7 @@ public class User {
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
         this.currentQuestion = null;
+        this.missedWords = new ArrayList<>();
     }
 
     // Constructor for leaderboard purposes
@@ -115,6 +119,29 @@ public class User {
         this.completedLessonIds = new ArrayList<>();
         this.questionHistory = new ArrayList<>();
         this.currentQuestion = null;
+        this.missedWords = new ArrayList<>();
+    }
+
+        // Method to add a missed word
+    public void addMissedWord(String word) {
+        WordList wl =WordList.getInstance();
+        Word words = wl.getWordbyID(word);
+        if(words != null){
+            missedWords.add(words);
+        }
+        else{
+            System.out.println("Word does not exist in json");
+        }
+    }
+
+    // Method to get the list of missed words
+    public List<Word> getMissedWords() {
+        return new ArrayList<>(missedWords);
+    }
+
+    // Method to clear missed words (optional)
+    public void clearMissedWords() {
+        missedWords.clear();
     }
 
     // Getters and setters for all attributes, including new fields for enhanced tracking
