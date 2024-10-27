@@ -1,6 +1,12 @@
 package model;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class LearningAppFacade {
@@ -131,5 +137,101 @@ public class LearningAppFacade {
     // Allows the user to take a quiz
     public void takeQuiz(User user, Quiz quiz) {
         // Method stub
+    }
+
+    public  void writeMissedWordsToFile(User user) {
+        // Validate user
+        if (user == null) {
+            System.err.println("Error: User is null.");
+            return;
+        }
+
+        // Retrieve user's first and last name
+        String firstName = user.getFirstName() != null ? user.getFirstName().trim() : "Unknown";
+        String lastName = user.getLastName() != null ? user.getLastName().trim() : "User";
+
+        // Generate a safe file name
+        String fileName = generateFileName(firstName, lastName) + "_MissedWords.txt";
+
+        // Define the directory to store missed words files
+        String directoryPath = "missed_words"; // You can change this to your desired directory
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            boolean dirCreated = directory.mkdirs();
+            if (!dirCreated) {
+                System.err.println("Error: Failed to create directory for missed words.");
+                return;
+            }
+        }
+
+        // Complete file path
+        String filePath = directoryPath + File.separator + fileName;
+
+        // Retrieve missed words
+        List<Word> missedWords = user.getMissedWords();
+
+        // Handle case with no missed words
+        if (missedWords == null || missedWords.isEmpty()) {
+            String noMissedWordsContent = String.format("Missed Words for %s %s\n\nYou have no missed words. Great job!",
+                    firstName, lastName);
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+                writer.write(noMissedWordsContent);
+                System.out.println("Missed words file created successfully: " + filePath);
+            } catch (IOException e) {
+                System.err.println("Error writing missed words to file: " + e.getMessage());
+            }
+            return;
+        }
+
+        // Start building the content
+        StringBuilder contentBuilder = new StringBuilder();
+
+        // Header
+        contentBuilder.append(String.format("Missed Words for %s %s\n\n", firstName, lastName));
+
+        // Table headers
+        String leftAlignFormat = "| %-3s | %-15s | %-20s |%n";
+        String separator = "+-----+-----------------+----------------------+%n";
+
+        contentBuilder.append(String.format(separator));
+        contentBuilder.append(String.format(leftAlignFormat, "No.", "Word", "Translation"));
+        contentBuilder.append(String.format(separator));
+
+        // Table rows
+        int count = 1;
+        for (Word word : missedWords) {
+            String wordText = word.getWord() != null ? word.getWord() : "N/A";
+            String translation = word.getTranslation() != null ? word.getTranslation() : "N/A";
+            contentBuilder.append(String.format(leftAlignFormat, count, wordText, translation));
+            count++;
+        }
+
+        // Footer
+        contentBuilder.append(String.format(separator));
+
+        // Write to file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(contentBuilder.toString());
+            System.out.println("Missed words file created successfully: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Error writing missed words to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Generates a safe file name by removing special characters and replacing spaces with underscores.
+     *
+     * @param firstName The user's first name.
+     * @param lastName  The user's last name.
+     * @return A sanitized file name.
+     */
+    private  String generateFileName(String firstName, String lastName) {
+        String fullName = firstName + " " + lastName;
+        // Normalize to remove accents and other diacritics
+        String normalized = Normalizer.normalize(fullName, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "");
+        // Replace spaces and other non-alphanumeric characters with underscores
+        String sanitized = normalized.replaceAll("[^a-zA-Z0-9]", "_");
+        return sanitized;
     }
 }

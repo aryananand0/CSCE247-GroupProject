@@ -406,14 +406,14 @@ private String getLessonName(String lessonId) {
 }
 
 
-// Helper to get a list of lesson names
-private List<String> getLessonNames(List<String> lessonIds) {
-    List<String> lessonNames = new ArrayList<>();
-    for (String id : lessonIds) {
-        lessonNames.add(getLessonName(id));
+    // Helper to get a list of lesson names
+    private List<String> getLessonNames(List<String> lessonIds) {
+        List<String> lessonNames = new ArrayList<>();
+        for (String id : lessonIds) {
+            lessonNames.add(getLessonName(id));
+        }
+        return lessonNames;
     }
-    return lessonNames;
-}
 
     public void sendDailyReminder() {
         if (dailyReminder) {
@@ -442,6 +442,14 @@ private List<String> getLessonNames(List<String> lessonIds) {
 
     public String PrintLeaderboard() {
         return "USERNAME: "+this.getUserName()+" | NAME: " + this.getFirstName() + " " + this.getLastName() + " | SCORE: " + this.getScore();
+    }
+
+    public void RemoveMissedWord(String word){
+        WordList wl =WordList.getInstance();
+        Word words = wl.getWordbyID(word);
+        if(words != null){
+            missedWords.remove(words);
+        }
     }
 
     // Overriding toString() method to display user details

@@ -105,6 +105,12 @@ public class QuestionManager {
                 user.addMissedWord(word.getWord());
             }
         }
+        else{
+            List<Word> associatedWords = currentQuestion.getWords();
+            for (Word word : associatedWords) {
+                user.RemoveMissedWord(word.getWord());
+            } 
+        }
         return isCorrect;
     }
 
