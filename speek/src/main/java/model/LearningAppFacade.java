@@ -39,6 +39,8 @@ public class LearningAppFacade {
         //     System.out.println(course.getCourseName());
         // }
         user.getUserById(u).getCurrentCourses().add(courses.getCourse(courseId));  
+        user.getUserById(u).setCurrentCourseId(courseId.toString());
+        // logout();
         // System.out.println("New ones: \n");
         // for (Course course : c) {
         //     System.out.println(course.getCourseName());
@@ -104,9 +106,27 @@ public class LearningAppFacade {
 
     // Logs out the current user
     public boolean logout() {
-        return user.logout();
+        if (currentUser != null) {
+            // Save user data before logging out
+            ArrayList<User> userList = new ArrayList<>();
+            userList.add(currentUser);
+            DataWriter.saveUsers(userList);  // Save the current user's data to user.json
+
+            currentUser = null;
+            return user.logout();  // Call the UserList's logout method
+        }
+        return false;
     }
 
+<<<<<<< HEAD
+=======
+
+    // Enrolls a user in a course
+    public void enrollUserInCourse(User user, Course course) {
+        // Method stub
+    }
+
+>>>>>>> 32e45f1373c761cd63e482e2ce5f1671450946ad
     // Tracks the user's progress in a specific course
     public double trackUserProgress(User user, Course course) {
         // Method stub

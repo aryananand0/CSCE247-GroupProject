@@ -344,21 +344,75 @@ public class User {
     }
 
     public void updateUserProgress(String courseId, double completion) {
-        if (progressPerCourse.containsKey(courseId)) {
+        // Check if the course exists in currentCourses
+        boolean courseExists = currentCourses.stream().anyMatch(course -> course.getCourseId().toString().equals(courseId));
+    
+        if (courseExists) {
+            // Update or add the progress for the course
             progressPerCourse.put(courseId, completion);
-            System.out.println(" Updated progress for Course ID " + courseId + " to " + String.format("%.2f", completion) + "%.");
+            System.out.println("✅ Updated progress for Course ID " + courseId + " to " + String.format("%.2f", completion) + "%.");
         } else {
-            System.out.println("⚠️ Course ID " + courseId + " not found in progress tracking.");
+            System.out.println("⚠️ Course ID " + courseId + " not found in currentCourses.");
         }
     }
+    
 
     public void displayProgress() {
         System.out.println("\n=== User Progress ===");
         System.out.println("Overall Progress: " + String.format("%.2f", trackProgress()) + "%");
-        System.out.println("Completed Courses: " + (completedCourseIds.isEmpty() ? "None" : completedCourseIds));
-        System.out.println("Completed Lessons: " + (completedLessonIds.isEmpty() ? "None" : completedLessonIds));
+        System.out.println("Completed Courses: " + (completedCourseIds.isEmpty() ? "None" : getCourseNames(completedCourseIds)));
+        System.out.println("Completed Lessons: " + (completedLessonIds.isEmpty() ? "None" : getLessonNames(completedLessonIds)));
+        System.out.println("Current Course: " + (currentCourseId.isEmpty() ? "None" : getCourseName(currentCourseId)));
+        System.out.println("Current Lesson: " + (currentLessonId.isEmpty() ? "None" : getLessonName(currentLessonId)));
+        System.out.println("Missed Words:");
+        if (!missedWords.isEmpty()) {
+            for (Word word : missedWords) {
+                System.out.println("- Word: " + word.getWord() + ", Translation: " + word.getTranslation());
+            }
+        } else {
+            System.out.println("None");
+        }
         System.out.println("=====================");
     }
+    
+
+    // Helper to get course name by ID
+private String getCourseName(String courseId) {
+    Course course = CourseList.getInstance().getCourse(UUID.fromString(courseId));
+    return (course != null) ? course.getCourseName() : "Unknown Course";
+}
+
+// Helper to get a list of course names
+private List<String> getCourseNames(List<String> courseIds) {
+    List<String> courseNames = new ArrayList<>();
+    for (String id : courseIds) {
+        courseNames.add(getCourseName(id));
+    }
+    return courseNames;
+}
+
+// Helper to get lesson name by ID
+// Helper to get lesson name by ID with validation for UUID
+private String getLessonName(String lessonId) {
+    try {
+        UUID uuid = UUID.fromString(lessonId);
+        Lesson lesson = LessonList.getInstance().getLesson(uuid);
+        return (lesson != null) ? lesson.getLessonTitle() : "Unknown Lesson";
+    } catch (IllegalArgumentException e) {
+        // If the lessonId is not a valid UUID, return a default message
+        return "Invalid Lesson ID: " + lessonId;
+    }
+}
+
+
+// Helper to get a list of lesson names
+private List<String> getLessonNames(List<String> lessonIds) {
+    List<String> lessonNames = new ArrayList<>();
+    for (String id : lessonIds) {
+        lessonNames.add(getLessonName(id));
+    }
+    return lessonNames;
+}
 
     public void sendDailyReminder() {
         if (dailyReminder) {

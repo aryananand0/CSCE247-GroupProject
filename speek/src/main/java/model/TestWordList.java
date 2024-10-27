@@ -20,7 +20,7 @@ public class TestWordList {
 
         // Test retrieving a word by its text
         System.out.println("\n=== Testing Get Word ===");
-        Word retrievedWord = wordList.getWord(testWord);
+        Word retrievedWord = wordList.getWordbyID(testWord);
         if (retrievedWord != null) {
             System.out.println("Retrieved Word: " + retrievedWord.getWord() + ", Translation: " + retrievedWord.getTranslation());
         } else {

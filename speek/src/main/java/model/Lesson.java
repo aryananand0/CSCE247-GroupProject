@@ -44,6 +44,16 @@ public class Lesson {
         this.words = new ArrayList<>();  // Initialize the words list
     }
 
+    public Lesson(UUID lessonId, String lessonTitle, String content) {
+        this.lessonId = lessonId != null ? lessonId : UUID.randomUUID();
+        this.lessonTitle = lessonTitle;
+        this.content = content;
+        this.questions = generateQuestions();
+        this.isCompleted = false;
+        this.flashcard = new Flashcard();
+        this.words = new ArrayList<>();  // Initialize the words list
+    }
+
     // Default Constructor
     public Lesson() {
         this.lessonId = UUID.randomUUID(); 
@@ -62,7 +72,7 @@ public class Lesson {
     }
 
     // Method to get all words in the lesson
-    public List<Word> getWords() {
+    public ArrayList<Word> getWords() {
         return new ArrayList<>(words); // Return a copy of the words list
     }
 
@@ -121,5 +131,13 @@ public class Lesson {
     @Override
     public String toString() {
         return "Lesson ID: " + lessonId + " | Lesson Title: " + lessonTitle + " | Completion: " + (isCompleted ? "Completed" : "Incomplete");
+    }
+    public List<Question> generateQuestions() {
+        ArrayList<Question> questions = new ArrayList<>();
+        QuestionManager qm =  new QuestionManager();
+        qm.generateFixedQuestionSet(this.words);
+        this.questions = qm.getAllQuestions();
+    
+        return questions;
     }
 }

@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,18 +15,37 @@ public class DataWriter extends DataConstants {
 
     // Method to save users to JSON file
     @SuppressWarnings("unchecked")
-    public static void saveUsers(ArrayList<User> users) {
-        JSONArray existingUserArray = loadExistingUsers();  // Load existing users
+public static void saveUsers(ArrayList<User> users) {
+    JSONArray existingUserArray = loadExistingUsers();  // Load existing users
 
-        for (User user : users) {
-            if (!userExists(existingUserArray, user)) {
-                JSONObject userDetails = createUserDetails(user);  // Create user details
-                existingUserArray.add(userDetails);  // Add new user to existing array
+    for (User user : users) {
+        boolean userUpdated = false;
+
+        // Check if user already exists in the JSON array
+        for (int i = 0; i < existingUserArray.size(); i++) {
+            JSONObject existingUser = (JSONObject) existingUserArray.get(i);
+
+            if (existingUser.get(USER_ID).equals(user.getUserId().toString())) {
+                // If the user exists, update the JSON object with new data
+                JSONObject updatedUserDetails = createUserDetails(user);
+                existingUserArray.set(i, updatedUserDetails);
+                System.out.println("User updated: " + user.getUserName());  // Debug statement
+                userUpdated = true;
+                break;
             }
         }
 
-        writeToFile(existingUserArray,USER_FILE);  // Write updated users to file
+        // If the user does not exist, add a new entry
+        if (!userUpdated) {
+            JSONObject newUserDetails = createUserDetails(user);
+            existingUserArray.add(newUserDetails);
+            System.out.println("New user added: " + user.getUserName());  // Debug statement
+        }
     }
+
+    writeToFile(existingUserArray, USER_FILE);  // Write updated users to file
+}
+
 
     // Method to load existing users from file
     private static JSONArray loadExistingUsers() {
@@ -70,12 +90,27 @@ public class DataWriter extends DataConstants {
         userDetails.put("completedCourseIds", createCompletedCoursesArray(user));
         userDetails.put("completedLessonIds", createCompletedLessonsArray(user));
         userDetails.put("questionHistory", createQuestionHistoryArray(user));
+        userDetails.put("missedWords", createMissedWordsArray(user));
 
         if (user.getCurrentQuestion() != null) {
             userDetails.put("currentQuestion", createCurrentQuestionDetails(user));
         }
 
         return userDetails;
+    }
+
+        // Method to create the missed words array
+    @SuppressWarnings("unchecked")
+    private static JSONArray createMissedWordsArray(User user) {
+        JSONArray missedWordsArray = new JSONArray();
+        for (Word word : user.getMissedWords()) {
+            // Use LinkedHashMap to preserve the insertion order
+            LinkedHashMap<String, String> wordDetails = new LinkedHashMap<>();
+            wordDetails.put("word", word.getWord()); // Add the word first
+            wordDetails.put("translation", word.getTranslation()); // Add the translation second
+            missedWordsArray.add(new JSONObject(wordDetails)); // Convert LinkedHashMap to JSONObject
+        }
+        return missedWordsArray;
     }
 
     // Method to create favorite languages array

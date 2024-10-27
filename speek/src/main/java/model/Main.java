@@ -38,8 +38,8 @@ public class Main {
         performLoginScenarios();
 
         // Load question class and lessons
-        loadQuestionClass();
-        loadLessons();
+        // loadQuestionClass();
+        // loadLessons();
 
         // Print summary report
         printSummary(users);
@@ -212,126 +212,126 @@ public class Main {
         System.out.println("");
     }
 
-    private static void loadQuestionClass() {
-        System.out.println("Loading Question class stuff...");
-        testingQuestionClass();
-        System.out.println("");
-    }
+    // private static void loadQuestionClass() {
+    //     System.out.println("Loading Question class stuff...");
+    //     testingQuestionClass();
+    //     System.out.println("");
+    // }
 
-    private static void loadLessons() {
-        System.out.println("Loading Lessons...\n");
-        ShowLessons();
-    }
+    // private static void loadLessons() {
+    //     System.out.println("Loading Lessons...\n");
+    //     ShowLessons();
+    // }
 
-    public static void testingQuestionClass() {
-        // Initialize QuestionManager
-        QuestionManager qm = new QuestionManager();
+    // public static void testingQuestionClass() {
+    //     // Initialize QuestionManager
+    //     QuestionManager qm = new QuestionManager();
 
-        // 1. Multiple Choice Question
-        List<String> mcOptions = Arrays.asList("Berlin", "London", "Paris", "Madrid");
-        Question mcq = new MultipleChoiceQuestion(
-                "What is the capital of France?",
-                mcOptions,
-                "Paris"
-        );
+    //     // 1. Multiple Choice Question
+    //     List<String> mcOptions = Arrays.asList("Berlin", "London", "Paris", "Madrid");
+    //     Question mcq = new MultipleChoiceQuestion(
+    //             "What is the capital of France?",
+    //             mcOptions,
+    //             "Paris"
+    //     );
 
-        // 2. True/False Question
-        Question tfq = new TrueFalseQuestion(
-                "The sky is green.",
-                false
-        );
+    //     // 2. True/False Question
+    //     Question tfq = new TrueFalseQuestion(
+    //             "The sky is green.",
+    //             false
+    //     );
 
-        // 3. Short Answer Question
-        Question saq = new ShortAnswerQuestion(
-                "Translate 'Hello' to Spanish.",
-                "Hola"
-        );
+    //     // 3. Short Answer Question
+    //     Question saq = new ShortAnswerQuestion(
+    //             "Translate 'Hello' to Spanish.",
+    //             "Hola"
+    //     );
 
-        // 4. Match Words Question
-        List<String> prompts = Arrays.asList("Apple", "Book", "Cat");
-        List<String> responses = Arrays.asList("Manzana", "Libro", "Gato");
-        Map<String, String> matches = new HashMap<>();
-        matches.put("Apple", "Manzana");
-        matches.put("Book", "Libro");
-        matches.put("Cat", "Gato");
-        MatchWordsQuestion mwq = new MatchWordsQuestion(
-                "Match the English words to their Spanish translations.",
-                prompts,
-                responses,
-                matches
-        );
+    //     // 4. Match Words Question
+    //     List<String> prompts = Arrays.asList("Apple", "Book", "Cat");
+    //     List<String> responses = Arrays.asList("Manzana", "Libro", "Gato");
+    //     Map<String, String> matches = new HashMap<>();
+    //     matches.put("Apple", "Manzana");
+    //     matches.put("Book", "Libro");
+    //     matches.put("Cat", "Gato");
+    //     MatchWordsQuestion mwq = new MatchWordsQuestion(
+    //             "Match the English words to their Spanish translations.",
+    //             prompts,
+    //             responses,
+    //             matches
+    //     );
 
-        // Add questions to the manager
-        qm.addQuestion(mcq);
-        qm.addQuestion(tfq);
-        qm.addQuestion(saq);
-        qm.addQuestion(mwq);
+    //     // Add questions to the manager
+    //     qm.addQuestion(mcq);
+    //     qm.addQuestion(tfq);
+    //     qm.addQuestion(saq);
+    //     qm.addQuestion(mwq);
 
-        // Simulate user answers
-        simulateUserAnswers(qm, mcq, tfq, saq, mwq);
-    }
+    //     // Simulate user answers
+    //     simulateUserAnswers(qm, mcq, tfq, saq, mwq);
+    // }
 
-    private static void simulateUserAnswers(QuestionManager qm, Question mcq, Question tfq, Question saq, Question mwq) {
-        // Answering Multiple Choice Question
-        String userAnswerMCQ = "3"; // Selecting "Paris"
-        System.out.println(mcq.display());
-        System.out.println("Your answer: " + userAnswerMCQ);
-        System.out.println(qm.getAnswerText(mcq, userAnswerMCQ));
+    // private static void simulateUserAnswers(QuestionManager qm, Question mcq, Question tfq, Question saq, Question mwq) {
+    //     // Answering Multiple Choice Question
+    //     String userAnswerMCQ = "3"; // Selecting "Paris"
+    //     System.out.println(mcq.display());
+    //     System.out.println("Your answer: " + userAnswerMCQ);
+    //     System.out.println(qm.getAnswerText(mcq, userAnswerMCQ));
 
-        // Answering True/False Question
-        String userAnswerTFQ = "False";
-        System.out.println(tfq.display());
-        System.out.println("Your answer: " + userAnswerTFQ);
-        System.out.println(qm.getAnswerText(tfq, userAnswerTFQ));
+    //     // Answering True/False Question
+    //     String userAnswerTFQ = "False";
+    //     System.out.println(tfq.display());
+    //     System.out.println("Your answer: " + userAnswerTFQ);
+    //     System.out.println(qm.getAnswerText(tfq, userAnswerTFQ));
 
-        // Answering Short Answer Question
-        String userAnswerSAQ = "Hola";
-        System.out.println(saq.display());
-        System.out.println("Your answer: " + userAnswerSAQ);
-        System.out.println(qm.getAnswerText(saq, userAnswerSAQ));
+    //     // Answering Short Answer Question
+    //     String userAnswerSAQ = "Hola";
+    //     System.out.println(saq.display());
+    //     System.out.println("Your answer: " + userAnswerSAQ);
+    //     System.out.println(qm.getAnswerText(saq, userAnswerSAQ));
 
-        // Answering Match Words Question
-        String userAnswerMWQ = "1-1,2-2,3-3"; // Correct matching
-        System.out.println(mwq.display());
-        System.out.println("Your answer: " + userAnswerMWQ);
-        System.out.println(qm.getAnswerText(mwq, userAnswerMWQ));
-    }
+    //     // Answering Match Words Question
+    //     String userAnswerMWQ = "1-1,2-2,3-3"; // Correct matching
+    //     System.out.println(mwq.display());
+    //     System.out.println("Your answer: " + userAnswerMWQ);
+    //     System.out.println(qm.getAnswerText(mwq, userAnswerMWQ));
+    // }
 
-    public static void ShowLessons() {
-        // Load courses from the JSON file
-        // TODO:
-        ArrayList<Course> courses = facade.loadCourses();
+    // public static void ShowLessons() {
+    //     // Load courses from the JSON file
+    //     // TODO:
+    //     ArrayList<Course> courses = facade.loadCourses();
 
-        // Check if courses were loaded successfully
-        if (courses.isEmpty()) {
-            System.out.println("No courses loaded. Please check your JSON data and file path.");
-            return;
-        }
+    //     // Check if courses were loaded successfully
+    //     if (courses.isEmpty()) {
+    //         System.out.println("No courses loaded. Please check your JSON data and file path.");
+    //         return;
+    //     }
 
-        // Display the loaded courses
-        for (Course course : courses) {
-            System.out.println("\n=== " + course.getCourseName() + " ===");
-            System.out.println("Course ID: " + course.getCourseId());
-            System.out.println("Difficulty: " + course.getDifficulty());
-            System.out.println("Completion: " + course.getCourseCompletion() + "%");
+    //     // Display the loaded courses
+    //     for (Course course : courses) {
+    //         System.out.println("\n=== " + course.getCourseName() + " ===");
+    //         System.out.println("Course ID: " + course.getCourseId());
+    //         System.out.println("Difficulty: " + course.getDifficulty());
+    //         System.out.println("Completion: " + course.getCourseCompletion() + "%");
 
-            // Iterate through lessons
-            for (Lesson lesson : course.getLessons()) {
-                System.out.println("\n  --- " + lesson.getLessonTitle() + " ---");
-                System.out.println("  Lesson ID: " + lesson.getLessonId());
-                System.out.println("  Content:\n" + lesson.getContent());
+    //         // Iterate through lessons
+    //         for (Lesson lesson : course.getLessons()) {
+    //             System.out.println("\n  --- " + lesson.getLessonTitle() + " ---");
+    //             System.out.println("  Lesson ID: " + lesson.getLessonId());
+    //             System.out.println("  Content:\n" + lesson.getContent());
 
-                System.out.println("\nQuestions:\n");
-                for (Question question : lesson.getQuestions()) {
-                    System.out.println("Question ID: " + question.getId());
-                    System.out.println("Type: " + question.getType());
-                    System.out.println(question.display());
-                    System.out.println("Correct Answer: " + question.getCorrectAnswer());
-                    System.out.println();
-                }
-            }
-        }
-    }
+    //             System.out.println("\nQuestions:\n");
+    //             for (Question question : lesson.getQuestions()) {
+    //                 System.out.println("Question ID: " + question.getId());
+    //                 System.out.println("Type: " + question.getType());
+    //                 System.out.println(question.display());
+    //                 System.out.println("Correct Answer: " + question.getCorrectAnswer());
+    //                 System.out.println();
+    //             }
+    //         }
+    //     }
+    // }
 
     private static void printSummary(ArrayList<User> users) {
         // TODO:

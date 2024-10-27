@@ -32,16 +32,7 @@ public class WordList {
         return false;
     }
 
-    // Method to get a word by its text
-    public Word getWord(String wordText) {
-        for (Word word : words) {
-            if (word.getWord().equalsIgnoreCase(wordText)) {
-                return word;
-            }
-        }
-        return null; // Word not found
-    }
-
+    
     // Method to get the total number of words in the list
     public int getTotalWords() {
         return words.size();

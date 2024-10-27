@@ -1,6 +1,12 @@
 package model;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+
+import com.narration.Narriator;
 
 public class Flashcard {
 
@@ -66,5 +72,98 @@ public class Flashcard {
     // Method to clear all flashcards
     public void clearAllFlashcards() {
         flashcards.clear();
+    }
+
+    public void showFlashcardsSequentially() {
+        if (flashcards.isEmpty()) {
+            System.out.println("No flashcards available to display.");
+            return;
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        int count = 1;
+        int total = flashcards.size();
+
+        for (Map.Entry<String, String> entry : flashcards.entrySet()) {
+            System.out.println("Flashcard " + count + " of " + total + ":");
+            System.out.println("Word: " + entry.getKey());
+            System.out.println("Press Enter to see the translation...");
+            scanner.nextLine(); // Wait for the user to press Enter
+            System.out.println("Translation: " + entry.getValue());
+            System.out.println("------------------------------------");
+            count++;
+        }
+        scanner.close();
+
+        System.out.println("You have reviewed all flashcards.");
+    }
+    public void showFlashcardsTimed() {
+        if (flashcards.isEmpty()) {
+            System.out.println("No flashcards available to display.");
+            return;
+        }
+
+        // Convert flashcards to a list for indexed access
+        List<Map.Entry<String, String>> flashcardList = new ArrayList<>(flashcards.entrySet());
+
+        // Optionally, shuffle the flashcards for random order
+        Collections.shuffle(flashcardList);
+
+        int total = flashcardList.size();
+        int done = 0;
+        int left = total;
+
+        for (Map.Entry<String, String> entry : flashcardList) {
+            done++;
+            left--;
+
+            // Clear the terminal
+            clearTerminal();
+
+            // Display counts
+            System.out.println("Flashcards Done: " + done + " | Flashcards Left: " + left);
+            System.out.println("====================================");
+            System.out.println("Word: " + entry.getKey());
+            Narriator.playSound(entry.getKey());
+            System.out.println("====================================");
+            System.out.println("Translation: " + entry.getValue());
+            Narriator.playSound(entry.getValue());
+
+
+            // Wait for 7 seconds before showing the next flashcard
+            try {
+                Thread.sleep(7000); // 7000 milliseconds = 7 seconds
+            } catch (InterruptedException e) {
+                System.out.println("Flashcard display interrupted.");
+                Thread.currentThread().interrupt(); // Restore the interrupted status
+                return;
+            }
+        }
+
+        // Final message after all flashcards have been displayed
+        clearTerminal();
+        System.out.println("Flashcard review completed!");
+    }
+
+    /**
+     * Helper method to clear the terminal screen.
+     * Uses ANSI escape codes which may not work on all operating systems or terminals.
+     */
+    private void clearTerminal() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                // For Windows, execute 'cls' command
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                // For Unix/Linux/Mac, use ANSI escape code
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            // If clearing the terminal fails, fallback to printing new lines
+            for (int i = 0; i < 50; i++) {
+                System.out.println();
+            }
+        }
     }
 }

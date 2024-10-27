@@ -36,6 +36,12 @@ public class DataLoader extends DataConstants {
                 user.setAchievements(loadAchievements(userJSON));
                 user.setCurrentCourses(loadCurrentCourses(userJSON, cl, ll));
                 user.setQuestionHistory(loadQuestionHistory(userJSON));
+                ArrayList<String> missedwords = extractMissedWords(userJSON);
+                if(missedwords != null){
+                    for (String missed : missedwords) {
+                        user.addMissedWord(missed);
+                    }
+                }
     
                 // Add the user to the users list
                 users.add(user);
@@ -46,6 +52,37 @@ public class DataLoader extends DataConstants {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static ArrayList<String> extractMissedWords(JSONObject userJSON) {
+        if (userJSON == null) {
+            return null;
+        }
+
+        // Retrieve the missedWords JSONArray from the user JSON object
+        JSONArray missedWordsJSON = (JSONArray) userJSON.get("missedWords");
+
+        // If missedWords is null or empty, return null
+        if (missedWordsJSON == null || missedWordsJSON.isEmpty()) {
+            return null;
+        }
+
+        // Initialize the List to store missed words
+        ArrayList<String> missedWords = new ArrayList<>();
+
+        // Iterate over the JSONArray and add each word to the List
+        for (Object wordObj : missedWordsJSON) {
+            if (wordObj instanceof String) {
+                missedWords.add((String) wordObj);
+            }
+        }
+
+        // If the list is still empty after iteration, return null
+        if (missedWords.isEmpty()) {
+            return null;
+        }
+
+        return missedWords;
     }
 
     // Method to parse words from Word.json and use Course class
@@ -80,7 +117,6 @@ public class DataLoader extends DataConstants {
 
                     // Create a new Lesson object
                     Lesson lesson = new Lesson(lessonId, lessonName, "", new ArrayList<>());
-
                     // Extract words from the lesson
                     JSONArray wordsArray = (JSONArray) jsonLesson.get(WORDS);
 
@@ -116,7 +152,7 @@ public class DataLoader extends DataConstants {
             JSONParser parser = new JSONParser();
             JSONArray modulesArray = (JSONArray) parser.parse(reader);
     
-            System.out.println("Debug: Loaded modulesArray from JSON file.");
+            
     
             for (Object moduleObj : modulesArray) {
                 JSONObject moduleJSON = (JSONObject) moduleObj;
@@ -125,7 +161,6 @@ public class DataLoader extends DataConstants {
                 // Ensure that "words" key exists and is not null
                 JSONArray lessonsArray = (JSONArray) moduleJSON.get("words");
                 if (lessonsArray == null) {
-                    System.out.println("Debug: No 'words' key found at module level.");
                     continue; // Skip if "words" is not present
                 }
     
@@ -137,7 +172,6 @@ public class DataLoader extends DataConstants {
                     // Ensure that "words" key exists and is not null
                     JSONArray wordsArray = (JSONArray) lessonJSON.get("words");
                     if (wordsArray == null) {
-                        System.out.println("Debug: No 'words' key found at lesson level.");
                         continue; // Skip if "words" is not present
                     }
     
@@ -217,7 +251,7 @@ public class DataLoader extends DataConstants {
     
             // Retrieve the course and current lesson, and set progress
             Course course = cl.getCourse(courseId);
-            course.setCourseCompletion(Double.parseDouble(courseProgress));
+            // course.setCourseCompletion(Double.parseDouble(courseProgress));
     
             Lesson currentLesson = ll.getLessonById(UUID.fromString(currentLessonId));
             course.addLesson(currentLesson);
@@ -427,14 +461,14 @@ public class DataLoader extends DataConstants {
     public static ArrayList<Course> loadCoursesFromJson() {
         ArrayList<Course> coursesList = new ArrayList<>();
         JSONParser parser = new JSONParser();
-    
+
         try (FileReader reader = new FileReader("json/Lesson.json")) {
             JSONObject root = (JSONObject) parser.parse(reader);
             JSONArray languages = (JSONArray) root.get("languages");
-    
+
             for (Object langObj : languages) {
                 JSONObject language = (JSONObject) langObj;
-    
+
                 // Process courses for each language
                 JSONArray courses = (JSONArray) language.get("courses");
                 for (Object courseObj : courses) {
@@ -444,25 +478,26 @@ public class DataLoader extends DataConstants {
                     }
                 }
             }
-        } catch (IOException e) {
-            System.out.println("IO Error: " + e.getMessage());
-            e.printStackTrace();
+
+            // After loading courses and lessons, load words from words.json
+            loadWordsFromJson(coursesList);
+
         } catch (Exception e) {
-            System.out.println("Failed to parse JSON: " + e.getMessage());
+            System.out.println("Error loading courses and lessons: " + e.getMessage());
             e.printStackTrace();
         }
-    
+
         return coursesList;
     }
-    
+
     private static Course parseCourse(JSONObject courseJson) {
         try {
             UUID courseId = UUID.fromString((String) courseJson.get("courseId"));
             String courseName = (String) courseJson.get("courseName");
             String difficulty = (String) courseJson.get("difficulty");
-    
+
             Course course = new Course(courseId, courseName, difficulty, 0.0);
-    
+
             // Process lessons for each course
             JSONArray lessons = (JSONArray) courseJson.get("lessons");
             for (Object lessonObj : lessons) {
@@ -471,49 +506,52 @@ public class DataLoader extends DataConstants {
                     course.addLesson(lesson);
                 }
             }
-    
+
             return course;
         } catch (Exception e) {
             System.out.println("Error parsing course: " + e.getMessage());
             return null;
         }
     }
-    
-    private static Lesson parseLesson(JSONObject lessonJson,UUID courseID) {
+
+    private static Lesson parseLesson(JSONObject lessonJson, UUID courseID) {
         try {
             UUID lessonId = UUID.fromString((String) lessonJson.get("lessonId"));
             String lessonName = (String) lessonJson.get("lessonName");
-    
+
             // Process content for each lesson
             Map<String, List<String>> content = parseContent((JSONObject) lessonJson.get("content"));
-    
+
             // Convert the content map to a formatted string
             String contentStr = formatContentMap(content);
-    
+
             Lesson lesson = new Lesson(lessonId, lessonName, contentStr, new ArrayList<>());
 
+            // Assume loadFlashcardsForLesson is implemented elsewhere
             lesson.setFlashcard(loadFlashcardsForLesson(courseID, lessonId));
-    
+
             // Process tests and questions for each lesson
             JSONArray tests = (JSONArray) lessonJson.get("tests");
-            for (Object testObj : tests) {
-                parseQuestions((JSONObject) testObj, lesson);
+            if (tests != null) {
+                for (Object testObj : tests) {
+                    parseQuestions((JSONObject) testObj, lesson);
+                }
             }
-    
+
             return lesson;
         } catch (Exception e) {
             System.out.println("Error parsing lesson: " + e.getMessage());
             return null;
         }
     }
-    
+
     private static Map<String, List<String>> parseContent(JSONObject contentJson) {
         Map<String, List<String>> contentMap = new HashMap<>();
-    
+
         for (Object keyObj : contentJson.keySet()) {
             String key = (String) keyObj;
             Object value = contentJson.get(key);
-    
+
             try {
                 // Try to convert the value to a List of Strings
                 List<String> contentList = convertToListOfStrings(value);
@@ -522,54 +560,58 @@ public class DataLoader extends DataConstants {
                 System.out.println("Error processing content for key: " + key + " with value: " + value);
             }
         }
-    
+
         return contentMap;
     }
-    
+
     private static List<String> convertToListOfStrings(Object value) throws Exception {
         List<String> contentList = new ArrayList<>();
-    
+
         try {
             // Attempt to treat the value as a JSONArray
             JSONArray jsonArray = (JSONArray) value;
             for (Object item : jsonArray) {
-                contentList.add(item.toString());  // Convert each item in the array to a string
+                contentList.add(item.toString()); // Convert each item in the array to a string
             }
         } catch (ClassCastException e) {
             // If it's not a JSONArray, treat it as a single string
             contentList.add(value.toString());
         }
-    
+
         return contentList;
     }
-    
+
     private static String formatContentMap(Map<String, List<String>> contentMap) {
         StringBuilder contentBuilder = new StringBuilder();
-    
+
         for (Map.Entry<String, List<String>> entry : contentMap.entrySet()) {
             contentBuilder.append(entry.getKey()).append(": ")
                     .append(String.join(", ", entry.getValue()))
                     .append("\n");
         }
-    
+
         return contentBuilder.toString().trim();
     }
-    
+
     private static void parseQuestions(JSONObject testJson, Lesson lesson) {
         JSONArray questions = (JSONArray) testJson.get("questions");
+        if (questions == null) {
+            System.out.println("⚠️ No questions found in the test.");
+            return;
+        }
         for (Object questionObj : questions) {
             JSONObject questionJson = (JSONObject) questionObj;
             UUID questionId = UUID.fromString((String) questionJson.get("questionId"));
             String type = (String) questionJson.get("type");
             String text = (String) questionJson.get("text");
-    
+
             Question question = createQuestion(questionJson, questionId, type, text);
             if (question != null) {
-                lesson.addQuestion(question);  // Correctly adding questions to the lesson
+                lesson.addQuestion(question); // Correctly adding questions to the lesson
             }
         }
     }
-    
+
     private static Question createQuestion(JSONObject questionJson, UUID questionId, String type, String text) {
         try {
             switch (type) {
@@ -581,16 +623,16 @@ public class DataLoader extends DataConstants {
                     }
                     String correctAnswerMC = (String) questionJson.get("correctAnswer");
                     return new MultipleChoiceQuestion(questionId, text, optionsList, correctAnswerMC);
-    
+
                 case "ShortAnswer":
                     String correctAnswerSA = (String) questionJson.get("correctAnswer");
                     return new ShortAnswerQuestion(questionId, text, correctAnswerSA);
-    
+
                 case "TrueOrFalse":
                     String correctAnswerTF = (String) questionJson.get("correctAnswer");
                     boolean correctBool = correctAnswerTF.equalsIgnoreCase("True");
                     return new TrueFalseQuestion(questionId, text, correctBool);
-    
+
                 case "MatchWords":
                     JSONObject pairsJson = (JSONObject) questionJson.get("pairs");
                     if (pairsJson != null) {
@@ -607,18 +649,105 @@ public class DataLoader extends DataConstants {
                         System.out.println("⚠️ 'pairs' not found for MatchWords question ID: " + questionId);
                     }
                     break;
+
+                default:
+                    System.out.println("⚠️ Unknown question type: " + type + " for question ID: " + questionId);
+                    break;
             }
         } catch (Exception e) {
             System.out.println("Error creating question: " + e.getMessage());
         }
-    
+
         return null;
     }
+
     private static String capitalizeFirstLetter(String input) {
-        if (input == null || input.isEmpty()) return input;
+        if (input == null || input.isEmpty())
+            return input;
         return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
 
+    /**
+     * Placeholder method for loading flashcards for a lesson.
+     * Implement this method based on your application logic.
+     */
+    
+
+    /**
+     * Loads words from words.json and associates them with the corresponding lessons.
+     *
+     * @param coursesList The list of Course objects loaded from Lesson.json
+     */
+    private static void loadWordsFromJson(ArrayList<Course> coursesList) {
+        JSONParser parser = new JSONParser();
+
+        try (FileReader reader = new FileReader("json/Word.json")) {
+            JSONArray modules = (JSONArray) parser.parse(reader);
+
+            for (Object moduleObj : modules) {
+                JSONObject module = (JSONObject) moduleObj;
+                String moduleName = (String) module.get("module");
+                String courseIdStr = (String) module.get("courseId");
+                UUID courseId = UUID.fromString(courseIdStr);
+
+                JSONArray wordsCourses = (JSONArray) module.get("words");
+                for (Object wordsCourseObj : wordsCourses) {
+                    JSONObject wordsCourse = (JSONObject) wordsCourseObj;
+                    String lessonIdStr = (String) wordsCourse.get("lessonId");
+                    UUID lessonId = UUID.fromString(lessonIdStr);
+                    String lessonName = (String) wordsCourse.get("lessonName");
+
+                    JSONArray wordsArray = (JSONArray) wordsCourse.get("words");
+                    List<Word> wordsList = new ArrayList<>();
+
+                    for (Object wordObj : wordsArray) {
+                        JSONObject wordJson = (JSONObject) wordObj;
+                        String wordStr = (String) wordJson.get("word");
+                        String translation = (String) wordJson.get("translation");
+
+                        Word word = new Word(wordStr, translation);
+                        wordsList.add(word);
+                    }
+
+                    // Find the corresponding Course
+                    Course matchingCourse = null;
+                    for (Course course : coursesList) {
+                        if (course.getCourseId().equals(courseId)) {
+                            matchingCourse = course;
+                            break;
+                        }
+                    }
+
+                    if (matchingCourse == null) {
+                        System.out.println("⚠️ Course with ID " + courseId + " not found for module: " + moduleName);
+                        continue;
+                    }
+
+                    // Find the corresponding Lesson
+                    Lesson matchingLesson = null;
+                    for (Lesson lesson : matchingCourse.getLessons()) {
+                        if (lesson.getLessonId().equals(lessonId)) {
+                            matchingLesson = lesson;
+                            break;
+                        }
+                    }
+
+                    if (matchingLesson == null) {
+                        System.out.println("⚠️ Lesson with ID " + lessonId + " not found in course: " + matchingCourse.getCourseName());
+                        continue;
+                    }
+
+                    // Set the words list to the lesson
+                    matchingLesson.setWords(wordsList);
+                }
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("Error loading words: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     public static ArrayList<Lesson> loadLessons() {
         ArrayList<Lesson> lessonsList = new ArrayList<>();
         JSONParser parser = new JSONParser();
@@ -631,8 +760,10 @@ public class DataLoader extends DataConstants {
                 JSONObject language = (JSONObject) langObj;
     
                 JSONArray courses = (JSONArray) language.get("courses");
+
                 for (Object courseObj : courses) {
                     JSONObject courseJson = (JSONObject) courseObj;
+                    UUID coursesID = UUID.fromString((String) courseJson.get("courseId"));
     
                     // Extract lessons
                     JSONArray lessons = (JSONArray) courseJson.get("lessons");
@@ -702,7 +833,7 @@ public class DataLoader extends DataConstants {
                                 }
                             }
                         }
-    
+                        lesson.setFlashcard(loadFlashcardsForLesson(coursesID,lessonId));
                         // Add the lesson with its questions to the list
                         lessonsList.add(lesson);
                     }
