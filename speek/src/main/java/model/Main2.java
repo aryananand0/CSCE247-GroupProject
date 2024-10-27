@@ -23,7 +23,7 @@ public class Main2 {
         Course c =cl.getCourse(UUID.fromString(user.getCurrentCourseId()));
         Lesson l = c.getLessons().get(0);
         // Learning from flashcard
-        l.getFlashcard().showFlashcardsTimed();
+        // l.getFlashcard().showFlashcardsTimed();
         // Testing knowladge
 
         System.out.println("Asking questions....");
