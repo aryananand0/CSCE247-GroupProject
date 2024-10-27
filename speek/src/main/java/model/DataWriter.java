@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -70,12 +71,27 @@ public class DataWriter extends DataConstants {
         userDetails.put("completedCourseIds", createCompletedCoursesArray(user));
         userDetails.put("completedLessonIds", createCompletedLessonsArray(user));
         userDetails.put("questionHistory", createQuestionHistoryArray(user));
+        userDetails.put("missedWords", createMissedWordsArray(user));
 
         if (user.getCurrentQuestion() != null) {
             userDetails.put("currentQuestion", createCurrentQuestionDetails(user));
         }
 
         return userDetails;
+    }
+
+        // Method to create the missed words array
+    @SuppressWarnings("unchecked")
+    private static JSONArray createMissedWordsArray(User user) {
+        JSONArray missedWordsArray = new JSONArray();
+        for (Word word : user.getMissedWords()) {
+            // Use LinkedHashMap to preserve the insertion order
+            LinkedHashMap<String, String> wordDetails = new LinkedHashMap<>();
+            wordDetails.put("word", word.getWord()); // Add the word first
+            wordDetails.put("translation", word.getTranslation()); // Add the translation second
+            missedWordsArray.add(new JSONObject(wordDetails)); // Convert LinkedHashMap to JSONObject
+        }
+        return missedWordsArray;
     }
 
     // Method to create favorite languages array

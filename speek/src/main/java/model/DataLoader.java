@@ -116,7 +116,7 @@ public class DataLoader extends DataConstants {
             JSONParser parser = new JSONParser();
             JSONArray modulesArray = (JSONArray) parser.parse(reader);
     
-            System.out.println("Debug: Loaded modulesArray from JSON file.");
+            
     
             for (Object moduleObj : modulesArray) {
                 JSONObject moduleJSON = (JSONObject) moduleObj;
@@ -125,7 +125,6 @@ public class DataLoader extends DataConstants {
                 // Ensure that "words" key exists and is not null
                 JSONArray lessonsArray = (JSONArray) moduleJSON.get("words");
                 if (lessonsArray == null) {
-                    System.out.println("Debug: No 'words' key found at module level.");
                     continue; // Skip if "words" is not present
                 }
     
@@ -137,7 +136,6 @@ public class DataLoader extends DataConstants {
                     // Ensure that "words" key exists and is not null
                     JSONArray wordsArray = (JSONArray) lessonJSON.get("words");
                     if (wordsArray == null) {
-                        System.out.println("Debug: No 'words' key found at lesson level.");
                         continue; // Skip if "words" is not present
                     }
     

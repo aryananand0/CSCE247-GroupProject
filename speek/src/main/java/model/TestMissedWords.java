@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestMissedWords {
@@ -8,7 +9,6 @@ public class TestMissedWords {
         User testUser = new User("john_doe", "John", "Doe", "john@example.com", "password123");
 
         // Step 2: Add a word to the missed words list
-        // Assuming "Hola" is a word that exists in the JSON file.
         System.out.println("Adding a missed word 'Hola'...");
         testUser.addMissedWord("Hola"); // Add the word "Hola" to missed words
 
@@ -24,5 +24,13 @@ public class TestMissedWords {
         } else {
             System.out.println("No missed words found.");
         }
+
+        // Step 4: Save the user data to JSON
+        ArrayList<User> users = new ArrayList<>();
+        users.add(testUser);
+
+        // Save users to JSON file
+        DataWriter.saveUsers(users);
+        System.out.println("User data saved to user.json");
     }
 }
