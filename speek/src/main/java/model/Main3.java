@@ -46,8 +46,8 @@ public class Main3 {
         }
 
         // Step5: Generate Questoins for words and phrases 
-        HashMap<String, Boolean> reviewResults = new HashMap<>();
-        for(String word : wordsToReview) {
+        HashMap<Word, Boolean> reviewResults = new HashMap<>();
+        for(Word word : wordsToReview) {
             boolean correct = askQuestion(word);
             reviewResults.put(word, correct);
         }
