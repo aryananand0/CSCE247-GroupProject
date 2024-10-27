@@ -382,6 +382,7 @@ private String getCourseName(String courseId) {
     return (course != null) ? course.getCourseName() : "Unknown Course";
 }
 
+
 // Helper to get a list of course names
 private List<String> getCourseNames(List<String> courseIds) {
     List<String> courseNames = new ArrayList<>();

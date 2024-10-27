@@ -27,14 +27,14 @@ public class Main3 {
         tammy.displayProgress();
 
         // Step 3: Review the struggling items
-        ArrayList<String> wordsToReview = tammy.GetStrugglingWords();
-        ArrayList<String> phrasesToReview = tammy.getStruggingPhrases();
+        List<Word> wordsToReview = tammy.getMissedWords();
+        List<String> phrasesToReview = tammy.getStruggingPhrases();
 
         // Setp 4: Print study sheet to text file
         try(FileWriter writer = new FileWriter("study_sheet.txt")) {
             writer.write("Study Sheet for Tammy\n");
             writer.write("Words:\n");
-            for(String word : wordsToReview) {
+            for(Word word : wordsToReview) {
                 writer.write("- " + word + "\n");
             }
             writer.write("Phrases:\n");
@@ -62,7 +62,6 @@ public class Main3 {
     // the missed questions
     return true;
    }
-
 
 
    private static void reloadAndDisplayUsers() {
