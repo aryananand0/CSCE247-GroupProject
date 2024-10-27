@@ -1,25 +1,28 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-
+/**
+ * Represents a Match the Following question.
+ */
 public class MatchWordsQuestion extends Question {
     private List<String> prompts; 
     private List<String> responses; 
     private Map<String, String> correctMatches;
     private UUID id; 
- 
+    private List<Word> words; // Associated Words
 
-    
-    public MatchWordsQuestion(UUID id,String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches) {
+    public MatchWordsQuestion(UUID id, String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches, List<Word> words) {
         super(text);
         this.id = id;
         this.prompts = prompts;
         this.responses = responses;
         this.correctMatches = new HashMap<>(correctMatches);
+        this.words = new ArrayList<>(words);
     }
     public MatchWordsQuestion(String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches) {
         super(text);
@@ -28,12 +31,27 @@ public class MatchWordsQuestion extends Question {
         this.responses = responses;
         this.correctMatches = new HashMap<>(correctMatches);
     }
+    public MatchWordsQuestion(UUID id,String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches) {
+        super(text);
+        this.id = id;
+        this.prompts = prompts;
+        this.responses = responses;
+        this.correctMatches = new HashMap<>(correctMatches);
+    }
+
+    public MatchWordsQuestion(String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches, List<Word> words) {
+        super(text);
+        this.id = UUID.randomUUID();
+        this.prompts = prompts;
+        this.responses = responses;
+        this.correctMatches = new HashMap<>(correctMatches);
+        this.words = new ArrayList<>(words);
+    }
 
     @Override
     public String display() {
         StringBuilder sb = new StringBuilder();
         sb.append(getText()).append("\n");
-        sb.append("Match the following:\n");
         sb.append("Prompts:\n");
         for (int i = 0; i < prompts.size(); i++) {
             sb.append((i + 1)).append(". ").append(prompts.get(i)).append("\n");
@@ -96,6 +114,7 @@ public class MatchWordsQuestion extends Question {
     public void setResponses(List<String> responses) {
         this.responses = responses;
     }
+
     @Override
     public String getType() {
         return "MatchWords";
@@ -117,5 +136,10 @@ public class MatchWordsQuestion extends Question {
 
     public void setCorrectMatches(Map<String, String> correctMatches) {
         this.correctMatches = new HashMap<>(correctMatches);
+    }
+
+    @Override
+    public List<Word> getWords() {
+        return new ArrayList<>(words);
     }
 }

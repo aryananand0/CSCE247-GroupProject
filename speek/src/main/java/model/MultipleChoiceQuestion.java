@@ -1,14 +1,31 @@
 package model;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+/**
+ * Represents a multiple choice question with several options.
+ */
 public class MultipleChoiceQuestion extends Question {
     private List<String> options; 
     private String correctAnswer;
     private UUID id; 
-    
+    private Word word; // Associated Word
+
+    public MultipleChoiceQuestion(UUID id, String text, List<String> options, String correctAnswer, Word word) {
+        super(text);
+        this.id = id;
+        this.options = new ArrayList<>(options);
+        this.correctAnswer = correctAnswer;
+        this.word = word;
+    }
+    public MultipleChoiceQuestion(String text, List<String> options, String correctAnswer) {
+        super(text);
+        this.id = UUID.randomUUID();
+        this.options = new ArrayList<>(options);
+        this.correctAnswer = correctAnswer;
+    }
     public MultipleChoiceQuestion(UUID id,String text, List<String> options, String correctAnswer) {
         super(text);
         this.id = id;
@@ -16,11 +33,12 @@ public class MultipleChoiceQuestion extends Question {
         this.correctAnswer = correctAnswer;
     }
 
-    public MultipleChoiceQuestion(String text, List<String> options, String correctAnswer) {
+    public MultipleChoiceQuestion(String text, List<String> options, String correctAnswer, Word word) {
         super(text);
         this.id = UUID.randomUUID();
         this.options = new ArrayList<>(options);
         this.correctAnswer = correctAnswer;
+        this.word = word;
     }
 
     @Override
@@ -65,6 +83,7 @@ public class MultipleChoiceQuestion extends Question {
     public String getCorrectAnswer() {
         return correctAnswer;
     }
+
     @Override
     public String getType() {
         return "MultipleChoice";
@@ -72,5 +91,14 @@ public class MultipleChoiceQuestion extends Question {
 
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
+    }
+
+    @Override
+    public List<Word> getWords() {
+        List<Word> words = new ArrayList<>();
+        if (word != null) {
+            words.add(word);
+        }
+        return words;
     }
 }
