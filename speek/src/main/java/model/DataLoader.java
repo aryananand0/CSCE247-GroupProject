@@ -37,8 +37,10 @@ public class DataLoader extends DataConstants {
                 user.setCurrentCourses(loadCurrentCourses(userJSON, cl, ll));
                 user.setQuestionHistory(loadQuestionHistory(userJSON));
                 ArrayList<String> missedwords = extractMissedWords(userJSON);
-                for (String missed : missedwords) {
-                    user.addMissedWord(missed);
+                if(missedwords != null){
+                    for (String missed : missedwords) {
+                        user.addMissedWord(missed);
+                    }
                 }
     
                 // Add the user to the users list
@@ -758,8 +760,10 @@ public class DataLoader extends DataConstants {
                 JSONObject language = (JSONObject) langObj;
     
                 JSONArray courses = (JSONArray) language.get("courses");
+
                 for (Object courseObj : courses) {
                     JSONObject courseJson = (JSONObject) courseObj;
+                    UUID coursesID = UUID.fromString((String) courseJson.get("courseId"));
     
                     // Extract lessons
                     JSONArray lessons = (JSONArray) courseJson.get("lessons");
@@ -829,7 +833,7 @@ public class DataLoader extends DataConstants {
                                 }
                             }
                         }
-    
+                        lesson.setFlashcard(loadFlashcardsForLesson(coursesID,lessonId));
                         // Add the lesson with its questions to the list
                         lessonsList.add(lesson);
                     }

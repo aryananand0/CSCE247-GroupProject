@@ -43,6 +43,8 @@ public class LearningAppFacade {
         //     System.out.println(course.getCourseName());
         // }
         user.getUserById(u).getCurrentCourses().add(courses.getCourse(courseId));  
+        user.getUserById(u).setCurrentCourseId(courseId.toString());
+        logout();
         // System.out.println("New ones: \n");
         // for (Course course : c) {
         //     System.out.println(course.getCourseName());
