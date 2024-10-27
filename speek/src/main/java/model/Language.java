@@ -28,6 +28,7 @@ public class Language {
     public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
     }
+    
 
     public ArrayList<Flashcard> getFlashcards() {
         return flashcards;

@@ -19,7 +19,6 @@ public class LearningAppFacade {
         user = UserList.getInstance();
         courses = CourseList.getInstance();
         lessons = LessonList.getInstance();
-        // TODO: Change languages so not access DataLoader directly
         languages = DataLoader.loadLanguages();
         achievements = AchievementList.getInstance();
         leaderboardList = LeaderboardList.getInstance();
@@ -33,9 +32,6 @@ public class LearningAppFacade {
         return instance;
     }
     // Methods
-
-    // TODO: Maybe change or add method in User 
-    // to add a setCurrentCourse(UUID courseId) method
     public void registerCourse(UUID u, UUID courseId) {
         user = UserList.getInstance();
         // ArrayList<Course> c = user.getUserById(u).getCurrentCourses();
@@ -111,11 +107,6 @@ public class LearningAppFacade {
         return user.logout();
     }
 
-    // Enrolls a user in a course
-    public void enrollUserInCourse(User user, Course course) {
-        // Method stub
-    }
-
     // Tracks the user's progress in a specific course
     public double trackUserProgress(User user, Course course) {
         // Method stub
@@ -126,12 +117,4 @@ public class LearningAppFacade {
     public void takeQuiz(User user, Quiz quiz) {
         // Method stub
     }
-
-    /**
-    // Retrieves the leaderboard
-    public Leaderboard getLeaderboard() {
-        return DataLoader.loadLeaderboard();
-    }
-    */
-    
 }
