@@ -5,14 +5,38 @@ import java.util.ArrayList;
 import model.User;
 import model.UserList;
 
+/**
+ * The {@code Main1} class is the entry point of the language learning application.
+ * It demonstrates the basic functionalities of loading users, creating a new user,
+ * logging in, logging out, and verifying user data through the {@code LearningAppFacade}.
+ * 
+ * This class also includes error handling for duplicate usernames and failed user actions,
+ * providing feedback on the success or failure of each operation.
+ * 
+ * Dependencies:
+ * - {@code User}: Represents a user in the application.
+ * - {@code UserList}: Manages a list of users as a singleton.
+ * - {@code LearningAppFacade}: Serves as a facade for managing users and their actions.
+ * 
+ * @version 1.0
+ */
 public class Main1 {
 
+    /**
+     * The main method serves as the entry point of the application.
+     * It performs a sequence of user management tasks such as loading users,
+     * creating a user, logging in, and logging out.
+     * 
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         // Singleton instance of UserList to manage users
         System.out.println("Loading users...");
         ArrayList<User> users = new ArrayList<>(); 
         LearningAppFacade facade = LearningAppFacade.getInstance();
         users = facade.loadUsers();
+
+        // Check if users were loaded successfully
         if (!users.isEmpty()) {
             System.out.println("Users loaded successfully.");
             for (User user : users) {
@@ -22,7 +46,7 @@ public class Main1 {
             System.out.println("No users found.");
         }
 
-        // 1. Attempt to create a user with the username "ttomacka" (should fail since Tammy uses it)
+        // 1. Attempt to create a user with the username "ttomacka" (should fail if username is taken)
         System.out.println("\nAttempting to create user with username 'ttomacka'...");
         boolean isAdded = facade.registerUser("ttomacka", "Tim", "Tomacka", "tim.tomacka@example.com", "password123");
 
@@ -33,7 +57,7 @@ public class Main1 {
             return;
         }
 
-        // 4. Create a user with the username "ttom"
+        // 2. Create a user with the username "ttom"
         System.out.println("\nCreating user with username 'ttom'...");
         isAdded = facade.registerUser("ttom", "Tim", "Tomacka", "tim.tomacka@example.com", "password123");
 
@@ -54,7 +78,7 @@ public class Main1 {
             return;
         }
 
-        // 5. Log out the user
+        // 3. Log out the user
         System.out.println("\nLogging out the user...");
         boolean isLoggedOut = facade.logout();
         if (isLoggedOut) {
@@ -64,7 +88,7 @@ public class Main1 {
             return;
         }
 
-        // 6. Verify that the user "ttom" is saved in users.json
+        // 4. Verify that the user "ttom" is saved in users.json
         System.out.println("Loading users...");
         LearningAppFacade facades = LearningAppFacade.getInstance();
         users = facades.loadUsers();
@@ -77,7 +101,7 @@ public class Main1 {
             System.out.println("No users found.");
         }
 
-        // 7. Log in the user "ttom" with email and password
+        // 5. Log in the user "ttom" with email and password
         System.out.println("\nAttempting to log in with 'ttom'...");
         User user = facade.loginUser("tim.tomacka@example.com", "password123");
 
