@@ -75,7 +75,7 @@ public class LearningAppFacade {
     public ArrayList<Language> loadLanguages() {
         return this.languages;
     }
-
+ 
     // Load achievments 
     // TODO:
     public ArrayList<Achievements> loadAchievements() {

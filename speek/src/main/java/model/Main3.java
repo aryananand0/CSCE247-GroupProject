@@ -1,14 +1,70 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class Main3 {
 
 
    private static LearningAppFacade facade = LearningAppFacade.getInstance();
+   private static ArrayList<User> users;
+
+   public static void main(String[] args) {
+
+
+        // Step 2: She logs into her Account
+        User tammy = facade.loginUser("ttomacka", "hashedpassword789");
+        if(tammy == null) {
+            System.out.println("Error: User does not exist. ");
+        }
+
+        // Step 2: Display Tammy's progress
+        System.out.println("Current Lesson: " + tammy.getCurrentLesson());
+        System.out.println("Words Tammy is struggling with: " + tammy.getStrugglingWords());
+        System.out.println("Phrases Tammy is struggling with: " + tammy.getStrugglingPhrases());
+
+        // Step 3: Review the struggling items
+        ArrayList<String> wordsToReview = tammy.GetStrugglingWords();
+        ArrayList<String> phrasesToReview = tammy.getStruggingPhrases();
+
+        // Setp 4: Print study sheet to text file
+        try(FileWriter writer = new FileWriter("study_sheet.txt")) {
+            writer.write("Study Sheet for Tammy\n");
+            writer.write("Words:\n");
+            for(String word : wordsToReview) {
+                writer.write("- " + word + "\n");
+            }
+            writer.write("Phrases:\n");
+            for(String phrase : phrasesToReview) {
+                writer.write("- " + phrase + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Step5: Generate Questoins for words and phrases 
+        HashMap<String, Boolean> reviewResults = new HashMap<>();
+        for(String word : wordsToReview) {
+            boolean correct = askQuestion(word);
+            reviewResults.put(word, correct);
+        }
+        for(String phrase : phrasesToReview) {
+            boolean correct = askQuestion(phrase);
+            reviewResults.put(phrase, correct);
+        }
+   }
+
+   private static boolean askQuestion(String item) {
+    // TODO: Create method somewhere else that can askQuestoins based on 
+    // the missed questions
+    return true;
+   }
+
 
 
    private static void reloadAndDisplayUsers() {
