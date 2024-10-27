@@ -36,6 +36,10 @@ public class DataLoader extends DataConstants {
                 user.setAchievements(loadAchievements(userJSON));
                 user.setCurrentCourses(loadCurrentCourses(userJSON, cl, ll));
                 user.setQuestionHistory(loadQuestionHistory(userJSON));
+                ArrayList<String> missedwords = extractMissedWords(userJSON);
+                for (String missed : missedwords) {
+                    user.addMissedWord(missed);
+                }
     
                 // Add the user to the users list
                 users.add(user);
@@ -46,6 +50,37 @@ public class DataLoader extends DataConstants {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static ArrayList<String> extractMissedWords(JSONObject userJSON) {
+        if (userJSON == null) {
+            return null;
+        }
+
+        // Retrieve the missedWords JSONArray from the user JSON object
+        JSONArray missedWordsJSON = (JSONArray) userJSON.get("missedWords");
+
+        // If missedWords is null or empty, return null
+        if (missedWordsJSON == null || missedWordsJSON.isEmpty()) {
+            return null;
+        }
+
+        // Initialize the List to store missed words
+        ArrayList<String> missedWords = new ArrayList<>();
+
+        // Iterate over the JSONArray and add each word to the List
+        for (Object wordObj : missedWordsJSON) {
+            if (wordObj instanceof String) {
+                missedWords.add((String) wordObj);
+            }
+        }
+
+        // If the list is still empty after iteration, return null
+        if (missedWords.isEmpty()) {
+            return null;
+        }
+
+        return missedWords;
     }
 
     // Method to parse words from Word.json and use Course class
@@ -214,7 +249,7 @@ public class DataLoader extends DataConstants {
     
             // Retrieve the course and current lesson, and set progress
             Course course = cl.getCourse(courseId);
-            course.setCourseCompletion(Double.parseDouble(courseProgress));
+            // course.setCourseCompletion(Double.parseDouble(courseProgress));
     
             Lesson currentLesson = ll.getLessonById(UUID.fromString(currentLessonId));
             course.addLesson(currentLesson);
