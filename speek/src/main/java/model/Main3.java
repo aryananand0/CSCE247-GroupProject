@@ -13,7 +13,7 @@ public class Main3 {
 
    private static void reloadAndDisplayUsers() {
        System.out.println("Loading User:");
-       // TODO:
+       
        ArrayList<User> reloadedUsers = facade.loadUsers();
        for (User user : reloadedUsers) {
            System.out.println(user.toString());
