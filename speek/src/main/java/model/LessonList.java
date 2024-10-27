@@ -1,7 +1,7 @@
 package model;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class LessonList {
@@ -48,6 +48,16 @@ public class LessonList {
         }
         return null; // Return null if lesson not found
     }
+
+    public Lesson getLesson(UUID lessonId) {
+        for (Lesson lesson : lessons) {
+            if (lesson.getLessonId().equals(lessonId)) {
+                return lesson;
+            }
+        }
+        return null; // If lesson not found
+    }
+    
 
     // Method to retrieve a lesson by its title
     public Lesson getLessonByTitle(String lessonTitle) {

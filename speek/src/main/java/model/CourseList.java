@@ -47,6 +47,8 @@ public class CourseList {
         return null;
     }
 
+    
+
     // Method to get a specific course by name
     public Course getCourses(String courseName) {
         for (Course course : courses) {
