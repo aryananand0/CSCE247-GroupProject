@@ -24,9 +24,7 @@ public class Main3 {
         }
 
         // Step 2: Display Tammy's progress
-        System.out.println("Current Lesson: " + tammy.getCurrentLesson());
-        System.out.println("Words Tammy is struggling with: " + tammy.getStrugglingWords());
-        System.out.println("Phrases Tammy is struggling with: " + tammy.getStrugglingPhrases());
+        tammy.displayProgress();
 
         // Step 3: Review the struggling items
         ArrayList<String> wordsToReview = tammy.GetStrugglingWords();
