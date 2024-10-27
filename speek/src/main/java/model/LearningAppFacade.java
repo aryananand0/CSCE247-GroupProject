@@ -118,15 +118,10 @@ public class LearningAppFacade {
         return false;
     }
 
-<<<<<<< HEAD
-=======
-
     // Enrolls a user in a course
     public void enrollUserInCourse(User user, Course course) {
         // Method stub
     }
-
->>>>>>> 32e45f1373c761cd63e482e2ce5f1671450946ad
     // Tracks the user's progress in a specific course
     public double trackUserProgress(User user, Course course) {
         // Method stub
