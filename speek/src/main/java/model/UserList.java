@@ -37,11 +37,14 @@ public class UserList {
     // Logs out the current user
     public boolean logout() {
         if (currentUser != null) {
+            // Save the current user data before logging out
+            DataWriter.saveUsers(users);  // Save all users, including any changes made by the current user
             currentUser = null;
             return true;
         }
         return false;
     }
+
 
     // Method to remove a user by userId
     public boolean removeUser(String userID) {

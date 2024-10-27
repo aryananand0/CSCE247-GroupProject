@@ -108,8 +108,18 @@ public class LearningAppFacade {
 
     // Logs out the current user
     public boolean logout() {
-        return user.logout();
+        if (currentUser != null) {
+            // Save user data before logging out
+            ArrayList<User> userList = new ArrayList<>();
+            userList.add(currentUser);
+            DataWriter.saveUsers(userList);  // Save the current user's data to user.json
+
+            currentUser = null;
+            return user.logout();  // Call the UserList's logout method
+        }
+        return false;
     }
+
 
     // Enrolls a user in a course
     public void enrollUserInCourse(User user, Course course) {

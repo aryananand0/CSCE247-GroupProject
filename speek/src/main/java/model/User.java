@@ -344,13 +344,18 @@ public class User {
     }
 
     public void updateUserProgress(String courseId, double completion) {
-        if (progressPerCourse.containsKey(courseId)) {
+        // Check if the course exists in currentCourses
+        boolean courseExists = currentCourses.stream().anyMatch(course -> course.getCourseId().toString().equals(courseId));
+    
+        if (courseExists) {
+            // Update or add the progress for the course
             progressPerCourse.put(courseId, completion);
-            System.out.println(" Updated progress for Course ID " + courseId + " to " + String.format("%.2f", completion) + "%.");
+            System.out.println("✅ Updated progress for Course ID " + courseId + " to " + String.format("%.2f", completion) + "%.");
         } else {
-            System.out.println("⚠️ Course ID " + courseId + " not found in progress tracking.");
+            System.out.println("⚠️ Course ID " + courseId + " not found in currentCourses.");
         }
     }
+    
 
     public void displayProgress() {
         System.out.println("\n=== User Progress ===");

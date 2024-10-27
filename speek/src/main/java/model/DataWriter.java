@@ -15,18 +15,37 @@ public class DataWriter extends DataConstants {
 
     // Method to save users to JSON file
     @SuppressWarnings("unchecked")
-    public static void saveUsers(ArrayList<User> users) {
-        JSONArray existingUserArray = loadExistingUsers();  // Load existing users
+public static void saveUsers(ArrayList<User> users) {
+    JSONArray existingUserArray = loadExistingUsers();  // Load existing users
 
-        for (User user : users) {
-            if (!userExists(existingUserArray, user)) {
-                JSONObject userDetails = createUserDetails(user);  // Create user details
-                existingUserArray.add(userDetails);  // Add new user to existing array
+    for (User user : users) {
+        boolean userUpdated = false;
+
+        // Check if user already exists in the JSON array
+        for (int i = 0; i < existingUserArray.size(); i++) {
+            JSONObject existingUser = (JSONObject) existingUserArray.get(i);
+
+            if (existingUser.get(USER_ID).equals(user.getUserId().toString())) {
+                // If the user exists, update the JSON object with new data
+                JSONObject updatedUserDetails = createUserDetails(user);
+                existingUserArray.set(i, updatedUserDetails);
+                System.out.println("User updated: " + user.getUserName());  // Debug statement
+                userUpdated = true;
+                break;
             }
         }
 
-        writeToFile(existingUserArray,USER_FILE);  // Write updated users to file
+        // If the user does not exist, add a new entry
+        if (!userUpdated) {
+            JSONObject newUserDetails = createUserDetails(user);
+            existingUserArray.add(newUserDetails);
+            System.out.println("New user added: " + user.getUserName());  // Debug statement
+        }
     }
+
+    writeToFile(existingUserArray, USER_FILE);  // Write updated users to file
+}
+
 
     // Method to load existing users from file
     private static JSONArray loadExistingUsers() {
