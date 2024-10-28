@@ -60,7 +60,7 @@ public class main3A {
             qm.moveToNextQuestion();
         }
         System.out.println("\n---------LogOut Tammy---------\n");
-        // Work on logout
+        facade.logout();
         System.out.println("\n---------Missed Words After The Questions---------\n");
         
         for(Word word : user.getMissedWords()){

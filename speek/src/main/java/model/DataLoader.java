@@ -246,11 +246,12 @@ public class DataLoader extends DataConstants {
             JSONObject courseJSON = (JSONObject) courseObj;
             UUID courseId = UUID.fromString((String) courseJSON.get("courseId"));
             String currentLessonId = (String) courseJSON.get("currentLessonId");
-            String lessonProgress = (String) courseJSON.get("lessonProgress");
+            // String lessonProgress = (String) courseJSON.get("lessonProgress");
             String courseProgress = (String) courseJSON.get("courseProgress");
     
             // Retrieve the course and current lesson, and set progress
             Course course = cl.getCourse(courseId);
+            course.setCourseCompletion(Double.parseDouble(courseProgress));
             // course.setCourseCompletion(Double.parseDouble(courseProgress));
     
             Lesson currentLesson = ll.getLessonById(UUID.fromString(currentLessonId));
@@ -338,16 +339,16 @@ public class DataLoader extends DataConstants {
                 }
 
                 // Load flashcards
-                JSONArray flashcardsArray = (JSONArray) languageJSON.get(FLASHCARDS);
-                for (Object flashcardObj : flashcardsArray) {
-                    JSONObject flashcardJSON = (JSONObject) flashcardObj;
-                    String word = (String) flashcardJSON.get(FLASHCARD_WORD);
-                    String translation = (String) flashcardJSON.get(FLASHCARD_TRANSLATION);
+                // JSONArray flashcardsArray = (JSONArray) languageJSON.get(FLASHCARDS);
+                // for (Object flashcardObj : flashcardsArray) {
+                //     // JSONObject flashcardJSON = (JSONObject) flashcardObj;
+                //     // String word = (String) flashcardJSON.get(FLASHCARD_WORD);
+                //     // String translation = (String) flashcardJSON.get(FLASHCARD_TRANSLATION);
 
-                    // Create Flashcard object and add to language
-                    // Flashcard flashcard = new Flashcard(word, translation);
-                    // language.getFlashcards().add(flashcard);
-                }
+                //     // Create Flashcard object and add to language
+                //     // Flashcard flashcard = new Flashcard(word, translation);
+                //     // language.getFlashcards().add(flashcard);
+                // }
 
                 // Add the language to the list
                 languages.add(language);
@@ -695,7 +696,7 @@ public class DataLoader extends DataConstants {
                     JSONObject wordsCourse = (JSONObject) wordsCourseObj;
                     String lessonIdStr = (String) wordsCourse.get("lessonId");
                     UUID lessonId = UUID.fromString(lessonIdStr);
-                    String lessonName = (String) wordsCourse.get("lessonName");
+                    // String lessonName = (String) wordsCourse.get("lessonName");
 
                     JSONArray wordsArray = (JSONArray) wordsCourse.get("words");
                     List<Word> wordsList = new ArrayList<>();

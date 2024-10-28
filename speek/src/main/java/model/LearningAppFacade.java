@@ -46,7 +46,7 @@ public class LearningAppFacade {
         // }
         user.getUserById(u).getCurrentCourses().add(courses.getCourse(courseId));  
         user.getUserById(u).setCurrentCourseId(courseId.toString());
-        // logout();
+        logout();
         // System.out.println("New ones: \n");
         // for (Course course : c) {
         //     System.out.println(course.getCourseName());
@@ -116,7 +116,7 @@ public class LearningAppFacade {
             // Save user data before logging out
             ArrayList<User> userList = new ArrayList<>();
             userList.add(currentUser);
-            DataWriter.saveUsers(userList);  // Save the current user's data to user.json
+            user.logout();  // Save the current user's data to user.json
 
             currentUser = null;
             return user.logout();  // Call the UserList's logout method

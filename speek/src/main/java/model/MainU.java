@@ -33,8 +33,6 @@ public class MainU {
 
                 System.out.println("========================\n");
             }
-        } else {
-            System.out.println("No users loaded.");
         }
     }
 

@@ -1,0 +1,13 @@
+Missed Words for Tammy Tomacka
+
++-----+-----------------+----------------------+
+| No. | Word            | Translation          |
++-----+-----------------+----------------------+
+| 1   | Reportaje       | Report               |
+| 2   | Actualidad      | Current affairs      |
+| 3   | Reportaje       | Report               |
+| 4   | Evento          | Event                |
+| 5   | Política        | Politics             |
+| 6   | Actualidad      | Current affairs      |
+| 7   | Actualidad      | Current affairs      |
++-----+-----------------+----------------------+

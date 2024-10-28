@@ -11,9 +11,28 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class DataWriter extends DataConstants {
 
     // Method to save users to JSON file
+    public static void saveUser1(ArrayList<User> users){
+       // Create Gson instance with pretty printing and custom serializer
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(User.class, new UserSerializer())
+                .setPrettyPrinting()
+                .serializeNulls() // Include null fields as per the JSON sample
+                .create();
+
+        try (FileWriter writer = new FileWriter(USER_FILE)) {
+            gson.toJson(users, writer);
+            System.out.println("✅ JSON file has been successfully edited at ");
+        } catch (IOException e) {
+            System.out.println("❌ An error occurred while writing the JSON file:");
+            e.printStackTrace();
+        }
+    }
     @SuppressWarnings("unchecked")
 public static void saveUsers(ArrayList<User> users) {
     JSONArray existingUserArray = loadExistingUsers();  // Load existing users
@@ -61,15 +80,15 @@ public static void saveUsers(ArrayList<User> users) {
     
 
     // Method to check if user already exists in the JSON array
-    private static boolean userExists(JSONArray existingUserArray, User user) {
-        for (Object o : existingUserArray) {
-            JSONObject existingUser = (JSONObject) o;
-            if (existingUser.get(USER_ID).equals(user.getUserId().toString())) {
-                return true;
-            }
-        }
-        return false;
-    }
+    // private static boolean userExists(JSONArray existingUserArray, User user) {
+    //     for (Object o : existingUserArray) {
+    //         JSONObject existingUser = (JSONObject) o;
+    //         if (existingUser.get(USER_ID).equals(user.getUserId().toString())) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
     // Method to create user details for saving
     @SuppressWarnings("unchecked")
@@ -232,41 +251,41 @@ public static void saveUsers(ArrayList<User> users) {
     }
 
     // Method to write languages to the JSON file
-    @SuppressWarnings("unchecked")
-    public static void saveLanguages(ArrayList<Language> languages) {
-        JSONArray languageArray = new JSONArray();
+    // @SuppressWarnings("unchecked")
+    // public static void saveLanguages(ArrayList<Language> languages) {
+    //     JSONArray languageArray = new JSONArray();
 
-        for (Language language : languages) {
-            JSONObject languageDetails = new JSONObject();
-            languageDetails.put(LANGUAGE_NAME, language.getLanguageName());
+    //     for (Language language : languages) {
+    //         JSONObject languageDetails = new JSONObject();
+    //         languageDetails.put(LANGUAGE_NAME, language.getLanguageName());
 
-            // Add courses related to this language
-            JSONArray coursesArray = new JSONArray();
-            for (Course course : language.getCourses()) {
-                coursesArray.add(course.getCourseName());  // Add course name (or course details if needed)
-            }
-            languageDetails.put(LANGUAGE_COURSES, coursesArray);
+    //         // Add courses related to this language
+    //         JSONArray coursesArray = new JSONArray();
+    //         for (Course course : language.getCourses()) {
+    //             coursesArray.add(course.getCourseName());  // Add course name (or course details if needed)
+    //         }
+    //         languageDetails.put(LANGUAGE_COURSES, coursesArray);
 
-            // Add flashcards for this language
-            JSONArray flashcardsArray = new JSONArray();
-            for (Flashcard flashcard : language.getFlashcards()) {
-                JSONObject flashcardDetails = new JSONObject();
-                // flashcardDetails.put(FLASHCARD_WORD, flashcard.getWord());
-                // flashcardDetails.put(FLASHCARD_TRANSLATION, flashcard.getTranslation());
-                flashcardsArray.add(flashcardDetails);
-            }
-            languageDetails.put(LANGUAGE_FLASHCARDS, flashcardsArray);
+    //         // Add flashcards for this language
+    //         JSONArray flashcardsArray = new JSONArray();
+    //         for (Flashcard flashcard : language.getFlashcards()) {
+    //             JSONObject flashcardDetails = new JSONObject();
+    //             // flashcardDetails.put(FLASHCARD_WORD, flashcard.getWord());
+    //             // flashcardDetails.put(FLASHCARD_TRANSLATION, flashcard.getTranslation());
+    //             flashcardsArray.add(flashcardDetails);
+    //         }
+    //         languageDetails.put(LANGUAGE_FLASHCARDS, flashcardsArray);
 
-            languageArray.add(languageDetails);
-        }
+    //         languageArray.add(languageDetails);
+    //     }
 
-        try (FileWriter file = new FileWriter(LANGUAGE_FILE)) {
-            file.write(languageArray.toJSONString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    //     try (FileWriter file = new FileWriter(LANGUAGE_FILE)) {
+    //         file.write(languageArray.toJSONString());
+    //         file.flush();
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
     // Method to write achievements to the JSON file
     @SuppressWarnings("unchecked")

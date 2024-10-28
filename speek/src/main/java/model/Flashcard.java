@@ -87,10 +87,12 @@ public class Flashcard {
         for (Map.Entry<String, String> entry : flashcards.entrySet()) {
             System.out.println("Flashcard " + count + " of " + total + ":");
             System.out.println("Word: " + entry.getKey());
+            Narriator.playSound(entry.getKey());
             System.out.println("Press Enter to see the translation...");
             scanner.nextLine(); // Wait for the user to press Enter
             System.out.println("Translation: " + entry.getValue());
             System.out.println("------------------------------------");
+            Narriator.playSound(entry.getValue());
             count++;
         }
         scanner.close();

@@ -2,8 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import model.User;
-import model.UserList;
 
 /**
  * The {@code Main1} class is the entry point of the language learning application.

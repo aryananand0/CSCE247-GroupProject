@@ -74,30 +74,30 @@ public class Course {
     }
 
     
-    public void updateCourseCompletion(User user) {
-        if (lessons.isEmpty()) {
-            this.courseCompletion = 0.0;
-            return;
-        }
-        int completedLessons = 0;
-        for (Lesson lesson : lessons) {
-            if (user.getCompletedLessonIds().contains(lesson.getLessonId())) {
-                completedLessons++;
-            }
-        }
-        this.courseCompletion = ((double) completedLessons / lessons.size()) * 100.0;
-    }
+    // public void updateCourseCompletion(User user) {
+    //     if (lessons.isEmpty()) {
+    //         this.courseCompletion = 0.0;
+    //         return;
+    //     }
+    //     int completedLessons = 0;
+    //     for (Lesson lesson : lessons) {
+    //         if (user.getCompletedLessonIds().contains(lesson.getLessonId())) {
+    //             completedLessons++;
+    //         }
+    //     }
+    //     this.courseCompletion = ((double) completedLessons / lessons.size()) * 100.0;
+    // }
 
     
-    public boolean isCourseCompleted(User user) {
-        // Assuming a course is completed when all its lessons are completed
-        for (Lesson lesson : lessons) {
-            if (!user.getCompletedLessonIds().contains(lesson.getLessonId())) {
-                return false;
-            }
-        }
-        return true;
-    }
+    // public boolean isCourseCompleted(User user) {
+    //     // Assuming a course is completed when all its lessons are completed
+    //     for (Lesson lesson : lessons) {
+    //         if (!user.getCompletedLessonIds().contains(lesson.getLessonId())) {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 
     // Getters and Setters
 

@@ -29,7 +29,7 @@ public class UserList {
             return false; // User already exists
         } else {
             users.add(new User(username, firstName, lastName, email, password));
-            DataWriter.saveUsers(users);  // Persist the new user to the data store
+            DataWriter.saveUser1(users);  // Persist the new user to the data store
             return true;
         }
     }
@@ -38,7 +38,7 @@ public class UserList {
     public boolean logout() {
         if (currentUser != null) {
             // Save the current user data before logging out
-            DataWriter.saveUsers(users);  // Save all users, including any changes made by the current user
+            DataWriter.saveUser1(users);  // Save all users, including any changes made by the current user
             currentUser = null;
             return true;
         }
