@@ -34,9 +34,9 @@ public class DataWriter extends DataConstants {
 
         try (FileWriter writer = new FileWriter(USER_FILE)) {
             gson.toJson(users, writer);
-            System.out.println("✅ JSON file has been successfully edited.");
+            System.out.println("✅ Done");
         } catch (IOException e) {
-            System.out.println("❌ Error while writing JSON file:");
+            System.out.println("❌ Failed:");
             e.printStackTrace();
         }
     }
