@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * Represents the history of a question attempt, including the question details,
+ * user's answer, correct answer, and whether the user's answer was correct.
+ */
 public class QuestionHistory {
     private String questionId;
     private String questionText;
@@ -7,7 +11,15 @@ public class QuestionHistory {
     private String correctAnswer;
     private boolean isCorrect;
 
-    // Constructors
+    /**
+     * Constructs a QuestionHistory object with specified details.
+     *
+     * @param questionId    The unique ID of the question.
+     * @param questionText  The text of the question.
+     * @param userAnswer    The user's answer.
+     * @param correctAnswer The correct answer.
+     * @param isCorrect     True if the user's answer was correct, otherwise false.
+     */
     public QuestionHistory(String questionId, String questionText, String userAnswer, String correctAnswer, boolean isCorrect) {
         this.questionId = questionId;
         this.questionText = questionText;
@@ -16,6 +28,9 @@ public class QuestionHistory {
         this.isCorrect = isCorrect;
     }
 
+    /**
+     * Default constructor initializing fields with default values.
+     */
     public QuestionHistory() {
         this.questionId = "";
         this.questionText = "";
@@ -66,7 +81,11 @@ public class QuestionHistory {
         isCorrect = correct;
     }
 
-    // Overriding toString() method
+    /**
+     * Provides a string representation of the question history.
+     *
+     * @return A string with question details and answer evaluation.
+     */
     @Override
     public String toString() {
         return "QuestionHistory{" +
@@ -78,4 +97,3 @@ public class QuestionHistory {
                 '}';
     }
 }
-

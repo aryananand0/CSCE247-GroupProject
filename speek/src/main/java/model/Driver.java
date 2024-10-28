@@ -91,6 +91,7 @@ public class Driver {
             for (int i = 0; i < qm.getAllQuestions().size(); i++) {
                 Question currentQuestion = qm.getCurrentQuestion();
                 String userAnswer = i < 5 ? currentQuestion.getCorrectAnswer() : "incorrectAnswer";
+                System.out.println();
                 System.out.println("Question " + (i + 1) + ": " + currentQuestion.display());
                 System.out.println("Assigned Answer: " + userAnswer);
 
@@ -132,6 +133,7 @@ public class Driver {
             for (int i = 0; i < qm.getAllQuestions().size(); i++) {
                 Question currentQuestion = qm.getCurrentQuestion();
                 String userAnswer = i < 7 ? currentQuestion.getCorrectAnswer() : "incorrectAnswer";
+                System.out.println();
                 System.out.println("Question " + (i + 1) + ": " + currentQuestion.display());
                 System.out.println("Assigned Answer: " + userAnswer);
 

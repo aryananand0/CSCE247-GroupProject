@@ -7,15 +7,26 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Represents a Match the Following question.
+ * Represents a 'Match the Following' question, where the user matches prompts with correct responses.
  */
 public class MatchWordsQuestion extends Question {
-    private List<String> prompts; 
-    private List<String> responses; 
-    private Map<String, String> correctMatches;
-    private UUID id; 
-    private List<Word> words; // Associated Words
+    
+    private List<String> prompts;          // List of prompts for matching
+    private List<String> responses;        // List of possible response options
+    private Map<String, String> correctMatches; // Correct mapping of prompts to responses
+    private UUID id;                       // Unique identifier for the question
+    private List<Word> words;              // Associated Word objects, if applicable
 
+    /**
+     * Constructs a MatchWordsQuestion with specified details.
+     *
+     * @param id             Unique identifier of the question.
+     * @param text           Text of the question.
+     * @param prompts        List of prompt words.
+     * @param responses      List of response options.
+     * @param correctMatches Map of correct prompt-response matches.
+     * @param words          List of associated Word objects.
+     */
     public MatchWordsQuestion(UUID id, String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches, List<Word> words) {
         super(text);
         this.id = id;
@@ -24,35 +35,28 @@ public class MatchWordsQuestion extends Question {
         this.correctMatches = new HashMap<>(correctMatches);
         this.words = new ArrayList<>(words);
     }
+
     public MatchWordsQuestion(String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches) {
-        super(text);
-        this.id = UUID.randomUUID();
-        this.prompts = prompts;
-        this.responses = responses;
-        this.correctMatches = new HashMap<>(correctMatches);
+        this(UUID.randomUUID(), text, prompts, responses, correctMatches, new ArrayList<>());
     }
-    public MatchWordsQuestion(UUID id,String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches) {
-        super(text);
-        this.id = id;
-        this.prompts = prompts;
-        this.responses = responses;
-        this.correctMatches = new HashMap<>(correctMatches);
+
+    public MatchWordsQuestion(UUID id, String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches) {
+        this(id, text, prompts, responses, correctMatches, new ArrayList<>());
     }
 
     public MatchWordsQuestion(String text, List<String> prompts, List<String> responses, Map<String, String> correctMatches, List<Word> words) {
-        super(text);
-        this.id = UUID.randomUUID();
-        this.prompts = prompts;
-        this.responses = responses;
-        this.correctMatches = new HashMap<>(correctMatches);
-        this.words = new ArrayList<>(words);
+        this(UUID.randomUUID(), text, prompts, responses, correctMatches, words);
     }
 
+    /**
+     * Displays the question with prompts and responses, guiding the user on how to answer.
+     *
+     * @return Formatted string of the question for display.
+     */
     @Override
     public String display() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getText()).append("\n");
-        sb.append("Prompts:\n");
+        sb.append(getText()).append("\nPrompts:\n");
         for (int i = 0; i < prompts.size(); i++) {
             sb.append((i + 1)).append(". ").append(prompts.get(i)).append("\n");
         }
@@ -66,6 +70,12 @@ public class MatchWordsQuestion extends Question {
         return sb.toString();
     }
 
+    /**
+     * Validates the user's answer by checking if their input matches the correct pairings.
+     *
+     * @param userAnswer User's answer in format 'promptIndex-responseIndex'.
+     * @return True if the answer is correct; otherwise, false.
+     */
     @Override
     public boolean validateAnswer(String userAnswer) {
         if (userAnswer == null || userAnswer.trim().isEmpty()) return false;
@@ -82,14 +92,11 @@ public class MatchWordsQuestion extends Question {
                 if (promptIndex < 0 || promptIndex >= prompts.size() || responseIndex < 0 || responseIndex >= responses.size()) {
                     return false;
                 }
-                String prompt = prompts.get(promptIndex);
-                String response = responses.get(responseIndex);
-                userMatches.put(prompt, response);
+                userMatches.put(prompts.get(promptIndex), responses.get(responseIndex));
             } catch (NumberFormatException e) {
                 return false;
             }
         }
-
         return userMatches.equals(correctMatches);
     }
 
@@ -97,10 +104,6 @@ public class MatchWordsQuestion extends Question {
 
     public List<String> getPrompts() {
         return prompts;
-    }
-
-    public UUID getId(){
-        return this.id;
     }
 
     public void setPrompts(List<String> prompts) {
@@ -115,6 +118,10 @@ public class MatchWordsQuestion extends Question {
         this.responses = responses;
     }
 
+    public UUID getId() {
+        return this.id;
+    }
+
     @Override
     public String getType() {
         return "MatchWords";
@@ -122,7 +129,6 @@ public class MatchWordsQuestion extends Question {
 
     @Override
     public String getCorrectAnswer() {
-        // Convert the map to a string representation
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : correctMatches.entrySet()) {
             sb.append(entry.getKey()).append("->").append(entry.getValue()).append(";");

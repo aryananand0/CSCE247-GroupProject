@@ -9,8 +9,20 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Serializes a {@link User} object into its JSON representation.
+ * Implements the {@link JsonSerializer} interface provided by Gson.
+ */
 public class UserSerializer implements JsonSerializer<User> {
 
+    /**
+     * Serializes a {@link User} object into its equivalent JSON representation.
+     *
+     * @param user        The {@link User} object to serialize.
+     * @param typeOfSrc   The actual type (fully genericized version) of the source object.
+     * @param context     Context for serialization, which can be used to serialize sub-components.
+     * @return A {@link JsonElement} representing the serialized {@link User}.
+     */
     @Override
     public JsonElement serialize(User user, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject jsonUser = new JsonObject();
@@ -100,7 +112,6 @@ public class UserSerializer implements JsonSerializer<User> {
             jsonCurrentQuestion.addProperty("text", currentQuestion.getText());
             jsonCurrentQuestion.addProperty("type", currentQuestion.getType());
             jsonCurrentQuestion.addProperty("correctAnswer", currentQuestion.getCorrectAnswer());
-
 
             jsonUser.add("currentQuestion", jsonCurrentQuestion);
         } else {

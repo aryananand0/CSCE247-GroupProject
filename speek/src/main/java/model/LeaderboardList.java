@@ -3,24 +3,40 @@ package model;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Singleton class that manages a list of leaderboards.
+ * Provides methods for retrieving, adding, and removing leaderboards, 
+ * as well as functionality to retrieve specific leaderboards based on criteria.
+ */
 public class LeaderboardList {
 
-    // Attributes
+    // List to store multiple leaderboards
     private ArrayList<Leaderboard> leaderboards;
+
+    // Default leaderboard instance
     private Leaderboard leaderboard;
+
+    // Singleton instance of LeaderboardList
     private static LeaderboardList instance;
 
-    // Private Constructor
+    /**
+     * Private constructor initializes the leaderboard list and adds 
+     * a default leaderboard if available.
+     */
     private LeaderboardList() {
         leaderboards = new ArrayList<>();
         leaderboard = new Leaderboard();
-        Leaderboard leaderboard = DataLoader.loadLeaderboard();
-        if (leaderboard != null) {
-            leaderboards.add(leaderboard);
+        Leaderboard defaultLeaderboard = DataLoader.loadLeaderboard();
+        if (defaultLeaderboard != null) {
+            leaderboards.add(defaultLeaderboard);
         }
     }
 
-    // Singleton pattern to ensure a single instance of LeaderboardList
+    /**
+     * Retrieves the singleton instance of LeaderboardList.
+     * 
+     * @return the single instance of LeaderboardList.
+     */
     public static LeaderboardList getInstance() {
         if (instance == null) {
             instance = new LeaderboardList();
@@ -28,28 +44,45 @@ public class LeaderboardList {
         return instance;
     }
 
-    // Method to add a leaderboard to the list
+    /**
+     * Adds a leaderboard to the list if it is not null and does not already exist.
+     * 
+     * @param leaderboard the leaderboard to add.
+     */
     public void addLeaderboard(Leaderboard leaderboard) {
         if (leaderboard != null && !leaderboards.contains(leaderboard)) {
             leaderboards.add(leaderboard);
         }
     }
 
-    // Method to retrieve a leaderboard by index
+    /**
+     * Retrieves a leaderboard by its index.
+     * 
+     * @param index the index of the leaderboard.
+     * @return the leaderboard at the specified index or null if out of bounds.
+     */
     public Leaderboard getLeaderboard(int index) {
         if (index >= 0 && index < leaderboards.size()) {
             return leaderboards.get(index);
         }
-        return null; 
+        return null;
     }
 
-    // Method to retrieve the leaderboard
-    // TODO: IMPLEMENT 
+    /**
+     * Returns the default leaderboard instance.
+     * 
+     * @return the default leaderboard.
+     */
     public Leaderboard getLeaderboard() {
         return this.leaderboard;
     }
 
-    // Method to retrieve a leaderboard based on a user's UUID
+    /**
+     * Finds a leaderboard associated with a specific user by UUID.
+     * 
+     * @param userId the UUID of the user.
+     * @return the leaderboard containing the user or null if not found.
+     */
     public Leaderboard getLeaderboardByUser(UUID userId) {
         for (Leaderboard lb : leaderboards) {
             for (User user : lb.getUser()) {
@@ -58,31 +91,43 @@ public class LeaderboardList {
                 }
             }
         }
-        return null; 
+        return null;
     }
 
-    // Method to get the total leaderboards
+    /**
+     * Gets the total number of leaderboards.
+     * 
+     * @return the size of the leaderboards list.
+     */
     public int getTotalLeaderboards() {
         return leaderboards.size();
     }
 
-    // Method to remove a leaderboard by index
+    /**
+     * Removes a leaderboard by its index.
+     * 
+     * @param index the index of the leaderboard to remove.
+     * @return true if the leaderboard was removed, false if the index is invalid.
+     */
     public boolean removeLeaderboard(int index) {
         if (index >= 0 && index < leaderboards.size()) {
             leaderboards.remove(index);
-            return true;  
+            return true;
         }
-        return false;  
+        return false;
     }
 
-    // Method to retrieve the leaderboard with the highest scoring user
+    /**
+     * Finds the leaderboard containing the highest scoring user.
+     * 
+     * @return the leaderboard with the highest scoring user, or null if empty.
+     */
     public Leaderboard getTopLeaderboard() {
         Leaderboard topLeaderboard = null;
         double highestScore = 0.0;
 
         for (Leaderboard lb : leaderboards) {
-            ArrayList<User> users = lb.getUser();
-            for (User user : users) {
+            for (User user : lb.getUser()) {
                 if (user.getScore() > highestScore) {
                     highestScore = user.getScore();
                     topLeaderboard = lb;
@@ -92,12 +137,18 @@ public class LeaderboardList {
         return topLeaderboard;
     }
 
-    // Get the list of all leaderboards
+    /**
+     * Gets the complete list of all leaderboards.
+     * 
+     * @return the list of all leaderboards.
+     */
     public ArrayList<Leaderboard> getLeaderboards() {
         return this.leaderboards;
     }
 
-    // Method to print leaderboard summary
+    /**
+     * Prints a summary of each leaderboard, displaying each user's name and score.
+     */
     public void printLeaderboardSummary() {
         for (int i = 0; i < leaderboards.size(); i++) {
             Leaderboard lb = leaderboards.get(i);

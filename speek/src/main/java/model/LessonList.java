@@ -4,19 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * LessonList class manages a collection of Lesson objects, supporting operations such as adding, 
+ * retrieving, and removing lessons. Implements Singleton pattern to maintain a single instance.
+ */
 public class LessonList {
 
-    // Attributes
-    private ArrayList<Lesson> lessons;
-    private static LessonList instance;
+    private ArrayList<Lesson> lessons;     // Collection of lessons
+    private static LessonList instance;    // Singleton instance
 
-    // Constructor
+    /**
+     * Private constructor to load lessons via DataLoader. Ensures instantiation only through getInstance().
+     */
     private LessonList() {
-        lessons = DataLoader.loadLessons(); // Assuming DataLoader is used to load lessons from a JSON file
-        
+        lessons = DataLoader.loadLessons();
     }
 
-    // Singleton pattern to ensure a single instance of LessonList
+    /**
+     * Retrieves the singleton instance of LessonList, creating it if necessary.
+     *
+     * @return The single instance of LessonList.
+     */
     public static LessonList getInstance() {
         if (instance == null) {
             instance = new LessonList();
@@ -24,69 +32,89 @@ public class LessonList {
         return instance;
     }
 
-    // Method to add a lesson to the list
+    /**
+     * Adds a lesson to the list if it is not already present.
+     *
+     * @param lesson The Lesson object to add.
+     */
     public void addLesson(Lesson lesson) {
         if (lesson != null && !lessons.contains(lesson)) {
             lessons.add(lesson);
         }
     }
 
+    /**
+     * Retrieves questions associated with a specific lesson ID.
+     *
+     * @param lessonId The UUID of the lesson.
+     * @return A list of Question objects or null if the lesson is not found.
+     */
     public List<Question> getQuestions(UUID lessonId) {
         Lesson lesson = this.getLessonById(lessonId);
-        if(lesson == null) {
-            return null;
-        }
-        return lesson.getQuestions();
+        return lesson != null ? lesson.getQuestions() : null;
     }
 
-    // Method to retrieve a lesson by its UUID
+    /**
+     * Retrieves a lesson by its unique ID.
+     *
+     * @param lessonId The UUID of the lesson.
+     * @return The Lesson object if found; otherwise, null.
+     */
     public Lesson getLessonById(UUID lessonId) {
         for (Lesson lesson : lessons) {
             if (lesson.getLessonId().equals(lessonId)) {
                 return lesson;
             }
         }
-        return null; // Return null if lesson not found
+        return null;
     }
 
-    public Lesson getLesson(UUID lessonId) {
-        for (Lesson lesson : lessons) {
-            if (lesson.getLessonId().equals(lessonId)) {
-                return lesson;
-            }
-        }
-        return null; // If lesson not found
-    }
-    
-
-    // Method to retrieve a lesson by its title
+    /**
+     * Retrieves a lesson by title, ignoring case sensitivity.
+     *
+     * @param lessonTitle The title of the lesson.
+     * @return The Lesson object if found; otherwise, null.
+     */
     public Lesson getLessonByTitle(String lessonTitle) {
         for (Lesson lesson : lessons) {
             if (lesson.getLessonTitle().equalsIgnoreCase(lessonTitle)) {
                 return lesson;
             }
         }
-        return null; // Return null if lesson not found
+        return null;
     }
 
-    // Method to get the total number of lessons
+    /**
+     * Returns the total number of lessons.
+     *
+     * @return The count of lessons.
+     */
     public int getTotalLessons() {
         return lessons.size();
     }
 
-    // Method to remove a lesson by title
+    /**
+     * Removes a lesson by its title, ignoring case sensitivity.
+     *
+     * @param lessonTitle The title of the lesson to remove.
+     * @return True if the lesson was found and removed; false otherwise.
+     */
     public boolean removeLessonByTitle(String lessonTitle) {
         for (Lesson lesson : lessons) {
             if (lesson.getLessonTitle().equalsIgnoreCase(lessonTitle)) {
                 lessons.remove(lesson);
-                return true;  // Lesson removed
+                return true;
             }
         }
-        return false;  // Lesson not found
+        return false;
     }
 
-    // Get the list of all lessons
+    /**
+     * Returns the list of all lessons.
+     *
+     * @return An ArrayList containing all lessons.
+     */
     public ArrayList<Lesson> getLessons() {
-        return this.lessons;
+        return new ArrayList<>(this.lessons);
     }
 }
