@@ -1,129 +1,164 @@
 package model;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import com.narration.Narriator;
 
+/**
+ * Flashcard class to manage flashcards for studying and quizzing.
+ * Provides functionalities for adding, removing, displaying, and quizzing flashcards.
+ */
 public class Flashcard {
 
     private HashMap<String, String> flashcards;
 
-    // Constructor
+    /**
+     * Default constructor to initialize an empty flashcard collection.
+     */
     public Flashcard() {
         flashcards = new HashMap<>();
     }
 
-    public Flashcard(HashMap<String, String> flashcards){
-        this.flashcards = flashcards;
+    /**
+     * Constructor to initialize flashcards with a given map of word-translation pairs.
+     *
+     * @param flashcards Initial flashcards to add.
+     */
+    public Flashcard(HashMap<String, String> flashcards) {
+        this.flashcards = new HashMap<>(flashcards);
     }
 
-    // Method to add a flashcard
+    /**
+     * Adds a flashcard with a word and its translation.
+     *
+     * @param word        Word to add.
+     * @param translation Translation for the word.
+     */
     public void addFlashcard(String word, String translation) {
         flashcards.put(word, translation);
     }
 
-    // Method to remove a flashcard
+    /**
+     * Removes a flashcard based on the word.
+     *
+     * @param word Word of the flashcard to remove.
+     */
     public void removeFlashcard(String word) {
         flashcards.remove(word);
     }
 
-    // Method to get the translation of a word
+    /**
+     * Retrieves the translation for a specific word.
+     *
+     * @param word Word to translate.
+     * @return Translation of the word or null if not found.
+     */
     public String getTranslation(String word) {
-        return flashcards.getOrDefault(word, null); // Return null if word not found
+        return flashcards.getOrDefault(word, null);
     }
 
-    // Method to return all flashcards as a map
+    /**
+     * Retrieves all flashcards as an unmodifiable map.
+     *
+     * @return Map of all flashcards (word -> translation).
+     */
     public Map<String, String> getAllFlashcards() {
-        return new HashMap<>(flashcards); // Return a copy of the flashcards
+        return Collections.unmodifiableMap(flashcards);
     }
 
-    // Method to quiz the user, returns the result of each quiz question
+    /**
+     * Quizzes the user with flashcards and checks the answers.
+     *
+     * @param userResponses User-provided answers in a map (word -> user answer).
+     * @return Map indicating whether each answer was correct (word -> isCorrect).
+     */
     public Map<String, Boolean> quizUser(Map<String, String> userResponses) {
         Map<String, Boolean> results = new HashMap<>();
 
         for (Map.Entry<String, String> entry : flashcards.entrySet()) {
             String userAnswer = userResponses.get(entry.getKey());
-            boolean isCorrect = entry.getValue().equalsIgnoreCase(userAnswer);
-            results.put(entry.getKey(), isCorrect);
+            results.put(entry.getKey(), entry.getValue().equalsIgnoreCase(userAnswer));
         }
-
-        return results; // Return a map of word -> whether the user's answer was correct
+        return results;
     }
 
-    // Method to return the total number of flashcards
+    /**
+     * Returns the total number of flashcards.
+     *
+     * @return Total count of flashcards.
+     */
     public int getTotalFlashcards() {
         return flashcards.size();
     }
 
-    // Method to get flashcards for study, returns the flashcard in a form for learning (word -> translation)
-    public Map<String, String> getFlashcardsForStudy() {
-        return new HashMap<>(flashcards);
-    }
-
-    // Method to check if there are any flashcards
+    /**
+     * Checks if there are any flashcards in the collection.
+     *
+     * @return true if there are flashcards, false otherwise.
+     */
     public boolean hasFlashcards() {
         return !flashcards.isEmpty();
     }
 
-    // Method to clear all flashcards
+    /**
+     * Clears all flashcards from the collection.
+     */
     public void clearAllFlashcards() {
         flashcards.clear();
     }
 
+    /**
+     * Sequentially displays flashcards, waiting for user input to view each translation.
+     */
     public void showFlashcardsSequentially() {
         if (flashcards.isEmpty()) {
             System.out.println("No flashcards available to display.");
             return;
         }
 
-        Scanner scanner = new Scanner(System.in);
-        int count = 1;
-        int total = flashcards.size();
+        try (Scanner scanner = new Scanner(System.in)) {
+            int count = 1;
+            int total = flashcards.size();
 
-        for (Map.Entry<String, String> entry : flashcards.entrySet()) {
-            System.out.println("Flashcard " + count + " of " + total + ":");
-            System.out.println("Word: " + entry.getKey());
-            Narriator.playSound(entry.getKey());
-            System.out.println("Press Enter to see the translation...");
-            scanner.nextLine(); // Wait for the user to press Enter
-            System.out.println("Translation: " + entry.getValue());
-            System.out.println("------------------------------------");
-            Narriator.playSound(entry.getValue());
-            count++;
+            for (Map.Entry<String, String> entry : flashcards.entrySet()) {
+                System.out.println("Flashcard " + count + " of " + total + ":");
+                System.out.println("Word: " + entry.getKey());
+                Narriator.playSound(entry.getKey());
+                System.out.println("Press Enter to see the translation...");
+                scanner.nextLine();
+                System.out.println("Translation: " + entry.getValue());
+                Narriator.playSound(entry.getValue());
+                System.out.println("------------------------------------");
+                count++;
+            }
+            System.out.println("You have reviewed all flashcards.");
         }
-        scanner.close();
-
-        System.out.println("You have reviewed all flashcards.");
     }
+
+    /**
+     * Timed display of flashcards with a 7-second interval, clearing the screen for each flashcard.
+     */
     public void showFlashcardsTimed() {
         if (flashcards.isEmpty()) {
             System.out.println("No flashcards available to display.");
             return;
         }
 
-        // Convert flashcards to a list for indexed access
         List<Map.Entry<String, String>> flashcardList = new ArrayList<>(flashcards.entrySet());
-
-        // Optionally, shuffle the flashcards for random order
         Collections.shuffle(flashcardList);
 
-        int total = flashcardList.size();
         int done = 0;
-        int left = total;
+        int total = flashcardList.size();
 
         for (Map.Entry<String, String> entry : flashcardList) {
             done++;
-            left--;
-
-            // Clear the terminal
             clearTerminal();
 
-            // Display counts
-            System.out.println("Flashcards Done: " + done + " | Flashcards Left: " + left);
+            System.out.println("Flashcards Done: " + done + " | Flashcards Left: " + (total - done));
             System.out.println("====================================");
             System.out.println("Word: " + entry.getKey());
             Narriator.playSound(entry.getKey());
@@ -131,41 +166,32 @@ public class Flashcard {
             System.out.println("Translation: " + entry.getValue());
             Narriator.playSound(entry.getValue());
 
-
-            // Wait for 7 seconds before showing the next flashcard
             try {
-                Thread.sleep(7000); // 7000 milliseconds = 7 seconds
+                Thread.sleep(7000); // 7 seconds
             } catch (InterruptedException e) {
                 System.out.println("Flashcard display interrupted.");
-                Thread.currentThread().interrupt(); // Restore the interrupted status
+                Thread.currentThread().interrupt();
                 return;
             }
         }
 
-        // Final message after all flashcards have been displayed
         clearTerminal();
         System.out.println("Flashcard review completed!");
     }
 
     /**
-     * Helper method to clear the terminal screen.
-     * Uses ANSI escape codes which may not work on all operating systems or terminals.
+     * Clears the terminal screen using ANSI codes or a command, depending on the operating system.
      */
     private void clearTerminal() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
-                // For Windows, execute 'cls' command
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
-                // For Unix/Linux/Mac, use ANSI escape code
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
             }
         } catch (Exception e) {
-            // If clearing the terminal fails, fallback to printing new lines
-            for (int i = 0; i < 50; i++) {
-                System.out.println();
-            }
+            System.out.println("\n".repeat(50));
         }
     }
 }

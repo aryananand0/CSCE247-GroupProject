@@ -14,83 +14,80 @@ import org.json.simple.parser.ParseException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * DataWriter is responsible for saving user, course, language, and leaderboard data to JSON files.
+ * This class uses the Gson library for pretty-printing JSON.
+ */
 public class DataWriter extends DataConstants {
 
-    // Method to save users to JSON file
-    public static void saveUser1(ArrayList<User> users){
-       // Create Gson instance with pretty printing and custom serializer
+    /**
+     * Saves a list of users to the JSON file.
+     * 
+     * @param users the list of users to save
+     */
+    public static void saveUser1(ArrayList<User> users) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(User.class, new UserSerializer())
                 .setPrettyPrinting()
-                .serializeNulls() // Include null fields as per the JSON sample
+                .serializeNulls()
                 .create();
 
         try (FileWriter writer = new FileWriter(USER_FILE)) {
             gson.toJson(users, writer);
-            System.out.println("✅ JSON file has been successfully edited at ");
+            System.out.println("✅ JSON file has been successfully edited.");
         } catch (IOException e) {
-            System.out.println("❌ An error occurred while writing the JSON file:");
+            System.out.println("❌ Error while writing JSON file:");
             e.printStackTrace();
         }
     }
+
+    /**
+     * Updates existing users or adds new users to the JSON file.
+     * 
+     * @param users the list of users to save
+     */
     @SuppressWarnings("unchecked")
-public static void saveUsers(ArrayList<User> users) {
-    JSONArray existingUserArray = loadExistingUsers();  // Load existing users
+    public static void saveUsers(ArrayList<User> users) {
+        JSONArray existingUserArray = loadExistingUsers();
 
-    for (User user : users) {
-        boolean userUpdated = false;
+        for (User user : users) {
+            boolean userUpdated = false;
 
-        // Check if user already exists in the JSON array
-        for (int i = 0; i < existingUserArray.size(); i++) {
-            JSONObject existingUser = (JSONObject) existingUserArray.get(i);
+            for (int i = 0; i < existingUserArray.size(); i++) {
+                JSONObject existingUser = (JSONObject) existingUserArray.get(i);
+                if (existingUser.get(USER_ID).equals(user.getUserId().toString())) {
+                    existingUserArray.set(i, createUserDetails(user));
+                    userUpdated = true;
+                    break;
+                }
+            }
 
-            if (existingUser.get(USER_ID).equals(user.getUserId().toString())) {
-                // If the user exists, update the JSON object with new data
-                JSONObject updatedUserDetails = createUserDetails(user);
-                existingUserArray.set(i, updatedUserDetails);
-                System.out.println("User updated: " + user.getUserName());  // Debug statement
-                userUpdated = true;
-                break;
+            if (!userUpdated) {
+                existingUserArray.add(createUserDetails(user));
             }
         }
-
-        // If the user does not exist, add a new entry
-        if (!userUpdated) {
-            JSONObject newUserDetails = createUserDetails(user);
-            existingUserArray.add(newUserDetails);
-            System.out.println("New user added: " + user.getUserName());  // Debug statement
-        }
+        writeToFile(existingUserArray, USER_FILE);
     }
 
-    writeToFile(existingUserArray, USER_FILE);  // Write updated users to file
-}
-
-
-    // Method to load existing users from file
+    /**
+     * Loads existing users from the JSON file.
+     * 
+     * @return JSONArray of existing users
+     */
     private static JSONArray loadExistingUsers() {
         try (FileReader reader = new FileReader(USER_FILE)) {
-            JSONParser jsonParser = new JSONParser();
-            Object obj = jsonParser.parse(reader);
-            return (JSONArray) obj;
+            return (JSONArray) new JSONParser().parse(reader);
         } catch (IOException | ParseException e) {
-            return new JSONArray();  // Return empty array if file doesn't exist or parsing fails
+            return new JSONArray();
         }
     }
 
-    
-
-    // Method to check if user already exists in the JSON array
-    // private static boolean userExists(JSONArray existingUserArray, User user) {
-    //     for (Object o : existingUserArray) {
-    //         JSONObject existingUser = (JSONObject) o;
-    //         if (existingUser.get(USER_ID).equals(user.getUserId().toString())) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
-
-    // Method to create user details for saving
+    /**
+     * Creates JSON details for a user.
+     * 
+     * @param user the user to convert to JSON
+     * @return JSONObject representing the user
+     */
     @SuppressWarnings("unchecked")
     private static JSONObject createUserDetails(User user) {
         JSONObject userDetails = new JSONObject();
@@ -102,7 +99,6 @@ public static void saveUsers(ArrayList<User> users) {
         userDetails.put(USER_USER_NAME, user.getUserName());
         userDetails.put(USER_PROGRESS, user.trackProgress());
         userDetails.put(USER_DAILY_REMINDER, user.isDailyReminder());
-
         userDetails.put(USER_FAVORITE_LANGUAGES, createFavLanguagesArray(user));
         userDetails.put(USER_CURRENT_COURSES, createCoursesArray(user));
         userDetails.put(USER_ACHIEVEMENTS, createAchievementsArray(user));
@@ -114,25 +110,27 @@ public static void saveUsers(ArrayList<User> users) {
         if (user.getCurrentQuestion() != null) {
             userDetails.put("currentQuestion", createCurrentQuestionDetails(user));
         }
-
         return userDetails;
     }
 
-        // Method to create the missed words array
+    /**
+     * Creates a JSON array for user's missed words.
+     */
     @SuppressWarnings("unchecked")
     private static JSONArray createMissedWordsArray(User user) {
         JSONArray missedWordsArray = new JSONArray();
         for (Word word : user.getMissedWords()) {
-            // Use LinkedHashMap to preserve the insertion order
             LinkedHashMap<String, String> wordDetails = new LinkedHashMap<>();
-            wordDetails.put("word", word.getWord()); // Add the word first
-            wordDetails.put("translation", word.getTranslation()); // Add the translation second
-            missedWordsArray.add(new JSONObject(wordDetails)); // Convert LinkedHashMap to JSONObject
+            wordDetails.put("word", word.getWord());
+            wordDetails.put("translation", word.getTranslation());
+            missedWordsArray.add(new JSONObject(wordDetails));
         }
         return missedWordsArray;
     }
 
-    // Method to create favorite languages array
+    /**
+     * Creates a JSON array for user's favorite languages.
+     */
     @SuppressWarnings("unchecked")
     private static JSONArray createFavLanguagesArray(User user) {
         JSONArray favLanguagesArray = new JSONArray();
@@ -142,7 +140,9 @@ public static void saveUsers(ArrayList<User> users) {
         return favLanguagesArray;
     }
 
-    // Method to create courses array
+    /**
+     * Creates a JSON array for user's courses.
+     */
     @SuppressWarnings("unchecked")
     private static JSONArray createCoursesArray(User user) {
         JSONArray coursesArray = new JSONArray();
@@ -157,7 +157,9 @@ public static void saveUsers(ArrayList<User> users) {
         return coursesArray;
     }
 
-    // Method to create achievements array
+    /**
+     * Creates a JSON array for user's achievements.
+     */
     @SuppressWarnings("unchecked")
     private static JSONArray createAchievementsArray(User user) {
         JSONArray achievementsArray = new JSONArray();
@@ -172,7 +174,9 @@ public static void saveUsers(ArrayList<User> users) {
         return achievementsArray;
     }
 
-    // Method to create completed courses array
+    /**
+     * Creates a JSON array for user's completed courses.
+     */
     @SuppressWarnings("unchecked")
     private static JSONArray createCompletedCoursesArray(User user) {
         JSONArray completedCoursesArray = new JSONArray();
@@ -182,7 +186,9 @@ public static void saveUsers(ArrayList<User> users) {
         return completedCoursesArray;
     }
 
-    // Method to create completed lessons array
+    /**
+     * Creates a JSON array for user's completed lessons.
+     */
     @SuppressWarnings("unchecked")
     private static JSONArray createCompletedLessonsArray(User user) {
         JSONArray completedLessonsArray = new JSONArray();
@@ -192,7 +198,9 @@ public static void saveUsers(ArrayList<User> users) {
         return completedLessonsArray;
     }
 
-    // Method to create question history array
+    /**
+     * Creates a JSON array for user's question history.
+     */
     @SuppressWarnings("unchecked")
     private static JSONArray createQuestionHistoryArray(User user) {
         JSONArray questionHistoryArray = new JSONArray();
@@ -208,7 +216,9 @@ public static void saveUsers(ArrayList<User> users) {
         return questionHistoryArray;
     }
 
-    // Method to create current question details
+    /**
+     * Creates JSON details for user's current question.
+     */
     @SuppressWarnings("unchecked")
     private static JSONObject createCurrentQuestionDetails(User user) {
         JSONObject currentQuestionDetails = new JSONObject();
@@ -219,7 +229,9 @@ public static void saveUsers(ArrayList<User> users) {
         return currentQuestionDetails;
     }
 
-    // Helper method to write JSON array to file
+    /**
+     * Writes JSON array to specified file.
+     */
     private static void writeToFile(JSONArray jsonArray, String filePath) {
         try (FileWriter file = new FileWriter(filePath)) {
             file.write(jsonArray.toJSONString());
@@ -229,7 +241,9 @@ public static void saveUsers(ArrayList<User> users) {
         }
     }
 
-    // Method to write courses to the JSON file
+    /**
+     * Saves a list of courses to the JSON file.
+     */
     @SuppressWarnings("unchecked")
     public static void saveCourses(ArrayList<Course> courses) {
         JSONArray courseArray = new JSONArray();
@@ -238,56 +252,14 @@ public static void saveUsers(ArrayList<User> users) {
             JSONObject courseDetails = new JSONObject();
             courseDetails.put(COURSE_NAME, course.getCourseName());
             courseDetails.put(COURSE_DIFFICULTY, course.getDifficulty());
-
             courseArray.add(courseDetails);
         }
-
-        try (FileWriter file = new FileWriter(COURSE_FILE)) {
-            file.write(courseArray.toJSONString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeToFile(courseArray, COURSE_FILE);
     }
 
-    // Method to write languages to the JSON file
-    // @SuppressWarnings("unchecked")
-    // public static void saveLanguages(ArrayList<Language> languages) {
-    //     JSONArray languageArray = new JSONArray();
-
-    //     for (Language language : languages) {
-    //         JSONObject languageDetails = new JSONObject();
-    //         languageDetails.put(LANGUAGE_NAME, language.getLanguageName());
-
-    //         // Add courses related to this language
-    //         JSONArray coursesArray = new JSONArray();
-    //         for (Course course : language.getCourses()) {
-    //             coursesArray.add(course.getCourseName());  // Add course name (or course details if needed)
-    //         }
-    //         languageDetails.put(LANGUAGE_COURSES, coursesArray);
-
-    //         // Add flashcards for this language
-    //         JSONArray flashcardsArray = new JSONArray();
-    //         for (Flashcard flashcard : language.getFlashcards()) {
-    //             JSONObject flashcardDetails = new JSONObject();
-    //             // flashcardDetails.put(FLASHCARD_WORD, flashcard.getWord());
-    //             // flashcardDetails.put(FLASHCARD_TRANSLATION, flashcard.getTranslation());
-    //             flashcardsArray.add(flashcardDetails);
-    //         }
-    //         languageDetails.put(LANGUAGE_FLASHCARDS, flashcardsArray);
-
-    //         languageArray.add(languageDetails);
-    //     }
-
-    //     try (FileWriter file = new FileWriter(LANGUAGE_FILE)) {
-    //         file.write(languageArray.toJSONString());
-    //         file.flush();
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-
-    // Method to write achievements to the JSON file
+    /**
+     * Saves a list of achievements to the JSON file.
+     */
     @SuppressWarnings("unchecked")
     public static void saveAchievements(ArrayList<Achievements> achievements) {
         JSONArray achievementArray = new JSONArray();
@@ -298,19 +270,14 @@ public static void saveUsers(ArrayList<User> users) {
             achievementDetails.put(ACHIEVEMENTS_TITLE, achievement.getTitle());
             achievementDetails.put(ACHIEVEMENTS_DESCRIPTION, achievement.getDescription());
             achievementDetails.put(ACHIEVEMENTS_REWARD_POINTS, achievement.getRewardPoints());
-
             achievementArray.add(achievementDetails);
         }
-
-        try (FileWriter file = new FileWriter(ACHIEVEMENT_FILE)) {
-            file.write(achievementArray.toJSONString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeToFile(achievementArray, ACHIEVEMENT_FILE);
     }
 
-    // Method to write leaderboard to the JSON file
+    /**
+     * Saves leaderboard data to the JSON file.
+     */
     @SuppressWarnings("unchecked")
     public static void saveLeaderboard(Leaderboard leaderboard) {
         JSONArray leaderboardArray = new JSONArray();
@@ -319,15 +286,8 @@ public static void saveUsers(ArrayList<User> users) {
             JSONObject leaderboardDetails = new JSONObject();
             leaderboardDetails.put(LEADERBOARD_USER, user.getFirstName() + " " + user.getLastName());
             leaderboardDetails.put(LEADERBOARD_USER_SCORE, user.getScore());
-
             leaderboardArray.add(leaderboardDetails);
         }
-
-        try (FileWriter file = new FileWriter(LEADERBOARD_FILE)) {
-            file.write(leaderboardArray.toJSONString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeToFile(leaderboardArray, LEADERBOARD_FILE);
     }
 }

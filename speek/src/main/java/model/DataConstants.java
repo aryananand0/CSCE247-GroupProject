@@ -1,17 +1,31 @@
 package model;
 
+/**
+ * Contains constant values for file paths and JSON field names.
+ * These constants are used throughout the data models for accessing and 
+ * managing JSON files related to users, courses, achievements, languages, 
+ * and other data components in the application.
+ */
 public abstract class DataConstants {
 
     // File paths
+    /** File path for user data */
     protected static final String USER_FILE = "json/User.json";
-    protected static final String WRITER_USER_FILE = "json/User1.json";  
-    protected static final String COURSE_FILE = "json/Course.json";  
+    /** File path for the writer's user data */
+    protected static final String WRITER_USER_FILE = "json/User1.json";
+    /** File path for course data */
+    protected static final String COURSE_FILE = "json/Course.json";
+    /** File path for achievement data */
     protected static final String ACHIEVEMENT_FILE = "json/Achievement.json";
+    /** File path for language data */
     protected static final String LANGUAGE_FILE = "json/Language.json";
+    /** File path for leaderboard data */
     protected static final String LEADERBOARD_FILE = "json/Leaderboard.json";
+    /** File path for word data */
     protected static final String WORD_FILE = "json/Word.json";
 
     // User fields
+    /** User's unique ID field */
     public static final String USER_ID = "userId";
     protected static final String USER_FIRST_NAME = "firstName";
     protected static final String USER_LAST_NAME = "lastName";
@@ -68,11 +82,11 @@ public abstract class DataConstants {
     protected static final String LEADERBOARD_USER_UUID = "userId";
 
     // Game fields
+    /** File path for game data */
     protected static final String GAME_FILE = "json/Game.json";
     protected static final String GAME_QUESTION = "Question";
     protected static final String GAME_ANSWER = "Answer";
-    protected static final String GAME_EASY= "easy";
+    protected static final String GAME_EASY = "easy";
     protected static final String GAME_MED = "medium";
     protected static final String GAME_HARD = "hard";
-
 }
