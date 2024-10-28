@@ -102,6 +102,7 @@ public class Driver {
                 }
                 qm.moveToNextQuestion();
             }
+            System.out.println("Logging out 'ttom'...");
             facade.logout();
         }
     }
@@ -149,8 +150,8 @@ public class Driver {
             System.out.println("\nLogging out 'ttomacka'...");
             facade.logout();
 
-            System.out.println("\nMissed Words After Questions:");
-            user.getMissedWords().forEach(word -> System.out.println(word.getWord()));
         }
+        System.out.println("\nMissed Words After Questions:");
+            user.getMissedWords().forEach(word -> System.out.println(word.getWord()));
     }
 }
