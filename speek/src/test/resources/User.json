@@ -1,0 +1,171 @@
+[
+  {
+    "lastName": "Doe",
+    "userName": "johnDoe",
+    "userId": "0d2f8294-0021-4f1b-92c0-3cad8a1db9f4",
+    "firstName": "John",
+    "password": "hashedpassword123",
+    "progress": 0.0,
+    "dailyReminder": false,
+    "email": "johndoe@example.com",
+    "achievements": [
+      {
+        "achievementId": "",
+        "title": "Beginner Spanish",
+        "description": "Completed Beginner Spanish course",
+        "rewardPoints": 100
+      }
+    ],
+    "currentCourses": [
+      {
+        "courseId": "890e1234-e89b-45d3-b789-123456789000",
+        "courseProgress": "0",
+        "currentLessonId": "b8aab9e3-44c1-40ba-a093-4d046079de83",
+        "lessonProgress": "45%"
+      },
+      {
+        "courseId": "789e1234-e89b-45d3-b789-123456789000",
+        "courseProgress": "0",
+        "currentLessonId": "8d64573f-e419-4286-adc0-f7b35cba9cc1",
+        "lessonProgress": "45%"
+      }
+    ],
+    "currentQuestion": null,
+    "questionHistory": [
+      {
+        "questionId": "a1b2c3d4-e5f6-7a8b-9c0d-abcdef123459",
+        "questionText": "How do you say \u0027Good morning\u0027 in Spanish?",
+        "userAnswer": "Buenos días",
+        "correctAnswer": "Buenos días",
+        "isCorrect": true
+      },
+      {
+        "questionId": "b2c3d4e5-a6b7-8a9b-9c0d-abcdef123460",
+        "questionText": "Translate to Spanish: \u0027I am a teacher.\u0027",
+        "userAnswer": "Soy profesor.",
+        "correctAnswer": "Soy profesor.",
+        "isCorrect": true
+      }
+    ],
+    "missedWords": [
+      "Hola",
+      "Buenos días",
+      "Buenas noches"
+    ],
+    "favoriteLanguages": [],
+    "completedLessonIds": [],
+    "completedCourseIds": []
+  },
+  {
+    "lastName": "Smith",
+    "userName": "janeSmith123",
+    "userId": "1040d8d8-a1b2-4c58-b9d0-abcdef123462",
+    "firstName": "Jane",
+    "password": "hashedpassword456",
+    "progress": 0.0,
+    "dailyReminder": false,
+    "email": "janesmith@example.com",
+    "achievements": [
+      {
+        "achievementId": "",
+        "title": "Intermediate German",
+        "description": "Completed Intermediate German course",
+        "rewardPoints": 150
+      }
+    ],
+    "currentCourses": [
+      {
+        "courseId": "456e7890-e89b-12d3-a456-426614174001",
+        "courseProgress": "0",
+        "currentLessonId": "b2c3d4e5-f67a-4b8c-9d0e-2f3a4b5c6d7e",
+        "lessonProgress": "45%"
+      },
+      {
+        "courseId": "123e4567-e89b-12d3-a456-426614174000",
+        "courseProgress": "0",
+        "currentLessonId": "a1b2c3d4-e5f6-4a8b-9c0d-e1f2a3b4c5d6",
+        "lessonProgress": "45%"
+      }
+    ],
+    "currentQuestion": null,
+    "questionHistory": [
+      {
+        "questionId": "d6e7f8a9-b0c1-2d3a-a4b5-abcdef123468",
+        "questionText": "Translate to English: \u0027¿Cuánto cuesta esta casa?\u0027",
+        "userAnswer": "How much is this house?",
+        "correctAnswer": "How much is this house?",
+        "isCorrect": true
+      },
+      {
+        "questionId": "d7e8f9a0-b1c2-3d4a-b5a6-abcdef123469",
+        "questionText": "True or False: \u0027Tren\u0027 means \u0027Bus\u0027 in English.",
+        "userAnswer": "False",
+        "correctAnswer": "False",
+        "isCorrect": true
+      }
+    ],
+    "missedWords": [
+      "Detrás",
+      "Cerca",
+      "Lejos",
+      "Dirección"
+    ],
+    "favoriteLanguages": [],
+    "completedLessonIds": [],
+    "completedCourseIds": []
+  },
+  {
+    "lastName": "Tomacka",
+    "userName": "ttomacka",
+    "userId": "3536fec7-3142-49ed-a2ea-c934138d3885",
+    "firstName": "Tammy",
+    "password": "hashedpassword789",
+    "progress": 0.0,
+    "dailyReminder": false,
+    "email": "tammy.tomacka@example.com",
+    "achievements": [],
+    "currentCourses": [
+      {
+        "courseId": "890e1234-e89b-45d3-b789-123456789000",
+        "courseProgress": "0",
+        "currentLessonId": "b8aab9e3-44c1-40ba-a093-4d046079de83",
+        "lessonProgress": "45%"
+      }
+    ],
+    "currentQuestion": null,
+    "questionHistory": [],
+    "missedWords": [
+      "Noticia",
+      "Evento",
+      "Política",
+      "Reportaje",
+      "Entrevista",
+      "Actualidad",
+      "Medios",
+      "Comentario",
+      "Titular",
+      "Artículo"
+    ],
+    "favoriteLanguages": [],
+    "completedLessonIds": [],
+    "completedCourseIds": []
+  },
+  {
+    "lastName": "Tomacka",
+    "userName": "ttom",
+    "userId": "5091d128-c61a-4bb4-9af2-06b1302e7cad",
+    "firstName": "Tim",
+    "password": "password123",
+    "progress": 0.0,
+    "dailyReminder": false,
+    "email": "tim.tomacka@example.com",
+    "achievements": [],
+    "currentCourses": [],
+    "currentQuestion": null,
+    "questionHistory": [],
+    "missedWords": null,
+    "favoriteLanguages": [],
+    "completedLessonIds": [],
+    "completedCourseIds": []
+  }
+]
