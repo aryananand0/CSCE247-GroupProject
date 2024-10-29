@@ -1,0 +1,36 @@
+-------------------------------------------------------------------------------
+Test set: model.AchievementListTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 8, Skipped: 0, Time elapsed: 0.037 s <<< FAILURE! - in model.AchievementListTest
+model.AchievementListTest.testSingletonInstance  Time elapsed: 0.019 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.clear()" because the return value of "model.AchievementList.getAchievements()" is null
+	at model.AchievementListTest.setUp(AchievementListTest.java:21)
+
+model.AchievementListTest.testGetAchievementById  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.clear()" because the return value of "model.AchievementList.getAchievements()" is null
+	at model.AchievementListTest.setUp(AchievementListTest.java:21)
+
+model.AchievementListTest.testRemoveAchievementByTitle  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.clear()" because the return value of "model.AchievementList.getAchievements()" is null
+	at model.AchievementListTest.setUp(AchievementListTest.java:21)
+
+model.AchievementListTest.testRemoveNonExistentAchievement  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.clear()" because the return value of "model.AchievementList.getAchievements()" is null
+	at model.AchievementListTest.setUp(AchievementListTest.java:21)
+
+model.AchievementListTest.testAddDuplicateAchievement  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.clear()" because the return value of "model.AchievementList.getAchievements()" is null
+	at model.AchievementListTest.setUp(AchievementListTest.java:21)
+
+model.AchievementListTest.testGetTotalAchievements  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.clear()" because the return value of "model.AchievementList.getAchievements()" is null
+	at model.AchievementListTest.setUp(AchievementListTest.java:21)
+
+model.AchievementListTest.testAddAchievement  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.clear()" because the return value of "model.AchievementList.getAchievements()" is null
+	at model.AchievementListTest.setUp(AchievementListTest.java:21)
+
+model.AchievementListTest.testGetAchievementByTitle  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.clear()" because the return value of "model.AchievementList.getAchievements()" is null
+	at model.AchievementListTest.setUp(AchievementListTest.java:21)
+

@@ -1,0 +1,54 @@
+{
+    "easy": [
+      { "Question": "Hola", "Answer": "Hello" },
+      { "Question": "Adiós", "Answer": "Goodbye" },
+      { "Question": "Por favor", "Answer": "Please" },
+      { "Question": "Gracias", "Answer": "Thank you" },
+      { "Question": "Amigo", "Answer": "Friend" },
+      { "Question": "Familia", "Answer": "Family" },
+      { "Question": "Perro", "Answer": "Dog" },
+      { "Question": "Gato", "Answer": "Cat" },
+      { "Question": "Casa", "Answer": "House" },
+      { "Question": "Escuela", "Answer": "School" },
+      { "Question": "Libro", "Answer": "Book" },
+      { "Question": "Mesa", "Answer": "Table" },
+      { "Question": "Silla", "Answer": "Chair" },
+      { "Question": "Comida", "Answer": "Food" },
+      { "Question": "Cielo", "Answer": "Sky" }
+    ],
+    "medium": [
+      { "Question": "To read", "Answer": "Leer" },
+      { "Question": "Escribir", "Answer": "To write" },
+      { "Question": "To eat", "Answer": "Comer" },
+      { "Question": "Escuchar", "Answer": "To listen" },
+      { "Question": "To speak", "Answer": "Hablar" },
+      { "Question": "Correr", "Answer": "To run" },
+      { "Question": "To jump", "Answer": "Saltar" },
+      { "Question": "Amor", "Answer": "Love" },
+      { "Question": "To sing", "Answer": "Cantar" },
+      { "Question": "Escuela", "Answer": "School" },
+      { "Question": "To travel", "Answer": "Viajar" },
+      { "Question": "Ciudad", "Answer": "City" },
+      { "Question": "To dance", "Answer": "Bailar" },
+      { "Question": "Feliz", "Answer": "Happy" },
+      { "Question": "To cook", "Answer": "Cocinar" }
+    ],
+    "hard": [
+      { "Question": "Destreza", "Answer": "Skill" },
+      { "Question": "To decipher", "Answer": "Descifrar" },
+      { "Question": "Responsabilidad", "Answer": "Responsibility" },
+      { "Question": "To innovate", "Answer": "Innovar" },
+      { "Question": "Extraordinario", "Answer": "Extraordinary" },
+      { "Question": "To inspire", "Answer": "Inspirar" },
+      { "Question": "Incomprensible", "Answer": "Incomprehensible" },
+      { "Question": "To analyze", "Answer": "Analizar" },
+      { "Question": "Misericordia", "Answer": "Mercy" },
+      { "Question": "Simultáneamente", "Answer": "Simultaneously" },
+      { "Question": "Complicado", "Answer": "Complicated" },
+      { "Question": "Generosidad", "Answer": "Generosity" },
+      { "Question": "Fundamental", "Answer": "Fundamental" },
+      { "Question": "Satisfacción", "Answer": "Satisfaction" },
+      { "Question": "Fascinante", "Answer": "Fascinating" }
+    ]
+  }
+  
