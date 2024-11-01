@@ -2,7 +2,6 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.InputStream;
 import java.util.UUID;
 
@@ -13,7 +12,7 @@ public class AchievementListTest {
     private AchievementList achievementList;
     private Achievements achievement1;
     private Achievements achievement2;
-
+    
     @BeforeEach
     public void setUp() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("User.json");
