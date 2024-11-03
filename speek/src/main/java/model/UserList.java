@@ -86,7 +86,7 @@ public class UserList {
         for (User user : users) {
             if (user.getUserId().toString().equals(userID)) {
                 users.remove(user);
-                DataWriter.saveUsers(users); // Save changes after removing the user
+                DataWriter.saveUser1(users); // Save changes after removing the user
                 return true;
             }
         }
@@ -196,7 +196,7 @@ public class UserList {
             user.setLastName(lastName);
             user.setEmail(email);
             user.setPassword(password);
-            DataWriter.saveUsers(users); // Save changes after updating the user
+            DataWriter.saveUser1(users); // Save changes after updating the user
             return true;
         }
         return false; // User not found
@@ -223,6 +223,6 @@ public class UserList {
      */
     public void clearUserList() {
         users.clear();
-        DataWriter.saveUsers(users);
+        DataWriter.saveUser1(users);
     }
 }

@@ -41,34 +41,7 @@ public class DataWriter extends DataConstants {
         }
     }
 
-    /**
-     * Updates existing users or adds new users to the JSON file.
-     * 
-     * @param users the list of users to save
-     */
-    @SuppressWarnings("unchecked")
-    public static void saveUsers(ArrayList<User> users) {
-        JSONArray existingUserArray = loadExistingUsers();
-
-        for (User user : users) {
-            boolean userUpdated = false;
-
-            for (int i = 0; i < existingUserArray.size(); i++) {
-                JSONObject existingUser = (JSONObject) existingUserArray.get(i);
-                if (existingUser.get(USER_ID).equals(user.getUserId().toString())) {
-                    existingUserArray.set(i, createUserDetails(user));
-                    userUpdated = true;
-                    break;
-                }
-            }
-
-            if (!userUpdated) {
-                existingUserArray.add(createUserDetails(user));
-            }
-        }
-        writeToFile(existingUserArray, USER_FILE);
-    }
-
+    
     /**
      * Loads existing users from the JSON file.
      * 
