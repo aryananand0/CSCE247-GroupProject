@@ -19,6 +19,21 @@ import com.google.gson.GsonBuilder;
  * This class uses the Gson library for pretty-printing JSON.
  */
 public class DataWriter extends DataConstants {
+    
+
+    public static void setFilePathsForTesting() {
+        USER_FILE = "json/test_user.json";
+        COURSE_FILE = "json/test_course.json";
+        ACHIEVEMENT_FILE = "json/test_achievement.json";
+        LEADERBOARD_FILE = "json/test_leaderboard.json";
+    }
+
+    public static void resetFilePaths() {
+        USER_FILE = "json/User.json";
+        COURSE_FILE = "json/Course.json";
+        ACHIEVEMENT_FILE = "json/Achievement.json";
+        LEADERBOARD_FILE = "json/Leaderboard.json";
+    }
 
     /**
      * Saves a list of users to the JSON file.

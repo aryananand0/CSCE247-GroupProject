@@ -10,17 +10,17 @@ public abstract class DataConstants {
 
     // File paths
     /** File path for user data */
-    protected static final String USER_FILE = "json/User.json";
+    protected static String USER_FILE = "json/User.json";
     /** File path for the writer's user data */
     protected static final String WRITER_USER_FILE = "json/User1.json";
     /** File path for course data */
-    protected static final String COURSE_FILE = "json/Course.json";
+    protected static String COURSE_FILE = "json/Course.json";
     /** File path for achievement data */
-    protected static final String ACHIEVEMENT_FILE = "json/Achievement.json";
+    protected static String ACHIEVEMENT_FILE = "json/Achievement.json";
     /** File path for language data */
     protected static final String LANGUAGE_FILE = "json/Language.json";
     /** File path for leaderboard data */
-    protected static final String LEADERBOARD_FILE = "json/Leaderboard.json";
+    protected static String LEADERBOARD_FILE = "json/Leaderboard.json";
     /** File path for word data */
     protected static final String WORD_FILE = "json/Word.json";
 

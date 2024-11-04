@@ -27,6 +27,18 @@ public class Leaderboard {
     }
 
     /**
+     * Adds a user to the leaderboard.
+     * 
+     * @param user The user to add.
+     */
+    public void addUser(User user) {
+        if (user != null) {
+            this.users.add(user);
+        }
+    }
+
+
+    /**
      * Constructor to initialize the leaderboard with a list of users.
      * 
      * @param users The list of users to add to the leaderboard.
