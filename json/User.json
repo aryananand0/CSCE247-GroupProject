@@ -167,5 +167,23 @@
     "favoriteLanguages": [],
     "completedLessonIds": [],
     "completedCourseIds": []
+  },
+  {
+    "lastName": "User",
+    "userName": "newUser",
+    "userId": "d73b63a8-2524-450d-955a-aacdd4a2b127",
+    "firstName": "New",
+    "password": "newpassword",
+    "progress": 0.0,
+    "dailyReminder": false,
+    "email": "newuser@example.com",
+    "achievements": [],
+    "currentCourses": [],
+    "currentQuestion": null,
+    "questionHistory": [],
+    "missedWords": null,
+    "favoriteLanguages": [],
+    "completedLessonIds": [],
+    "completedCourseIds": []
   }
 ]

@@ -1,0 +1,6 @@
+model/UserListTest.class
+model/QuestionManagerTest.class
+model/AchievementListTest.class
+model/CourseListTest.class
+model/LearningAppFacadeTest.class
+model/DataLoaderTest.class

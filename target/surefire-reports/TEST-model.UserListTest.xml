@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="model.LearningAppFacadeTest" time="0.072" tests="9" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="model.UserListTest" time="0.008" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="22"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -59,56 +59,73 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="66.0"/>
   </properties>
-  <testcase name="testLoadLesson" classname="model.LearningAppFacadeTest" time="0.06">
+  <testcase name="testAddUser_duplicateUsernameFails" classname="model.UserListTest" time="0.001">
     <system-out><![CDATA[✅ Done
-✅ Done
-]]></system-out>
-  </testcase>
-  <testcase name="testLoginUser" classname="model.LearningAppFacadeTest" time="0.002">
-    <system-out><![CDATA[✅ Done
-✅ Done
-]]></system-out>
-  </testcase>
-  <testcase name="testGetQuestions" classname="model.LearningAppFacadeTest" time="0.001">
-    <system-out><![CDATA[✅ Done
-✅ Done
-]]></system-out>
-  </testcase>
-  <testcase name="testRegisterUser" classname="model.LearningAppFacadeTest" time="0.001">
-    <system-out><![CDATA[✅ Done
-✅ Done
-✅ Done
-]]></system-out>
-  </testcase>
-  <testcase name="testLoadCourses" classname="model.LearningAppFacadeTest" time="0.001">
-    <system-out><![CDATA[✅ Done
-✅ Done
-]]></system-out>
-  </testcase>
-  <testcase name="testLoadLanguages" classname="model.LearningAppFacadeTest" time="0.001">
-    <system-out><![CDATA[✅ Done
-✅ Done
-]]></system-out>
-  </testcase>
-  <testcase name="testLoadLeaderboard" classname="model.LearningAppFacadeTest" time="0.001">
-    <system-out><![CDATA[✅ Done
-✅ Done
-]]></system-out>
-  </testcase>
-  <testcase name="testLoadAchievements" classname="model.LearningAppFacadeTest" time="0">
-    <system-out><![CDATA[✅ Done
-✅ Done
-]]></system-out>
-  </testcase>
-  <testcase name="testLoadUsers" classname="model.LearningAppFacadeTest" time="0.001">
-    <system-out><![CDATA[✅ Done
-✅ Done
 ✅ Done
 ✅ Done
 ✅ Done
 ]]></system-out>
     <system-err><![CDATA[Nov 03, 2024 7:28:45 PM org.junit.platform.launcher.core.CompositeTestExecutionListener lambda$notifyEach$19
-WARNING: TestExecutionListener [org.apache.maven.surefire.junitplatform.RunListenerAdapter] threw exception for method: executionFinished(TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:model.LearningAppFacadeTest]/[method:testLogout()], parentId = [engine:junit-jupiter]/[class:model.LearningAppFacadeTest], displayName = 'testLogout()', legacyReportingName = 'testLogout()', source = MethodSource [className = 'model.LearningAppFacadeTest', methodName = 'testLogout', methodParameterTypes = ''], tags = [], type = TEST], TestExecutionResult [status = FAILED, throwable = org.opentest4j.AssertionFailedError: Logout should be successful ==> expected: <true> but was: <false>])
+WARNING: TestExecutionListener [org.apache.maven.surefire.junitplatform.RunListenerAdapter] threw exception for method: executionFinished(TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:model.UserListTest]/[method:testLogout_userNotLoggedOut()], parentId = [engine:junit-jupiter]/[class:model.UserListTest], displayName = 'testLogout_userNotLoggedOut()', legacyReportingName = 'testLogout_userNotLoggedOut()', source = MethodSource [className = 'model.UserListTest', methodName = 'testLogout_userNotLoggedOut', methodParameterTypes = ''], tags = [], type = TEST], TestExecutionResult [status = FAILED, throwable = org.opentest4j.AssertionFailedError: User logout failed due to intentional error. ==> expected: <false> but was: <true>])
+java.lang.IncompatibleClassChangeError: Class org.apache.maven.surefire.report.PojoStackTraceWriter does not implement the requested interface org.apache.maven.surefire.api.report.StackTraceWriter
+	at org.apache.maven.surefire.booter.spi.LegacyMasterProcessChannelEncoder.encode(LegacyMasterProcessChannelEncoder.java:354)
+	at org.apache.maven.surefire.booter.spi.LegacyMasterProcessChannelEncoder.encode(LegacyMasterProcessChannelEncoder.java:402)
+	at org.apache.maven.surefire.booter.spi.LegacyMasterProcessChannelEncoder.encode(LegacyMasterProcessChannelEncoder.java:289)
+	at org.apache.maven.surefire.booter.spi.LegacyMasterProcessChannelEncoder.testFailed(LegacyMasterProcessChannelEncoder.java:163)
+	at org.apache.maven.surefire.api.booter.ForkingRunListener.testFailed(ForkingRunListener.java:105)
+	at org.apache.maven.surefire.junitplatform.RunListenerAdapter.executionFinished(RunListenerAdapter.java:129)
+	at org.junit.platform.launcher.core.CompositeTestExecutionListener.lambda$executionFinished$10(CompositeTestExecutionListener.java:69)
+	at org.junit.platform.launcher.core.CompositeTestExecutionListener.lambda$notifyEach$19(CompositeTestExecutionListener.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.launcher.core.CompositeTestExecutionListener.notifyEach(CompositeTestExecutionListener.java:93)
+	at org.junit.platform.launcher.core.CompositeTestExecutionListener.executionFinished(CompositeTestExecutionListener.java:69)
+	at org.junit.platform.launcher.core.ExecutionListenerAdapter.executionFinished(ExecutionListenerAdapter.java:56)
+	at org.junit.platform.launcher.core.DelegatingEngineExecutionListener.executionFinished(DelegatingEngineExecutionListener.java:46)
+	at org.junit.platform.launcher.core.OutcomeDelayingEngineExecutionListener.executionFinished(OutcomeDelayingEngineExecutionListener.java:63)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.reportCompletion(NodeTestTask.java:195)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:53)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:188)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:154)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:128)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:428)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:562)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:548)
+
+Nov 03, 2024 7:28:45 PM org.junit.platform.launcher.core.CompositeTestExecutionListener lambda$notifyEach$19
+WARNING: TestExecutionListener [org.apache.maven.surefire.junitplatform.RunListenerAdapter] threw exception for method: executionFinished(TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:model.UserListTest]/[method:testAddUser_duplicateUsernamePassesUnexpectedly()], parentId = [engine:junit-jupiter]/[class:model.UserListTest], displayName = 'testAddUser_duplicateUsernamePassesUnexpectedly()', legacyReportingName = 'testAddUser_duplicateUsernamePassesUnexpectedly()', source = MethodSource [className = 'model.UserListTest', methodName = 'testAddUser_duplicateUsernamePassesUnexpectedly', methodParameterTypes = ''], tags = [], type = TEST], TestExecutionResult [status = FAILED, throwable = org.opentest4j.AssertionFailedError: Adding a user with a duplicate username should fail, but passed unexpectedly. ==> expected: <true> but was: <false>])
 java.lang.IncompatibleClassChangeError: Class org.apache.maven.surefire.report.PojoStackTraceWriter does not implement the requested interface org.apache.maven.surefire.api.report.StackTraceWriter
 	at org.apache.maven.surefire.booter.spi.LegacyMasterProcessChannelEncoder.encode(LegacyMasterProcessChannelEncoder.java:354)
 	at org.apache.maven.surefire.booter.spi.LegacyMasterProcessChannelEncoder.encode(LegacyMasterProcessChannelEncoder.java:402)
@@ -167,5 +184,19 @@ java.lang.IncompatibleClassChangeError: Class org.apache.maven.surefire.report.P
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:548)
 
 ]]></system-err>
+  </testcase>
+  <testcase name="testRemoveUser_existingUserFailsUnexpectedly" classname="model.UserListTest" time="0.001">
+    <system-out><![CDATA[✅ Done
+✅ Done
+]]></system-out>
+  </testcase>
+  <testcase name="testLogout_userLoggedOut" classname="model.UserListTest" time="0.001">
+    <system-out><![CDATA[✅ Done
+✅ Done
+]]></system-out>
+  </testcase>
+  <testcase name="testRemoveUser_nonexistentUserFails" classname="model.UserListTest" time="0">
+    <system-out><![CDATA[✅ Done
+]]></system-out>
   </testcase>
 </testsuite>
