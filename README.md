@@ -1,4 +1,5 @@
 # 🌐 Language Learning Application
+## Prototype website link: https://saffron-fish-ng3r.squarespace.com/
 ## YouTube Demo Video: https://www.youtube.com/watch?v=EOe4mDj1Dg0
 ## 📚 Overview
 
