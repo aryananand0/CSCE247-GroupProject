@@ -1,6 +1,146 @@
 <!DOCTYPE html>
-<html>
-    <body>
-        <a href="https://saffron-fish-ng3r.squarespace.com/" target="_blank">Visit my Squarespace site</a>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Elephango - Language Learning App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #ff6f61;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+        nav {
+            background-color: #ff8566;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ff704d;
+        }
+        main {
+            padding: 20px;
+        }
+        main h2 {
+            font-size: 2em;
+            color: #ff6f61;
+        }
+        main p {
+            font-size: 1.2em;
+        }
+        footer {
+            background-color: #ff6f61;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .creators {
+            list-style-type: none;
+            padding: 0;
+        }
+        .creators li {
+            margin: 5px 0;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
+            }
+            nav a {
+                float: none;
+                width: 100%;
+                text-align: left;
+                padding-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Elephango</h1>
+    <p>Your Gateway to Language Mastery</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#video">Demo Video</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<main>
+    <section id="home">
+        <h2>About Elephango</h2>
+        <p>Elephango is an innovative language learning app designed to make mastering a new language engaging and fun. Whether you're a beginner or looking to refine your skills, Elephango offers personalized lessons, interactive exercises, and real-time feedback to help you achieve fluency.</p>
+    </section>
+
+    <section id="features">
+        <h2>Features</h2>
+        <ul>
+            <li>Personalized Learning Paths</li>
+            <li>Interactive Quizzes and Games</li>
+            <li>Live Tutoring Sessions</li>
+            <li>Progress Tracking and Analytics</li>
+            <li>Community Forums</li>
+        </ul>
+    </section>
+
+    <section id="video">
+        <h2>Watch Our Demo</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/VVI1TvrToRc" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Get in Touch</h2>
+        <p>Interested in learning more? Contact us at <a href="mailto:info@elephango.com">info@elephango.com</a>.</p>
+    </section>
+</main>
+
+<footer>
+    <p>Created by:</p>
+    <ul class="creators">
+        <li>Aryan Anand</li>
+        <li>Rama Chandra Raju Bhupatiraju</li>
+        <li>Camron Martin</li>
+        <li>Zachary Flores</li>
+        <li>Mithun Sangeeth Sangeeth</li>
+    </ul>
+    <p>&copy; 2023 Elephango. All rights reserved.</p>
+</footer>
+
+</body>
 </html>
